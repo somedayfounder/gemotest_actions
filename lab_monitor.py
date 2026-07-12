@@ -38,8 +38,10 @@ SITES = [
         "name": "Гемотест",
         "url": "https://gemotest.ru/actions/",
         "base": "https://gemotest.ru",
-        # только карточки акций (class="action-item"), не навигация
-        "pattern": r'href="(/actions/[a-z0-9_\-]+/)"[^>]*class="action-item"',
+        # только <a class="articles-grid__item" href="..."> — 18 карточек акций
+        "pattern": r'<a\s[^>]*class="articles-grid__item"[^>]*href="(/actions/[a-z0-9_\-]+/)"'
+                   r'|<a\s[^>]*href="(/actions/[a-z0-9_\-]+/)"[^>]*class="articles-grid__item"',
+        "multi_group": True,
     },
     {
         "name": "CMD",
@@ -133,6 +135,13 @@ def get_listing_links(site):
         print(f"  {site['name']}: ошибка листинга — {e}")
         return []
 
+    # вырезаем только нужный раздел страницы (по классу div/section)
+    section = site.get("section")
+    if section:
+        m = re.search(rf'class="[^"]*{re.escape(section)}[^"]*"', html)
+        if m:
+            html = html[m.start():]
+
     # обрезаем страницу если задан cut_at (убираем архивный раздел)
     cut = site.get("cut_at")
     if cut:
@@ -141,6 +150,9 @@ def get_listing_links(site):
             html = html[:idx]
 
     raw = re.findall(site["pattern"], html, re.I)
+    # если паттерн с несколькими группами — берём первую непустую
+    if raw and isinstance(raw[0], tuple):
+        raw = [next(g for g in groups if g) for groups in raw]
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
     for path in raw:
