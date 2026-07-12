@@ -1,8 +1,24 @@
 name: Lab Monitor Daily
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 7 * * *'
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    env:
+      TG_TOKEN: ${{ secrets.TG_TOKEN }}
+      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
-      - run: echo hello
+      - uses: actions/checkout@v4
+      - name: Run monitor
+        run: python3 lab_monitor.py
+      - name: Save seen promos
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add seen_promos.json || true
+          git diff --staged --quiet && echo "nothing to commit" && exit 0
+          git commit -m "update seen_promos"
+          git push
