@@ -116,6 +116,18 @@ def fetch_js(url):
 
 
 def strip_html(html):
+    # Пробуем вырезать основной контент (main/article/div#content)
+    for tag_pat in [
+        r'<main\b[^>]*>(.*?)</main>',
+        r'<article\b[^>]*>(.*?)</article>',
+        r'<div[^>]+id="content"[^>]*>(.*?)</div>',
+        r'<div[^>]+class="[^"]*content[^"]*"[^>]*>(.*?)</div>',
+    ]:
+        m = re.search(tag_pat, html, re.DOTALL | re.I)
+        if m and len(m.group(1)) > 500:
+            html = m.group(1)
+            break
+
     text = re.sub(r'<style[^>]*>.*?</style>', ' ', html, flags=re.DOTALL | re.I)
     text = re.sub(r'<script[^>]*>.*?</script>', ' ', text, flags=re.DOTALL | re.I)
     text = re.sub(r'<[^>]+>', ' ', text)
@@ -191,17 +203,20 @@ def ai_analyze_batch(promos):
     prompt = (
         "Ты анализируешь страницы акций медицинских лабораторий.\n"
         "Для каждого блока верни JSON с ключом = URL и полями:\n"
-        "  title   — название акции\n"
-        "  summary — одно предложение: суть акции и выгода для пациента\n"
-        "  dates   — даты акции (например «до 31 июля»), или \"\"\n\n"
-        'Формат: {"https://...": {"title": "...", "summary": "...", "dates": "..."}, ...}\n\n'
+        "  title       — название акции\n"
+        "  summary     — одно предложение: суть акции и выгода для пациента\n"
+        "  dates       — даты акции (например «до 31 июля»); если срок не указан — «Бессрочно»\n"
+        "  price       — цена для Москвы (например «от 390 ₽» или «1 490 ₽»), или \"\" если не указана\n"
+        "  composition — состав: перечень анализов/услуг через запятую (кратко), или \"\" если не указан\n"
+        "  is_local    — true если акция только в конкретном филиале/точке, иначе false\n\n"
+        'Формат: {"https://...": {"title":"...","summary":"...","dates":"...","price":"...","composition":"...","is_local":false}, ...}\n\n'
         + "\n\n---\n\n".join(blocks)
     )
 
     payload = json.dumps({
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1000,
+        "max_tokens": 1500,
         "temperature": 0,
     }).encode()
 
@@ -300,15 +315,29 @@ def run():
         site = current[url]
         title = info.get("title") or url.rstrip("/").split("/")[-1]
         summary = info.get("summary", "")
-        dates = info.get("dates", "")
+        dates = info.get("dates", "") or "Бессрочно"
+        price = info.get("price", "")
+        composition = info.get("composition", "")
+        is_local = info.get("is_local", False)
 
-        active[url] = {"lab": site["name"], "title": title, "summary": summary, "dates": dates}
+        active[url] = {
+            "lab": site["name"], "title": title, "summary": summary,
+            "dates": dates, "price": price, "composition": composition,
+        }
+
+        # Локальные акции (только в одном филиале) — не отправляем
+        if is_local:
+            print(f"  пропускаем локальную: {title}")
+            continue
 
         text = f"🆕 <b>{site['name']}</b>\n<b>{title}</b>\n"
         if summary:
             text += f"{summary}\n"
-        if dates:
-            text += f"📅 {dates}\n"
+        if price:
+            text += f"💰 {price}\n"
+        if composition:
+            text += f"📋 {composition}\n"
+        text += f"📅 {dates}\n"
         text += f'<a href="{url}">{url}</a>'
         try:
             tg_send(text)
