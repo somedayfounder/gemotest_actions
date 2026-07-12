@@ -66,22 +66,16 @@ SITES = [
         "name": "Горлаб",
         "url": "https://gorlab.ru/promo/",
         "base": "https://gorlab.ru",
-        "pattern": r'href="(/promo/[a-z0-9\-]+/)"',
-        "skip": ["/promo/"],
+        "pattern": r"href='(/news/[a-z0-9\-]+\.html)'",
+        "encoding": "windows-1251",
     },
-    {
-        "name": "Инвитро",
-        "url": "https://www.invitro.ru/moscow/ak/",
-        "base": "https://www.invitro.ru",
-        "pattern": r'href="(/moscow/ak/[a-z0-9\-]+/)"',
-        "skip": ["/moscow/ak/"],
-    },
+    # Инвитро — SPA, kdl.ru — 403; не поддерживаются без headless-браузера
 ]
 
 
-def fetch(url, timeout=15):
+def fetch(url, timeout=15, encoding="utf-8"):
     req = Request(url, headers=HEADERS)
-    return urlopen(req, timeout=timeout).read().decode("utf-8", "replace")
+    return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
 
 
 def strip_html(html):
@@ -145,7 +139,7 @@ def ai_analyze(promos):
 
 def get_promo_links(site):
     try:
-        html = fetch(site["url"])
+        html = fetch(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
         print(f"  {site['name']}: ошибка загрузки — {e}")
         return []
