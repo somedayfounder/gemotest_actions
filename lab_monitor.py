@@ -271,11 +271,24 @@ def run():
         except Exception as e:
             print(f"AI ошибка: {e}")
 
+    is_init = not active  # первый запуск — просто запоминаем, не шлём
+
     # 6. Уведомления о новых акциях
     for i, p in enumerate(new_promos):
         info = ai.get(str(i), {})
         summary = info.get("summary", "")
         dates = info.get("dates", "")
+
+        # Сохраняем в active
+        active[p["url"]] = {
+            "lab": p["lab"],
+            "title": p["title"],
+            "summary": summary,
+            "dates": dates,
+        }
+
+        if is_init:
+            continue  # первый запуск — молчим
 
         text = f"🆕 <b>{p['lab']}</b>\n<b>{p['title']}</b>\n"
         if summary:
@@ -290,13 +303,10 @@ def run():
         except Exception as e:
             print(f"TG error: {e}")
 
-        # Сохраняем в active
-        active[p["url"]] = {
-            "lab": p["lab"],
-            "title": p["title"],
-            "summary": summary,
-            "dates": dates,
-        }
+    if is_init:
+        print(f"Первый запуск — запомнили {len(active)} акций, уведомления не отправлялись")
+        save_active(active)
+        return
 
     # 7. Уведомления об исчезнувших акциях
     for url in gone_urls:
