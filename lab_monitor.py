@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Мониторинг акций медлабораторий.
-Каждый день проверяет страницы акций, шлёт новые в Telegram с AI-резюме.
+Каждый день проверяет страницы акций, шлёт новые в Telegram с AI-резюме и датами.
 """
 
 import json, os, re, time
@@ -79,10 +79,9 @@ SITES = [
 ]
 
 
-def fetch(url, timeout=15, encoding="utf-8"):
+def fetch(url, timeout=15):
     req = Request(url, headers=HEADERS)
-    raw = urlopen(req, timeout=timeout).read()
-    return raw.decode(encoding, "replace")
+    return urlopen(req, timeout=timeout).read().decode("utf-8", "replace")
 
 
 def strip_html(html):
@@ -104,27 +103,29 @@ def get_title(html):
     return ""
 
 
-def ai_summary(promos):
-    """Одним запросом к GPT получаем резюме для всех новых акций."""
+def ai_analyze(promos):
+    """Одним запросом: резюме + даты для всех новых акций."""
     if not OPENAI_KEY or not promos:
         return {}
 
     lines = []
     for i, p in enumerate(promos):
-        text = p.get("page_text", "")[:800]
-        lines.append(f"[{i}] {p['lab']} | {p['url']}\n{text}")
+        lines.append(f"[{i}] {p['lab']} | {p['url']}\n{p.get('page_text', '')[:600]}")
 
     prompt = (
-        "Ты помощник, который читает страницы акций медицинских лабораторий. "
-        "Для каждой акции ниже напиши ОДНО предложение по-русски: что за акция и какая скидка/выгода. "
-        "Отвечай строго в формате JSON: {\"0\": \"резюме\", \"1\": \"резюме\", ...}\n\n"
+        "Ты помощник, читающий страницы акций медицинских лабораторий. "
+        "Для каждой акции ниже верни JSON-объект с полями:\n"
+        "- summary: одно предложение по-русски — что за акция и какая скидка/выгода\n"
+        "- dates: строка с датами акции (например \"до 31 июля\" или \"1–31 августа 2026\"), "
+        "или пустая строка если даты не найдены\n\n"
+        "Отвечай строго в формате: {\"0\": {\"summary\": \"...\", \"dates\": \"...\"}, \"1\": {...}, ...}\n\n"
         + "\n\n".join(lines)
     )
 
     payload = json.dumps({
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 500,
+        "max_tokens": 800,
         "temperature": 0,
     }).encode()
 
@@ -138,7 +139,6 @@ def ai_summary(promos):
     )
     resp = json.loads(urlopen(req, timeout=30).read())
     content = resp["choices"][0]["message"]["content"].strip()
-    # убираем ```json если есть
     content = re.sub(r'^```json\s*|\s*```$', '', content).strip()
     return json.loads(content)
 
@@ -215,12 +215,12 @@ def run():
 
     print(f"Новых акций: {len(new_promos)}")
 
-    # Получаем AI-резюме одним запросом
-    summaries = {}
+    # AI-анализ одним запросом
+    ai = {}
     if new_promos and OPENAI_KEY:
         try:
-            summaries = ai_summary(new_promos)
-            print(f"AI резюме получено для {len(summaries)} акций")
+            ai = ai_analyze(new_promos)
+            print(f"AI: {len(ai)} акций проанализировано")
         except Exception as e:
             print(f"AI ошибка: {e}")
 
@@ -228,13 +228,15 @@ def run():
         tg_send("📋 Новых акций не найдено")
     else:
         for i, p in enumerate(new_promos):
-            summary = summaries.get(str(i), "")
-            text = (
-                f"🆕 <b>{p['lab']}</b>\n"
-                f"<b>{p['title']}</b>\n"
-            )
+            info = ai.get(str(i), {})
+            summary = info.get("summary", "")
+            dates = info.get("dates", "")
+
+            text = f"🆕 <b>{p['lab']}</b>\n<b>{p['title']}</b>\n"
             if summary:
                 text += f"{summary}\n"
+            if dates:
+                text += f"📅 {dates}\n"
             text += f'<a href="{p["url"]}">{p["url"]}</a>'
 
             try:
