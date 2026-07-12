@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
 Мониторинг акций медлабораторий.
-- Отслеживает появление и исчезновение акций
-- Для каждой новой акции загружает полную страницу и передаёт GPT для анализа
-- GPT возвращает: резюме акции + даты
+Работает только со страницей списка акций — не ходит на каждую акцию отдельно.
+GPT анализирует текст страницы списка и извлекает резюме + даты для новых акций.
 """
 
 import json, os, re, time
@@ -13,6 +12,7 @@ from urllib.parse import urljoin, urlencode
 
 DATA_DIR = Path(__file__).parent
 SEEN_FILE = DATA_DIR / "seen_promos.json"
+
 
 def _cfg():
     token = os.environ.get("TG_TOKEN")
@@ -89,15 +89,14 @@ SITES = [
 ]
 
 
-# ── HTTP fetch ──────────────────────────────────────────────────────────────
+# ── Загрузка страницы ────────────────────────────────────────────────────────
 
-def fetch_html(url, encoding="utf-8", timeout=15):
+def fetch_html(url, encoding="utf-8", timeout=20):
     req = Request(url, headers=HEADERS)
     return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
 
 
 def fetch_js(url):
-    """Загружает JS-рендеренную страницу через Playwright."""
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -108,8 +107,6 @@ def fetch_js(url):
     return html
 
 
-# ── Парсинг ─────────────────────────────────────────────────────────────────
-
 def strip_html(html):
     text = re.sub(r'<style[^>]*>.*?</style>', ' ', html, flags=re.DOTALL | re.I)
     text = re.sub(r'<script[^>]*>.*?</script>', ' ', text, flags=re.DOTALL | re.I)
@@ -118,25 +115,18 @@ def strip_html(html):
     return text.strip()
 
 
-def get_title(html):
-    m = re.search(r'<h1[^>]*>([^<]{5,150})</h1>', html, re.I)
-    if m:
-        return re.sub(r'\s+', ' ', m.group(1)).strip()
-    m = re.search(r'<title>([^<]{5,150})</title>', html, re.I)
-    if m:
-        return re.split(r'\s*[|–—]\s*', m.group(1).strip())[0].strip()
-    return ""
+# ── Парсинг страницы списка ──────────────────────────────────────────────────
 
-
-def get_promo_links(site):
+def scrape_site(site):
+    """Возвращает (links, page_text) — ссылки на акции и текст страницы списка."""
     try:
         if site.get("js"):
             html = fetch_js(site["url"])
         else:
             html = fetch_html(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
-        print(f"  {site['name']}: ошибка загрузки — {e}")
-        return []
+        print(f"  {site['name']}: ошибка — {e}")
+        return [], ""
 
     raw = re.findall(site["pattern"], html, re.I)
     skip = set(site.get("skip", []))
@@ -149,28 +139,32 @@ def get_promo_links(site):
             continue
         seen_slugs.add(slug)
         links.append(urljoin(site["base"], path))
-    return links
+
+    page_text = strip_html(html)
+    return links, page_text
 
 
 # ── GPT-анализ ───────────────────────────────────────────────────────────────
 
-def ai_analyze(promos):
-    """Одним запросом: резюме + даты для каждой новой акции."""
-    if not OPENAI_KEY or not promos:
+def ai_analyze(new_urls, page_text, lab_name):
+    """
+    Передаём текст страницы списка акций и список новых URL.
+    GPT находит каждую акцию в тексте и возвращает резюме + даты.
+    """
+    if not OPENAI_KEY or not new_urls:
         return {}
 
-    blocks = []
-    for i, p in enumerate(promos):
-        blocks.append(f"[{i}] {p['lab']} — {p['url']}\n{p['page_text']}")
-
+    url_list = "\n".join(f"- {u}" for u in new_urls)
     prompt = (
-        "Ты помощник, анализирующий страницы акций медицинских лабораторий.\n"
-        "Для каждой акции ниже верни JSON с полями:\n"
-        "  summary — одно предложение по-русски: что за акция и какая скидка/выгода\n"
-        "  dates   — строка с датами акции (например «до 31 июля» или «1–31 августа 2026»), "
-        "или пустая строка если дат нет\n\n"
-        "Формат ответа строго: {\"0\": {\"summary\": \"...\", \"dates\": \"...\"}, \"1\": {...}, ...}\n\n"
-        + "\n\n---\n\n".join(blocks)
+        f"Ты анализируешь страницу акций лаборатории «{lab_name}».\n"
+        f"Ниже — текст этой страницы и список URL новых акций.\n\n"
+        f"Для каждого URL найди соответствующую акцию в тексте страницы и верни JSON:\n"
+        f"  summary — одно предложение: что за акция и какая выгода\n"
+        f"  dates   — даты акции (например «до 31 июля» или «1–31 августа 2026»), или \"\"\n"
+        f"  title   — название акции\n\n"
+        f"Формат: {{\"URL\": {{\"title\": \"...\", \"summary\": \"...\", \"dates\": \"...\"}}, ...}}\n\n"
+        f"НОВЫЕ URL:\n{url_list}\n\n"
+        f"ТЕКСТ СТРАНИЦЫ:\n{page_text[:4000]}"
     )
 
     payload = json.dumps({
@@ -205,9 +199,10 @@ def tg_send(text):
 # ── Хранилище ────────────────────────────────────────────────────────────────
 
 def load_active():
-    """Возвращает {url: {lab, title, summary, dates}}."""
     if SEEN_FILE.exists():
-        return json.loads(SEEN_FILE.read_text())
+        data = json.loads(SEEN_FILE.read_text())
+        if isinstance(data, dict):
+            return data
     return {}
 
 
@@ -219,110 +214,73 @@ def save_active(data):
 
 def run():
     active = load_active()
-    current_urls = {}  # url -> lab
+    is_init = not active
 
-    # 1. Собираем все текущие акции со всех сайтов
+    current = {}  # url -> lab_name
+
     for site in SITES:
-        links = get_promo_links(site)
+        links, page_text = scrape_site(site)
         print(f"  {site['name']}: {len(links)} акций")
+
         for url in links:
-            current_urls[url] = site["name"]
-        time.sleep(0.5)
+            current[url] = site["name"]
 
-    # 2. Новые акции (есть сейчас, не было раньше)
-    new_urls = [url for url in current_urls if url not in active]
-    # 3. Исчезнувшие акции (были раньше, нет сейчас)
-    gone_urls = [url for url in active if url not in current_urls]
+        # Новые акции этого сайта
+        new_urls = [u for u in links if u not in active]
+        gone_urls = [u for u in active if active[u]["lab"] == site["name"] and u not in links]
 
-    print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
+        if not is_init and new_urls:
+            # GPT анализирует текст страницы списка — без отдельных запросов
+            ai = {}
+            try:
+                ai = ai_analyze(new_urls, page_text, site["name"])
+                print(f"    AI: {len(ai)} новых проанализировано")
+            except Exception as e:
+                print(f"    AI ошибка: {e}")
 
-    # 4. Загружаем страницы новых акций
-    new_promos = []
-    for url in new_urls:
-        lab = current_urls[url]
-        page_text = ""
-        title = ""
-        try:
-            # Для JS-сайтов используем Playwright
-            site = next(s for s in SITES if s["name"] == lab)
-            if site.get("js"):
-                html = fetch_js(url)
-            else:
-                html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=10)
-            title = get_title(html)
-            page_text = strip_html(html)[:3000]
-            time.sleep(0.4)
-        except Exception as e:
-            print(f"    не загрузилась {url}: {e}")
+            for url in new_urls:
+                info = ai.get(url, {})
+                title = info.get("title", url.rstrip("/").split("/")[-1])
+                summary = info.get("summary", "")
+                dates = info.get("dates", "")
 
-        new_promos.append({
-            "lab": lab,
-            "url": url,
-            "title": title or url.rstrip("/").split("/")[-1],
-            "page_text": page_text,
-        })
+                active[url] = {"lab": site["name"], "title": title, "summary": summary, "dates": dates}
 
-    # 5. GPT-анализ новых акций
-    ai = {}
-    if new_promos and OPENAI_KEY:
-        try:
-            ai = ai_analyze(new_promos)
-            print(f"AI: {len(ai)} акций проанализировано")
-        except Exception as e:
-            print(f"AI ошибка: {e}")
+                text = f"🆕 <b>{site['name']}</b>\n<b>{title}</b>\n"
+                if summary:
+                    text += f"{summary}\n"
+                if dates:
+                    text += f"📅 {dates}\n"
+                text += f'<a href="{url}">{url}</a>'
+                try:
+                    tg_send(text)
+                    time.sleep(0.3)
+                except Exception as e:
+                    print(f"    TG error: {e}")
 
-    is_init = not active  # первый запуск — просто запоминаем, не шлём
+        elif is_init:
+            for url in new_urls:
+                active[url] = {"lab": site["name"], "title": "", "summary": "", "dates": ""}
 
-    # 6. Уведомления о новых акциях
-    for i, p in enumerate(new_promos):
-        info = ai.get(str(i), {})
-        summary = info.get("summary", "")
-        dates = info.get("dates", "")
+        # Исчезнувшие акции этого сайта
+        if not is_init:
+            for url in gone_urls:
+                info = active.pop(url)
+                text = (
+                    f"❌ <b>{info['lab']}</b> — акция завершена\n"
+                    f"{info.get('title') or url}\n"
+                    f'<a href="{url}">{url}</a>'
+                )
+                try:
+                    tg_send(text)
+                    time.sleep(0.3)
+                except Exception as e:
+                    print(f"    TG error: {e}")
 
-        # Сохраняем в active
-        active[p["url"]] = {
-            "lab": p["lab"],
-            "title": p["title"],
-            "summary": summary,
-            "dates": dates,
-        }
-
-        if is_init:
-            continue  # первый запуск — молчим
-
-        text = f"🆕 <b>{p['lab']}</b>\n<b>{p['title']}</b>\n"
-        if summary:
-            text += f"{summary}\n"
-        if dates:
-            text += f"📅 {dates}\n"
-        text += f'<a href="{p["url"]}">{p["url"]}</a>'
-
-        try:
-            tg_send(text)
-            time.sleep(0.3)
-        except Exception as e:
-            print(f"TG error: {e}")
+        time.sleep(1)
 
     if is_init:
         print(f"Первый запуск — запомнили {len(active)} акций, уведомления не отправлялись")
-        save_active(active)
-        return
-
-    # 7. Уведомления об исчезнувших акциях
-    for url in gone_urls:
-        info = active[url]
-        text = (
-            f"❌ <b>{info['lab']}</b> — акция завершена\n"
-            f"{info.get('title', url)}\n"
-            f'<a href="{url}">{url}</a>'
-        )
-        try:
-            tg_send(text)
-            time.sleep(0.3)
-        except Exception as e:
-            print(f"TG error: {e}")
-
-        del active[url]
 
     save_active(active)
     print("Готово")
