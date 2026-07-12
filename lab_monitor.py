@@ -243,13 +243,6 @@ def run():
     gone_urls = [u for u in active if u not in current]
     print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
 
-    if is_init:
-        for url, site in current.items():
-            active[url] = {"lab": site["name"], "title": "", "summary": "", "dates": ""}
-        print(f"Первый запуск — запомнили {len(active)} акций, уведомления не отправлялись")
-        save_active(active)
-        return
-
     # 2. Для новых акций загружаем страницы
     promos_to_analyze = []
     for url in new_urls:
@@ -304,6 +297,8 @@ def run():
         except Exception as e:
             print(f"TG error: {e}")
 
+    if is_init:
+        print(f"Первый запуск завершён, запомнили {len(active)} акций")
     save_active(active)
     print("Готово")
 
