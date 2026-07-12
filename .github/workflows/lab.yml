@@ -12,6 +12,10 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
       - name: Run monitor
         run: python3 lab_monitor.py
       - name: Save seen promos
