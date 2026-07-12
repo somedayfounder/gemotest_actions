@@ -38,8 +38,8 @@ SITES = [
         "name": "Гемотест",
         "url": "https://gemotest.ru/actions/",
         "base": "https://gemotest.ru",
-        "pattern": r'href="(/actions/[a-z0-9_\-]+/)"',
-        "skip": ["/actions/"],
+        # только карточки акций (class="action-item"), не навигация
+        "pattern": r'href="(/actions/[a-z0-9_\-]+/)"[^>]*class="action-item"',
     },
     {
         "name": "CMD",
@@ -51,6 +51,7 @@ SITES = [
         "name": "Helix",
         "url": "https://helix.ru/moskva/promotions",
         "base": "https://helix.ru",
+        # Angular SSR — ссылки с data-testid="button-detail"
         "pattern": r'href="(/promotions/select/\d+)"',
     },
     {
@@ -65,6 +66,8 @@ SITES = [
         "url": "https://www.labquest.ru/aktsii/",
         "base": "https://www.labquest.ru",
         "pattern": r'href="(/aktsii/[a-z0-9\-]+/)"',
+        # обрезать страницу до раздела "Завершившиеся акции"
+        "cut_at": "Завершившиеся акции",
     },
     {
         "name": "Горлаб",
@@ -130,6 +133,13 @@ def get_listing_links(site):
         print(f"  {site['name']}: ошибка листинга — {e}")
         return []
 
+    # обрезаем страницу если задан cut_at (убираем архивный раздел)
+    cut = site.get("cut_at")
+    if cut:
+        idx = html.find(cut)
+        if idx > 0:
+            html = html[:idx]
+
     raw = re.findall(site["pattern"], html, re.I)
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
@@ -160,24 +170,18 @@ def fetch_promo_page(url, site):
 
 # ── GPT ──────────────────────────────────────────────────────────────────────
 
-def ai_analyze(promos):
-    """
-    promos: список {"lab", "url", "page_text"}
-    Возвращает {url: {"title", "summary", "dates"}}
-    """
-    if not OPENAI_KEY or not promos:
-        return {}
-
+def ai_analyze_batch(promos):
+    """Один GPT-запрос для батча акций. Возвращает {url: {title, summary, dates}}."""
     blocks = []
     for p in promos:
-        blocks.append(f"URL: {p['url']}\nЛаборатория: {p['lab']}\n\n{p['page_text'][:3000]}")
+        blocks.append(f"URL: {p['url']}\nЛаборатория: {p['lab']}\n\n{p['page_text'][:2500]}")
 
     prompt = (
         "Ты анализируешь страницы акций медицинских лабораторий.\n"
-        "Для каждого блока ниже верни JSON с ключом = URL акции и полями:\n"
+        "Для каждого блока верни JSON с ключом = URL и полями:\n"
         "  title   — название акции\n"
         "  summary — одно предложение: суть акции и выгода для пациента\n"
-        "  dates   — даты акции (например «до 31 июля» или «1–31 августа 2026»), или \"\"\n\n"
+        "  dates   — даты акции (например «до 31 июля»), или \"\"\n\n"
         'Формат: {"https://...": {"title": "...", "summary": "...", "dates": "..."}, ...}\n\n'
         + "\n\n---\n\n".join(blocks)
     )
@@ -185,7 +189,7 @@ def ai_analyze(promos):
     payload = json.dumps({
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1500,
+        "max_tokens": 1000,
         "temperature": 0,
     }).encode()
 
@@ -198,6 +202,23 @@ def ai_analyze(promos):
     content = resp["choices"][0]["message"]["content"].strip()
     content = re.sub(r'^```json\s*|\s*```$', '', content).strip()
     return json.loads(content)
+
+
+def ai_analyze(promos):
+    """Анализирует акции батчами по 5 штук."""
+    if not OPENAI_KEY or not promos:
+        return {}
+    result = {}
+    batch_size = 5
+    for i in range(0, len(promos), batch_size):
+        batch = promos[i:i + batch_size]
+        try:
+            result.update(ai_analyze_batch(batch))
+            if i + batch_size < len(promos):
+                time.sleep(1)
+        except Exception as e:
+            print(f"  AI батч {i//batch_size + 1} ошибка: {e}")
+    return result
 
 
 # ── Telegram ─────────────────────────────────────────────────────────────────
