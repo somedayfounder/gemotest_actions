@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
 Мониторинг акций медлабораторий.
-Каждый день проверяет страницы акций, шлёт новые в Telegram с AI-резюме и датами.
+- Отслеживает появление и исчезновение акций
+- Для каждой новой акции загружает полную страницу и передаёт GPT для анализа
+- GPT возвращает: резюме акции + даты
 """
 
 import json, os, re, time
@@ -12,7 +14,6 @@ from urllib.parse import urljoin, urlencode
 DATA_DIR = Path(__file__).parent
 SEEN_FILE = DATA_DIR / "seen_promos.json"
 
-# Credentials — из окружения (GitHub Secrets) или из файла
 def _cfg():
     token = os.environ.get("TG_TOKEN")
     chat_id = os.environ.get("TG_CHAT_ID")
@@ -41,7 +42,7 @@ SITES = [
         "name": "CMD",
         "url": "https://www.cmd-online.ru/patsientam/akcii/",
         "base": "https://www.cmd-online.ru",
-        "pattern": r'href="(/patsientam/akcii/[a-z0-9\-]+/)',
+        "pattern": r'href="(/patsientam/akcii/[a-z0-9\-]+/)"',
     },
     {
         "name": "Helix",
@@ -69,14 +70,45 @@ SITES = [
         "pattern": r"href='(/news/[a-z0-9\-]+\.html)'",
         "encoding": "windows-1251",
     },
-    # Инвитро — SPA, kdl.ru — 403; не поддерживаются без headless-браузера
+    {
+        "name": "КДЛ",
+        "url": "https://kdl.ru/akcii",
+        "base": "https://kdl.ru",
+        "pattern": r'href="(/akcii/[a-z0-9\-]+)"',
+        "skip": ["/akcii"],
+        "js": True,
+    },
+    {
+        "name": "Инвитро",
+        "url": "https://www.invitro.ru/moscow/ak/",
+        "base": "https://www.invitro.ru",
+        "pattern": r'href="(/moscow/ak/[a-z0-9\-]+/)"',
+        "skip": ["/moscow/ak/"],
+        "js": True,
+    },
 ]
 
 
-def fetch(url, timeout=15, encoding="utf-8"):
+# ── HTTP fetch ──────────────────────────────────────────────────────────────
+
+def fetch_html(url, encoding="utf-8", timeout=15):
     req = Request(url, headers=HEADERS)
     return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
 
+
+def fetch_js(url):
+    """Загружает JS-рендеренную страницу через Playwright."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        page.goto(url, wait_until="networkidle", timeout=30000)
+        html = page.content()
+        browser.close()
+    return html
+
+
+# ── Парсинг ─────────────────────────────────────────────────────────────────
 
 def strip_html(html):
     text = re.sub(r'<style[^>]*>.*?</style>', ' ', html, flags=re.DOTALL | re.I)
@@ -92,62 +124,23 @@ def get_title(html):
         return re.sub(r'\s+', ' ', m.group(1)).strip()
     m = re.search(r'<title>([^<]{5,150})</title>', html, re.I)
     if m:
-        title = m.group(1).strip()
-        return re.split(r'\s*[|–—]\s*', title)[0].strip()
+        return re.split(r'\s*[|–—]\s*', m.group(1).strip())[0].strip()
     return ""
-
-
-def ai_analyze(promos):
-    """Одним запросом: резюме + даты для всех новых акций."""
-    if not OPENAI_KEY or not promos:
-        return {}
-
-    lines = []
-    for i, p in enumerate(promos):
-        lines.append(f"[{i}] {p['lab']} | {p['url']}\n{p.get('page_text', '')[:600]}")
-
-    prompt = (
-        "Ты помощник, читающий страницы акций медицинских лабораторий. "
-        "Для каждой акции ниже верни JSON-объект с полями:\n"
-        "- summary: одно предложение по-русски — что за акция и какая скидка/выгода\n"
-        "- dates: строка с датами акции (например \"до 31 июля\" или \"1–31 августа 2026\"), "
-        "или пустая строка если даты не найдены\n\n"
-        "Отвечай строго в формате: {\"0\": {\"summary\": \"...\", \"dates\": \"...\"}, \"1\": {...}, ...}\n\n"
-        + "\n\n".join(lines)
-    )
-
-    payload = json.dumps({
-        "model": "gpt-4o-mini",
-        "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 800,
-        "temperature": 0,
-    }).encode()
-
-    req = Request(
-        "https://api.openai.com/v1/chat/completions",
-        data=payload,
-        headers={
-            "Authorization": f"Bearer {OPENAI_KEY}",
-            "Content-Type": "application/json",
-        },
-    )
-    resp = json.loads(urlopen(req, timeout=30).read())
-    content = resp["choices"][0]["message"]["content"].strip()
-    content = re.sub(r'^```json\s*|\s*```$', '', content).strip()
-    return json.loads(content)
 
 
 def get_promo_links(site):
     try:
-        html = fetch(site["url"], encoding=site.get("encoding", "utf-8"))
+        if site.get("js"):
+            html = fetch_js(site["url"])
+        else:
+            html = fetch_html(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
         print(f"  {site['name']}: ошибка загрузки — {e}")
         return []
 
     raw = re.findall(site["pattern"], html, re.I)
     skip = set(site.get("skip", []))
-    links = []
-    seen_slugs = set()
+    links, seen_slugs = [], set()
     for path in raw:
         if path in skip:
             continue
@@ -159,6 +152,47 @@ def get_promo_links(site):
     return links
 
 
+# ── GPT-анализ ───────────────────────────────────────────────────────────────
+
+def ai_analyze(promos):
+    """Одним запросом: резюме + даты для каждой новой акции."""
+    if not OPENAI_KEY or not promos:
+        return {}
+
+    blocks = []
+    for i, p in enumerate(promos):
+        blocks.append(f"[{i}] {p['lab']} — {p['url']}\n{p['page_text']}")
+
+    prompt = (
+        "Ты помощник, анализирующий страницы акций медицинских лабораторий.\n"
+        "Для каждой акции ниже верни JSON с полями:\n"
+        "  summary — одно предложение по-русски: что за акция и какая скидка/выгода\n"
+        "  dates   — строка с датами акции (например «до 31 июля» или «1–31 августа 2026»), "
+        "или пустая строка если дат нет\n\n"
+        "Формат ответа строго: {\"0\": {\"summary\": \"...\", \"dates\": \"...\"}, \"1\": {...}, ...}\n\n"
+        + "\n\n---\n\n".join(blocks)
+    )
+
+    payload = json.dumps({
+        "model": "gpt-4o-mini",
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 1000,
+        "temperature": 0,
+    }).encode()
+
+    req = Request(
+        "https://api.openai.com/v1/chat/completions",
+        data=payload,
+        headers={"Authorization": f"Bearer {OPENAI_KEY}", "Content-Type": "application/json"},
+    )
+    resp = json.loads(urlopen(req, timeout=60).read())
+    content = resp["choices"][0]["message"]["content"].strip()
+    content = re.sub(r'^```json\s*|\s*```$', '', content).strip()
+    return json.loads(content)
+
+
+# ── Telegram ─────────────────────────────────────────────────────────────────
+
 def tg_send(text):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     data = urlencode({
@@ -168,48 +202,67 @@ def tg_send(text):
     urlopen(Request(url, data=data), timeout=10)
 
 
-def load_seen():
+# ── Хранилище ────────────────────────────────────────────────────────────────
+
+def load_active():
+    """Возвращает {url: {lab, title, summary, dates}}."""
     if SEEN_FILE.exists():
-        return set(json.loads(SEEN_FILE.read_text()))
-    return set()
+        return json.loads(SEEN_FILE.read_text())
+    return {}
 
 
-def save_seen(urls):
-    SEEN_FILE.write_text(json.dumps(sorted(urls)))
+def save_active(data):
+    SEEN_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2))
 
+
+# ── Основной цикл ────────────────────────────────────────────────────────────
 
 def run():
-    seen = load_seen()
-    all_found = set()
-    new_promos = []
+    active = load_active()
+    current_urls = {}  # url -> lab
 
+    # 1. Собираем все текущие акции со всех сайтов
     for site in SITES:
         links = get_promo_links(site)
         print(f"  {site['name']}: {len(links)} акций")
-        all_found.update(links)
-
         for url in links:
-            if url not in seen:
-                page_text = ""
-                title = ""
-                try:
-                    html = fetch(url, timeout=10)
-                    title = get_title(html)
-                    page_text = strip_html(html)[:1200]
-                    time.sleep(0.4)
-                except Exception as e:
-                    print(f"    не загрузилась {url}: {e}")
+            current_urls[url] = site["name"]
+        time.sleep(0.5)
 
-                new_promos.append({
-                    "lab": site["name"],
-                    "url": url,
-                    "title": title or url.rstrip("/").split("/")[-1],
-                    "page_text": page_text,
-                })
+    # 2. Новые акции (есть сейчас, не было раньше)
+    new_urls = [url for url in current_urls if url not in active]
+    # 3. Исчезнувшие акции (были раньше, нет сейчас)
+    gone_urls = [url for url in active if url not in current_urls]
 
-    print(f"Новых акций: {len(new_promos)}")
+    print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
 
-    # AI-анализ одним запросом
+    # 4. Загружаем страницы новых акций
+    new_promos = []
+    for url in new_urls:
+        lab = current_urls[url]
+        page_text = ""
+        title = ""
+        try:
+            # Для JS-сайтов используем Playwright
+            site = next(s for s in SITES if s["name"] == lab)
+            if site.get("js"):
+                html = fetch_js(url)
+            else:
+                html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=10)
+            title = get_title(html)
+            page_text = strip_html(html)[:3000]
+            time.sleep(0.4)
+        except Exception as e:
+            print(f"    не загрузилась {url}: {e}")
+
+        new_promos.append({
+            "lab": lab,
+            "url": url,
+            "title": title or url.rstrip("/").split("/")[-1],
+            "page_text": page_text,
+        })
+
+    # 5. GPT-анализ новых акций
     ai = {}
     if new_promos and OPENAI_KEY:
         try:
@@ -218,28 +271,50 @@ def run():
         except Exception as e:
             print(f"AI ошибка: {e}")
 
-    if not new_promos:
-        tg_send("📋 Новых акций не найдено")
-    else:
-        for i, p in enumerate(new_promos):
-            info = ai.get(str(i), {})
-            summary = info.get("summary", "")
-            dates = info.get("dates", "")
+    # 6. Уведомления о новых акциях
+    for i, p in enumerate(new_promos):
+        info = ai.get(str(i), {})
+        summary = info.get("summary", "")
+        dates = info.get("dates", "")
 
-            text = f"🆕 <b>{p['lab']}</b>\n<b>{p['title']}</b>\n"
-            if summary:
-                text += f"{summary}\n"
-            if dates:
-                text += f"📅 {dates}\n"
-            text += f'<a href="{p["url"]}">{p["url"]}</a>'
+        text = f"🆕 <b>{p['lab']}</b>\n<b>{p['title']}</b>\n"
+        if summary:
+            text += f"{summary}\n"
+        if dates:
+            text += f"📅 {dates}\n"
+        text += f'<a href="{p["url"]}">{p["url"]}</a>'
 
-            try:
-                tg_send(text)
-                time.sleep(0.3)
-            except Exception as e:
-                print(f"TG error: {e}")
+        try:
+            tg_send(text)
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"TG error: {e}")
 
-    save_seen(seen | all_found)
+        # Сохраняем в active
+        active[p["url"]] = {
+            "lab": p["lab"],
+            "title": p["title"],
+            "summary": summary,
+            "dates": dates,
+        }
+
+    # 7. Уведомления об исчезнувших акциях
+    for url in gone_urls:
+        info = active[url]
+        text = (
+            f"❌ <b>{info['lab']}</b> — акция завершена\n"
+            f"{info.get('title', url)}\n"
+            f'<a href="{url}">{url}</a>'
+        )
+        try:
+            tg_send(text)
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"TG error: {e}")
+
+        del active[url]
+
+    save_active(active)
     print("Готово")
 
 
