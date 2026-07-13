@@ -82,7 +82,7 @@ SITES = [
         "name": "КДЛ",
         "url": "https://kdl.ru/akcii",
         "base": "https://kdl.ru",
-        "pattern": r'href="(/akcii/[a-z0-9\-]+)"',
+        "pattern": r'href="(/akcii/[a-zA-Z0-9_\-]+)"',
         "skip": ["/akcii"],
         "js": True,
     },
@@ -116,7 +116,8 @@ def fetch_js(url):
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
-        page.goto(url, wait_until="networkidle", timeout=60000)
+        page.goto(url, wait_until="load", timeout=60000)
+        page.wait_for_timeout(5000)
         html = page.content()
         browser.close()
     return html
@@ -172,6 +173,11 @@ def get_listing_links(site):
     # если паттерн с несколькими группами — берём первую непустую
     if raw and isinstance(raw[0], tuple):
         raw = [next(g for g in groups if g) for groups in raw]
+    if not raw:
+        # отладка: показываем первые href на странице
+        sample = re.findall(r'href="(/[^"]{5,60})"', html)[:8]
+        if sample:
+            print(f"    [{site['name']}] sample hrefs: {sample}")
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
     for path in raw:
