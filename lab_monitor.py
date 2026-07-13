@@ -82,10 +82,10 @@ SITES = [
     },
     {
         "name": "КДЛ",
-        "url": "https://kdl.ru/moscow/akcii",
+        "url": "https://kdl.ru/akcii",
         "base": "https://kdl.ru",
-        "pattern": r'href="(/?(?:moscow/)?akcii/[a-zA-Z0-9_\-]+)"',
-        "skip": ["/moscow/akcii", "moscow/akcii", "/akcii", "akcii"],
+        "pattern": r'href="(/?akcii/[a-zA-Z0-9_\-]+)"',
+        "skip": ["/akcii", "akcii"],
         "needs_vpn": True,
     },
     {
@@ -280,7 +280,7 @@ def get_listing_links(site):
                 if key in sc and len(sc) > 100:
                     print(f"    [{site['name']}] script with {key}: {sc[:300]}")
                     break
-        print(f"    [{site['name']}] html_len: {len(html)}, tail[-200]: {html[-200:]}")
+        print(f"    [{site['name']}] html_len: {len(html)}, mid[40000:43000]: {html[40000:43000]}")
     skip = set(site.get("skip", []))
     skip_re = re.compile(site["skip_re"]) if site.get("skip_re") else None
     links, seen_slugs = [], set()
