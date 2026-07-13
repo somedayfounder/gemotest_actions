@@ -20,7 +20,7 @@ jobs:
         run: |
           pip install playwright
           playwright install chromium --with-deps
-          sudo apt-get install -y openvpn dnsutils
+          sudo apt-get install -y openvpn dnsutils curl
 
       - name: Download VPN config
         run: |
@@ -41,16 +41,19 @@ jobs:
         run: |
           if [ ! -f vpn.ovpn ]; then echo "No VPN config, skipping"; exit 0; fi
 
-          # Сохраняем оригинальный шлюз до подключения VPN
+          echo "IP before VPN: $(curl -s --max-time 5 https://api.ipify.org || echo unknown)"
+
           ORIG_GW=$(ip route | grep '^default' | awk '{print $3}' | head -1)
           ORIG_IF=$(ip route | grep '^default' | awk '{print $5}' | head -1)
           echo "Original GW: $ORIG_GW via $ORIG_IF"
 
           sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
-          sleep 10
-          echo "VPN connected"
+          sleep 15
 
-          # Добавляем маршруты для Telegram и OpenAI через оригинальный шлюз (bypass VPN)
+          echo "IP after VPN: $(curl -s --max-time 10 https://api.ipify.org || echo unknown)"
+          echo "VPN log tail:"; tail -5 /tmp/vpn.log
+
+          # Bypass Telegram и OpenAI через оригинальный шлюз
           for HOST in api.telegram.org api.openai.com; do
             for IP in $(dig +short $HOST | grep -E '^[0-9]+'); do
               sudo ip route add $IP/32 via $ORIG_GW dev $ORIG_IF 2>/dev/null \
