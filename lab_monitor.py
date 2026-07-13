@@ -85,7 +85,8 @@ SITES = [
         "pattern": r'href="(/akcii/[a-zA-Z0-9_\-]+)"',
         "skip": ["/akcii"],
         "js": True,
-        "js_wait_ms": 20000,
+        "js_wait_ms": 15000,
+        "intercept_key": "akcii",
     },
     {
         "name": "Инвитро",
@@ -94,7 +95,8 @@ SITES = [
         "pattern": r'href="(/moscow/ak/[a-z0-9\-]+/)"',
         "skip": ["/moscow/ak/"],
         "js": True,
-        "js_wait_ms": 20000,
+        "js_wait_ms": 15000,
+        "intercept_key": "/moscow/ak/",
     },
     {
         "name": "Ситилаб",
@@ -113,14 +115,52 @@ def fetch_html(url, encoding="utf-8", timeout=20):
     return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
 
 
-def fetch_js(url, wait_ms=5000):
+def fetch_js(url, wait_ms=5000, intercept_key=None):
+    """intercept_key: если задан, перехватываем JSON-ответы содержащие этот ключ
+    и возвращаем первый совпавший как строку вместо HTML."""
+    import json as _json
     from playwright.sync_api import sync_playwright
+    captured = []
+
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
-        page = browser.new_page()
-        page.goto(url, wait_until="load", timeout=60000)
+        ctx = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+        )
+        page = ctx.new_page()
+
+        api_calls = []
+
+        def on_response(response):
+            ct = response.headers.get("content-type", "")
+            if "json" in ct and response.status == 200:
+                try:
+                    body = response.text()
+                    if intercept_key and intercept_key in body:
+                        captured.append(body)
+                    elif not intercept_key:
+                        pass
+                    rurl = response.url
+                    if any(x in rurl for x in ["/api/", "/promo", "/akcii", "/ak/", "action"]):
+                        api_calls.append(rurl)
+                except Exception:
+                    pass
+
+        page.on("response", on_response)
+        try:
+            page.goto(url, wait_until="load", timeout=60000)
+        except Exception:
+            pass
         page.wait_for_timeout(wait_ms)
-        html = page.content()
+
+        if api_calls:
+            print(f"    API calls: {api_calls[:5]}")
+
+        if captured:
+            html = "\n".join(captured)
+        else:
+            html = page.content()
         browser.close()
     return html
 
@@ -150,7 +190,8 @@ def strip_html(html):
 def get_listing_links(site):
     try:
         if site.get("js"):
-            html = fetch_js(site["url"], wait_ms=site.get("js_wait_ms", 5000))
+            html = fetch_js(site["url"], wait_ms=site.get("js_wait_ms", 5000),
+                            intercept_key=site.get("intercept_key"))
         else:
             html = fetch_html(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
@@ -204,7 +245,8 @@ def get_listing_links(site):
 def fetch_promo_page(url, site):
     try:
         if site.get("js"):
-            html = fetch_js(url, wait_ms=site.get("js_wait_ms", 5000))
+            html = fetch_js(url, wait_ms=site.get("js_wait_ms", 5000),
+                            intercept_key=site.get("intercept_key"))
         else:
             html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=15)
         return strip_html(html)
