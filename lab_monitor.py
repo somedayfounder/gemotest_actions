@@ -88,7 +88,7 @@ SITES = [
         "skip": ["/akcii"],
         "js": True,
         "js_wait_ms": 20000,
-        "intercept_url": "kdl.ru",
+        "intercept_url": "7medica.ru",
     },
     {
         "name": "Инвитро",
@@ -140,7 +140,7 @@ def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
                     if intercept_key and intercept_key in body:
                         captured.append(body)
                     if intercept_url and intercept_url in rurl:
-                        intercepted_debug.append(f"[{rurl}] {body[:3000]}")
+                        intercepted_debug.append(f"[{rurl}]\n{body[:5000]}")
                     if "yandex" not in rurl and "google" not in rurl and "mc." not in rurl:
                         api_calls.append(rurl)
                 except Exception:
@@ -155,8 +155,8 @@ def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
 
         if api_calls:
             print(f"    API calls: {api_calls[:10]}")
-        for d in intercepted_debug[:2]:
-            print(f"    intercept_url body: {d[:500]}")
+        for d in intercepted_debug[:5]:
+            print(f"    intercept_url body: {d[:800]}")
 
         if captured:
             html = "\n".join(captured)
