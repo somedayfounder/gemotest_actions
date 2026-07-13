@@ -37,26 +37,26 @@ jobs:
               print("No VPN config found")
           PYEOF
 
-      - name: Connect VPN (route only RU labs)
+      - name: Connect VPN + bypass Telegram/OpenAI
         run: |
           if [ ! -f vpn.ovpn ]; then echo "No VPN config, skipping"; exit 0; fi
-          # Добавляем route-nopull чтобы VPN не захватывал весь трафик
-          echo "route-nopull" >> vpn.ovpn
+
+          # Сохраняем оригинальный шлюз до подключения VPN
+          ORIG_GW=$(ip route | grep '^default' | awk '{print $3}' | head -1)
+          ORIG_IF=$(ip route | grep '^default' | awk '{print $5}' | head -1)
+          echo "Original GW: $ORIG_GW via $ORIG_IF"
+
           sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
           sleep 10
-          # Получаем gateway и интерфейс VPN
-          VPN_GW=$(ip route | grep tun | awk '{print $3}' | head -1)
-          VPN_IF=$(ip route | grep tun | awk '{print $5}' | head -1)
-          echo "VPN_GW=$VPN_GW VPN_IF=$VPN_IF"
-          if [ -n "$VPN_GW" ] && [ -n "$VPN_IF" ]; then
-            # Маршруты только для KDL и Invitro
-            for HOST in kdl.ru www.invitro.ru; do
-              IP=$(dig +short $HOST | grep -E "^[0-9]+" | head -1)
-              if [ -n "$IP" ]; then
-                sudo ip route add $IP/32 via $VPN_GW dev $VPN_IF 2>/dev/null && echo "Route: $HOST -> $IP" || true
-              fi
+          echo "VPN connected"
+
+          # Добавляем маршруты для Telegram и OpenAI через оригинальный шлюз (bypass VPN)
+          for HOST in api.telegram.org api.openai.com; do
+            for IP in $(dig +short $HOST | grep -E '^[0-9]+'); do
+              sudo ip route add $IP/32 via $ORIG_GW dev $ORIG_IF 2>/dev/null \
+                && echo "Bypass VPN: $HOST -> $IP" || true
             done
-          fi
+          done
 
       - name: Run monitor
         run: python3 lab_monitor.py
