@@ -287,6 +287,11 @@ def run():
     is_init = not active
     current = {}  # url -> site
 
+    try:
+        tg_send(f"⏳ <b>Акции</b>: запуск…")
+    except Exception as e:
+        print(f"TG start error: {e}")
+
     # 1. Собираем текущие акции со всех листингов
     for site in SITES:
         links = get_listing_links(site)
@@ -367,7 +372,15 @@ def run():
             print(f"TG error: {e}")
 
     if is_init:
-        print(f"Первый запуск завершён, запомнили {len(active)} акций")
+        msg = f"✅ <b>Акции</b>: первый запуск, запомнили {len(active)} акций"
+        print(msg)
+    else:
+        msg = f"✅ <b>Акции</b>: готово. Новых {len(new_urls)}, исчезло {len(gone_urls)}"
+        print(msg)
+    try:
+        tg_send(msg)
+    except Exception as e:
+        print(f"TG finish error: {e}")
     save_active(active)
     print("Готово")
 
