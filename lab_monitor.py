@@ -84,8 +84,10 @@ SITES = [
         "name": "КДЛ",
         "url": "https://kdl.ru/akcii",
         "base": "https://kdl.ru",
-        "pattern": r'href="(/?akcii/[a-zA-Z0-9_\-]+)"',
-        "skip": ["/akcii", "akcii"],
+        # Матчим как /akcii/slug, так и /city/akcii/slug (когда VPN даёт региональный IP)
+        "pattern": r'href="(/?(?:[a-z][a-z\-]*/)?akcii/[a-zA-Z0-9_\-]+)"',
+        # Пропускаем саму страницу листинга (URL заканчивается на /akcii или akcii)
+        "skip_re": r'^/?(?:[a-z][a-z\-]*/)?akcii/?$',
         "needs_vpn": True,
     },
     {
@@ -282,9 +284,12 @@ def get_listing_links(site):
                     break
         print(f"    [{site['name']}] html_len: {len(html)}, tail[-200]: {html[-200:]}")
     skip = set(site.get("skip", []))
+    skip_re = re.compile(site["skip_re"]) if site.get("skip_re") else None
     links, seen_slugs = [], set()
     for path in raw:
         if path in skip:
+            continue
+        if skip_re and skip_re.match(path):
             continue
         slug = path.rstrip("/").split("/")[-1]
         if slug in seen_slugs:
