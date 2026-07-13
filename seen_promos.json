@@ -1102,5 +1102,69 @@
     "dates": "Бессрочно",
     "price": "",
     "composition": ""
+  },
+  "https://kdl.ru/akcii/semejnaya-skidka-do-15-2-promokoda": {
+    "lab": "КДЛ",
+    "title": "Семейная скидка до 15%",
+    "summary": "Скидка на анализы для всей семьи, что позволяет сэкономить на медицинских услугах.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://kdl.ru/akcii/krasota-vnutri-krasota-snaruji": {
+    "lab": "КДЛ",
+    "title": "Красота внутри — красота снаружи",
+    "summary": "Акция на анализы, которые помогут улучшить здоровье и внешний вид.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://kdl.ru/akcii/vmeste-vygodnee-soberi-korzinu-ot-10-testov-so-skidkoj-10": {
+    "lab": "КДЛ",
+    "title": "Вместе выгоднее: собери корзину от 10 тестов со скидкой 10%",
+    "summary": "Соберите набор из 10 тестов и получите скидку, что делает анализы более доступными.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://kdl.ru/akcii/15-na-kompleksnoe-issledovanie": {
+    "lab": "КДЛ",
+    "title": "15% на комплексное исследование",
+    "summary": "Скидка на комплексные исследования, что позволяет получить полную картину здоровья по выгодной цене.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://kdl.ru/akcii/pischevaya-neperenosimost-akciya": {
+    "lab": "КДЛ",
+    "title": "Акция на пищевую непереносимость",
+    "summary": "Скидка на анализы на пищевую непереносимость, что помогает выявить аллергии и улучшить качество жизни.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://kdl.ru/akcii/sotsialnaya-skidka-10-dlya-lgotnih-kategoriy-grazhdan": {
+    "lab": "КДЛ",
+    "title": "Социальная скидка 10% для льготных категорий граждан",
+    "summary": "Скидка 10% на услуги для льготных категорий граждан.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://kdl.ru/akcii/elektrokardiogramma-ekg-za-690-rubley-147": {
+    "lab": "КДЛ",
+    "title": "Электрокардиограмма (ЭКГ) за 690 рублей",
+    "summary": "Проведение электрокардиограммы по специальной цене 690 рублей.",
+    "dates": "Бессрочно",
+    "price": "690 ₽",
+    "composition": "ЭКГ"
+  },
+  "https://kdl.ru/akcii/skidka-10-po-polisu-oms-ili-servisnoy-karte": {
+    "lab": "КДЛ",
+    "title": "Скидка 10% по полису ОМС или сервисной карте",
+    "summary": "Скидка 10% на услуги при наличии полиса ОМС или сервисной карты.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
   }
 }
