@@ -316,25 +316,35 @@ def ai_analyze_batch(promos):
     """Один GPT-запрос для батча акций. Возвращает {url: {title, summary, dates}}."""
     blocks = []
     for p in promos:
-        blocks.append(f"URL: {p['url']}\nЛаборатория: {p['lab']}\n\n{p['page_text'][:2500]}")
+        blocks.append(f"URL: {p['url']}\nЛаборатория: {p['lab']}\n\n{p['page_text'][:4000]}")
 
     prompt = (
         "Ты анализируешь страницы акций медицинских лабораторий.\n"
-        "Для каждого блока верни JSON с ключом = URL и полями:\n"
-        "  title       — название акции\n"
-        "  summary     — одно предложение: суть акции и выгода для пациента\n"
-        "  dates       — даты акции (например «до 31 июля»); если срок не указан — «Бессрочно»\n"
-        "  price       — цена для Москвы (например «от 390 ₽» или «1 490 ₽»), или \"\" если не указана\n"
-        "  composition — состав: перечень анализов/услуг через запятую (кратко), или \"\" если не указан\n"
-        "  is_local    — true если акция только в конкретном филиале/точке, иначе false\n\n"
-        'Формат: {"https://...": {"title":"...","summary":"...","dates":"...","price":"...","composition":"...","is_local":false}, ...}\n\n'
+        "Определи тип акции и верни JSON с ключом = URL и полями:\n\n"
+        "  title    — название акции (кратко)\n"
+        "  dates    — срок действия (например «до 31 июля»); если не указан — «Бессрочно»\n"
+        "  is_local — true если акция только в одном конкретном филиале, иначе false\n"
+        "  kind     — «product» если акция на конкретный набор анализов/услуг со своей ценой;\n"
+        "             «offer» если это скидка/промокод/условие без фиксированного состава\n\n"
+        "Если kind = «product»:\n"
+        "  tests      — полный список анализов/услуг, каждый с ценой если указана,\n"
+        "               формат: «Название анализа — 490 ₽» через newline (\\n).\n"
+        "               Если цены нет — просто название. Не сокращай список.\n"
+        "  price      — итоговая цена пакета (например «1 490 ₽») или «» если не указана\n"
+        "  summary    — «»\n\n"
+        "Если kind = «offer»:\n"
+        "  summary    — 1–2 предложения: суть предложения и выгода для пациента\n"
+        "  tests      — «»\n"
+        "  price      — скидка или цена если есть (например «−20%», «от 390 ₽»), иначе «»\n\n"
+        'Формат ответа: {"https://...": {"title":"...","dates":"...","is_local":false,"kind":"product",'
+        '"tests":"...","price":"...","summary":"..."}, ...}\n\n'
         + "\n\n---\n\n".join(blocks)
     )
 
     payload = json.dumps({
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1500,
+        "max_tokens": 3000,
         "temperature": 0,
     }).encode()
 
@@ -454,9 +464,11 @@ def run():
         composition = info.get("composition", "")
         is_local = info.get("is_local", False)
 
+        kind = info.get("kind", "offer")
+        tests = info.get("tests", "")
         active[url] = {
             "lab": site["name"], "title": title, "summary": summary,
-            "dates": dates, "price": price, "composition": composition,
+            "dates": dates, "price": price, "kind": kind,
         }
 
         # Локальные акции (только в одном филиале) — не отправляем
@@ -465,12 +477,15 @@ def run():
             continue
 
         text = f"🆕 <b>{site['name']}</b>\n<b>{title}</b>\n"
-        if summary:
-            text += f"{summary}\n"
-        if price:
-            text += f"💰 {price}\n"
-        if composition:
-            text += f"📋 {composition}\n"
+        if kind == "product" and tests:
+            text += f"\n{tests}\n"
+            if price:
+                text += f"\n💰 Итого: {price}\n"
+        else:
+            if summary:
+                text += f"{summary}\n"
+            if price:
+                text += f"💰 {price}\n"
         text += f"📅 {dates}\n"
         text += f'<a href="{url}">{url}</a>'
         try:
