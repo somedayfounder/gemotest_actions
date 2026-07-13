@@ -77,33 +77,6 @@ jobs:
             done
           done
 
-      - name: Inspect KDL page via Python
-        run: |
-          python3 - <<'PYEOF'
-          import urllib.request, re
-          HEADERS = {
-              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-              "Accept-Language": "ru-RU,ru;q=0.9",
-              "Accept": "text/html,application/xhtml+xml",
-          }
-          req = urllib.request.Request("https://kdl.ru/akcii", headers=HEADERS)
-          html = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "replace")
-          print(f"=== KDL /akcii — len={len(html)} ===")
-          # все ссылки на акции
-          links = re.findall(r'href=["\']([^"\']*akcii[^"\']*)["\']', html)
-          print(f"akcii links: {links[:30]}")
-          # поиск slug-подобных путей
-          slugs = re.findall(r'["\'/](akcii/[a-zA-Z0-9_\-]{3,})', html)
-          print(f"akcii slugs: {slugs[:30]}")
-          # window.__INITIAL_STATE__ или подобное
-          for pattern in [r'window\.__[A-Z_]+__\s*=\s*(\{.*?\})\s*;', r'<script[^>]*id="__[A-Z_]+"[^>]*>(.*?)</script>']:
-              m = re.search(pattern, html, re.DOTALL)
-              if m:
-                  print(f"embedded data: {m.group(1)[:500]}")
-          # первые 3000 символов
-          print(f"\n--- HTML head ---\n{html[:3000]}")
-          PYEOF
-
       - name: Run monitor
         run: python3 lab_monitor.py
 
