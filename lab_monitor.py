@@ -417,11 +417,19 @@ def run():
         print(f"TG start error: {e}")
 
     # 1. Собираем текущие акции со всех листингов
+    site_counts = []
     for site in SITES:
         links = get_listing_links(site)
-        print(f"  {site['name']}: {len(links)} акций")
+        count = len(links)
+        print(f"  {site['name']}: {count} акций")
+        site_counts.append(f"{site['name']}: {count}")
         for url in links:
             current[url] = site
+
+    try:
+        tg_send("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts))
+    except Exception:
+        pass
 
     new_urls = [u for u in current if u not in active]
     gone_urls = [u for u in active if u not in current]
@@ -440,6 +448,11 @@ def run():
 
     # 2. Для новых акций загружаем страницы
     promos_to_analyze = []
+    if new_urls:
+        try:
+            tg_send(f"🔍 Загружаем страницы {len(new_urls)} новых акций…")
+        except Exception:
+            pass
     for url in new_urls:
         site = current[url]
         print(f"  загружаем {url}")
@@ -450,6 +463,10 @@ def run():
     # 3. GPT-анализ всех новых акций одним запросом
     ai = {}
     if promos_to_analyze:
+        try:
+            tg_send(f"🤖 Отдаём {len(promos_to_analyze)} акций в GPT…")
+        except Exception:
+            pass
         try:
             ai = ai_analyze(promos_to_analyze)
             print(f"AI: {len(ai)} проанализировано")
