@@ -400,6 +400,17 @@ def run():
     gone_urls = [u for u in active if u not in current]
     print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
 
+    # Защита от сбоя сети/VPN: если нашли мало акций — не обрабатываем исчезнувшие
+    if len(current) < 10 and len(gone_urls) > 5:
+        msg = f"⚠️ <b>Акции</b>: нашли только {len(current)} акций (обычно 100+). Возможен сбой VPN. Пропускаем обработку исчезнувших."
+        print(msg)
+        try:
+            tg_send(msg)
+        except Exception:
+            pass
+        save_active(active)
+        return
+
     # 2. Для новых акций загружаем страницы
     promos_to_analyze = []
     for url in new_urls:
