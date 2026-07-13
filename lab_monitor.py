@@ -9,6 +9,7 @@
 """
 
 import json, os, re, subprocess, time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urljoin, urlencode
@@ -271,7 +272,7 @@ def get_listing_links(site):
     cut = site.get("cut_at")
     if cut:
         idx = html.find(cut)
-        if idx > 0:
+        if idx != -1:
             html = html[:idx]
 
     raw = re.findall(site["pattern"], html, re.I)
@@ -300,7 +301,7 @@ def get_listing_links(site):
                 if key in sc and len(sc) > 100:
                     print(f"    [{site['name']}] script with {key}: {sc[:300]}")
                     break
-        print(f"    [{site['name']}] html_len: {len(html)}, mid[40000:43000]: {html[40000:43000]}")
+        print(f"    [{site['name']}] html_len: {len(html)}")
     skip = set(site.get("skip", []))
     skip_re = re.compile(site["skip_re"]) if site.get("skip_re") else None
     links, seen_slugs = [], set()
@@ -382,7 +383,7 @@ def ai_analyze_batch(promos):
     )
     resp = json.loads(urlopen(req, timeout=60).read())
     content = resp["choices"][0]["message"]["content"].strip()
-    content = re.sub(r'^```json\s*|\s*```$', '', content).strip()
+    content = re.sub(r'^```(?:json)?\s*|\s*```$', '', content, flags=re.I).strip()
     return json.loads(content)
 
 
@@ -396,10 +397,11 @@ def ai_analyze(promos):
         batch = promos[i:i + batch_size]
         try:
             result.update(ai_analyze_batch(batch))
-            if i + batch_size < len(promos):
-                time.sleep(1)
         except Exception as e:
             print(f"  AI батч {i//batch_size + 1} ошибка: {e}")
+        finally:
+            if i + batch_size < len(promos):
+                time.sleep(1)
     return result
 
 
@@ -447,6 +449,13 @@ def tg_send(text):
     urlopen(Request(url, data=data), timeout=10)
 
 
+def tg_safe(text, label=""):
+    try:
+        tg_send(text)
+    except Exception as e:
+        print(f"TG error{' ' + label if label else ''}: {e}")
+
+
 # ── Хранилище ────────────────────────────────────────────────────────────────
 
 def load_active():
@@ -468,10 +477,7 @@ def run():
     is_init = not active
     current = {}  # url -> site
 
-    try:
-        tg_send(f"⏳ <b>Акции</b>: запуск…")
-    except Exception as e:
-        print(f"TG start error: {e}")
+    tg_safe("⏳ <b>Акции</b>: запуск…", "start")
 
     # 1. Собираем текущие акции со всех листингов
     site_counts = []
@@ -488,19 +494,20 @@ def run():
 
     if vpn_sites:
         vpn_started = _vpn_start()
-        for site in vpn_sites:
-            links = get_listing_links(site)
-            count = len(links)
-            print(f"  {site['name']}: {count} акций (VPN)")
-            site_counts.append(f"{site['name']}: {count}")
-            for url in links:
-                current[url] = site
+        if vpn_started:
+            for site in vpn_sites:
+                links = get_listing_links(site)
+                count = len(links)
+                print(f"  {site['name']}: {count} акций (VPN)")
+                site_counts.append(f"{site['name']}: {count}")
+                for url in links:
+                    current[url] = site
+        else:
+            for site in vpn_sites:
+                site_counts.append(f"{site['name']}: VPN не запущен")
         _vpn_stop()
 
-    try:
-        tg_send("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts))
-    except Exception:
-        pass
+    tg_safe("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts), "listing")
 
     new_urls = [u for u in current if u not in active]
     gone_urls = [u for u in active if u not in current]
@@ -510,34 +517,29 @@ def run():
     if len(current) < 10 and len(gone_urls) > 5:
         msg = f"⚠️ <b>Акции</b>: нашли только {len(current)} акций (обычно 100+). Возможен сбой VPN. Пропускаем обработку исчезнувших."
         print(msg)
-        try:
-            tg_send(msg)
-        except Exception:
-            pass
+        tg_safe(msg, "safety")
         save_active(active)
         return
 
     # 2. Для новых акций загружаем страницы
     promos_to_analyze = []
     if new_urls:
-        try:
-            tg_send(f"🔍 Загружаем страницы {len(new_urls)} новых акций…")
-        except Exception:
-            pass
-    for url in new_urls:
-        site = current[url]
-        print(f"  загружаем {url}")
-        page_text = fetch_promo_page(url, site)
-        promos_to_analyze.append({"lab": site["name"], "url": url, "page_text": page_text})
-        time.sleep(0.5)
+        tg_safe(f"🔍 Загружаем страницы {len(new_urls)} новых акций…", "fetch")
+
+        def _fetch_one(url):
+            site = current[url]
+            print(f"  загружаем {url}")
+            return url, fetch_promo_page(url, site)
+
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            for url, page_text in ex.map(_fetch_one, new_urls):
+                site = current[url]
+                promos_to_analyze.append({"lab": site["name"], "url": url, "page_text": page_text})
 
     # 3. GPT-анализ всех новых акций одним запросом
     ai = {}
     if promos_to_analyze:
-        try:
-            tg_send(f"🤖 Отдаём {len(promos_to_analyze)} акций в GPT…")
-        except Exception:
-            pass
+        tg_safe(f"🤖 Отдаём {len(promos_to_analyze)} акций в GPT…", "gpt")
         try:
             ai = ai_analyze(promos_to_analyze)
             print(f"AI: {len(ai)} проанализировано")
@@ -552,7 +554,6 @@ def run():
         summary = info.get("summary", "")
         dates = info.get("dates", "") or "Бессрочно"
         price = info.get("price", "")
-        composition = info.get("composition", "")
         is_local = info.get("is_local", False)
 
         kind = info.get("kind", "offer")
@@ -586,11 +587,10 @@ def run():
                 text += f"💰 {price}\n"
         text += f"📅 {dates}\n"
         text += f'<a href="{url}">{url}</a>'
-        try:
-            tg_send(text)
-            time.sleep(0.3)
-        except Exception as e:
-            print(f"TG error: {e}")
+        if len(text) > 4090:
+            text = text[:4090] + "…"
+        tg_safe(text)
+        time.sleep(0.3)
 
     # 5. Уведомления об исчезнувших акциях
     for url in gone_urls:
@@ -600,11 +600,8 @@ def run():
             f"{info.get('title') or url}\n"
             f'<a href="{url}">{url}</a>'
         )
-        try:
-            tg_send(text)
-            time.sleep(0.3)
-        except Exception as e:
-            print(f"TG error: {e}")
+        tg_safe(text)
+        time.sleep(0.3)
 
     if is_init:
         msg = f"✅ <b>Акции</b>: первый запуск, запомнили {len(active)} акций"
@@ -612,10 +609,7 @@ def run():
     else:
         msg = f"✅ <b>Акции</b>: готово. Новых {len(new_urls)}, исчезло {len(gone_urls)}"
         print(msg)
-    try:
-        tg_send(msg)
-    except Exception as e:
-        print(f"TG finish error: {e}")
+    tg_safe(msg, "finish")
     save_active(active)
     print("Готово")
 
