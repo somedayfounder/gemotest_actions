@@ -69,15 +69,24 @@ jobs:
 
           sudo tail -5 /tmp/vpn.log || true
 
-          for HOST in api.telegram.org api.openai.com; do
+          # Bypass VPN для Telegram, OpenAI и GitHub (Actions runner связь)
+          for HOST in api.telegram.org api.openai.com github.com api.github.com \
+                      pipelines.actions.githubusercontent.com vstoken.actions.githubusercontent.com \
+                      results-receiver.actions.githubusercontent.com; do
             for IP in $(dig +short $HOST | grep -E '^[0-9]+'); do
               sudo ip route add $IP/32 via $ORIG_GW dev $ORIG_IF 2>/dev/null \
                 && echo "Bypass VPN: $HOST -> $IP" || true
             done
           done
 
+          # Bypass всех IP-диапазонов GitHub Actions
+          for CIDR in $(curl -s https://api.github.com/meta | python3 -c \
+            "import json,sys; d=json.load(sys.stdin); [print(c) for c in d.get('actions',[])+d.get('hooks',[])]"); do
+            sudo ip route add $CIDR via $ORIG_GW dev $ORIG_IF 2>/dev/null && echo "Bypass CIDR: $CIDR" || true
+          done
+
       - name: Run monitor
-        run: python3 lab_monitor.py
+        run: python3 -u lab_monitor.py
 
       - name: Disconnect VPN
         if: always()
