@@ -87,8 +87,8 @@ SITES = [
         "pattern": r'href="(/akcii/[a-zA-Z0-9_\-]+)"',
         "skip": ["/akcii"],
         "js": True,
-        "js_wait_ms": 15000,
-        "intercept_key": "akcii",
+        "js_wait_ms": 20000,
+        "intercept_url": "7medica.ru/graphql",
     },
     {
         "name": "Инвитро",
@@ -114,12 +114,12 @@ def fetch_html(url, encoding="utf-8", timeout=20):
     return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
 
 
-def fetch_js(url, wait_ms=5000, intercept_key=None):
-    """intercept_key: если задан, перехватываем JSON-ответы содержащие этот ключ
-    и возвращаем первый совпавший как строку вместо HTML."""
-    import json as _json
+def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
+    """intercept_key: перехватываем JSON содержащий ключ (возвращаем вместо HTML).
+    intercept_url: перехватываем JSON с этим URL (для отладки логируем, не заменяем HTML)."""
     from playwright.sync_api import sync_playwright
     captured = []
+    intercepted_debug = []
 
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
@@ -133,13 +133,14 @@ def fetch_js(url, wait_ms=5000, intercept_key=None):
 
         def on_response(response):
             ct = response.headers.get("content-type", "")
+            rurl = response.url
             if "json" in ct and response.status == 200:
                 try:
                     body = response.text()
                     if intercept_key and intercept_key in body:
                         captured.append(body)
-                    rurl = response.url
-                    # log all JSON API calls (not just known patterns) for debugging
+                    if intercept_url and intercept_url in rurl:
+                        intercepted_debug.append(body[:2000])
                     if "yandex" not in rurl and "google" not in rurl and "mc." not in rurl:
                         api_calls.append(rurl)
                 except Exception:
@@ -154,6 +155,8 @@ def fetch_js(url, wait_ms=5000, intercept_key=None):
 
         if api_calls:
             print(f"    API calls: {api_calls[:10]}")
+        for d in intercepted_debug[:2]:
+            print(f"    intercept_url body: {d[:500]}")
 
         if captured:
             html = "\n".join(captured)
@@ -226,7 +229,8 @@ def get_listing_links(site):
     try:
         if site.get("js"):
             html = fetch_js(site["url"], wait_ms=site.get("js_wait_ms", 5000),
-                            intercept_key=site.get("intercept_key"))
+                            intercept_key=site.get("intercept_key"),
+                            intercept_url=site.get("intercept_url"))
         else:
             html = fetch_html(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
