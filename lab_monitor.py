@@ -151,6 +151,11 @@ def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
             page.goto(url, wait_until="load", timeout=60000)
         except Exception:
             pass
+        # прокручиваем страницу чтобы активировать lazy-loading
+        try:
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+        except Exception:
+            pass
         page.wait_for_timeout(wait_ms)
 
         if api_calls:
@@ -267,6 +272,16 @@ def get_listing_links(site):
             key = pat_prefix.group(1)
             key_hrefs = re.findall(rf'href="(/{key}[^"{{}}]{{0,100}})"', html)[:15]
             print(f"    [{site['name']}] {key}* hrefs: {key_hrefs}")
+            # ищем ссылки через data-href, to=, \"url\":
+            alt = re.findall(rf'(?:data-href|\"to\"|\"url\"|\"href\"|\'to\')[\s:=]+[\"\'](/{key}[^\"\']{{0,100}})', html)[:10]
+            if alt:
+                print(f"    [{site['name']}] {key}* alt-links: {alt}")
+            # ищем embedded JSON в script тегах
+            scripts = re.findall(r'<script[^>]*>(.*?)</script>', html, re.DOTALL)
+            for sc in scripts:
+                if key in sc and len(sc) > 100:
+                    print(f"    [{site['name']}] script with {key}: {sc[:300]}")
+                    break
         print(f"    [{site['name']}] html_len: {len(html)}, tail[-200]: {html[-200:]}")
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
