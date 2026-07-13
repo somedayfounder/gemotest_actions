@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get install -y openvpn dnsutils curl
+        run: sudo apt-get install -y openvpn curl
 
       - name: Download VPN configs
         run: |
@@ -37,70 +37,8 @@ jobs:
               print("No VPN configs found")
           PYEOF
 
-      - name: Connect VPN + bypass Telegram/OpenAI
-        run: |
-          ORIG_GW=$(ip route | grep '^default' | awk '{print $3}' | head -1)
-          ORIG_IF=$(ip route | grep '^default' | awk '{print $5}' | head -1)
-          echo "Original GW: $ORIG_GW via $ORIG_IF"
-          echo "IP before VPN: $(curl -s --max-time 5 https://api.ipify.org || echo unknown)"
-
-          # ── Bypass маршруты ПЕРЕД VPN (пока DNS ещё оригинальный) ──
-          # Известные CIDR Telegram
-          for CIDR in 149.154.160.0/20 91.108.4.0/22 91.108.8.0/22 91.108.56.0/22 95.161.64.0/20; do
-            sudo ip route add $CIDR via $ORIG_GW dev $ORIG_IF 2>/dev/null && echo "Bypass Telegram CIDR: $CIDR" || true
-          done
-
-          # Хосты — резолвим сейчас, пока DNS не через VPN
-          for HOST in api.telegram.org api.openai.com github.com api.github.com \
-                      pipelines.actions.githubusercontent.com vstoken.actions.githubusercontent.com \
-                      results-receiver.actions.githubusercontent.com; do
-            for IP in $(dig +short $HOST | grep -E '^[0-9]+'); do
-              sudo ip route add $IP/32 via $ORIG_GW dev $ORIG_IF 2>/dev/null \
-                && echo "Bypass: $HOST -> $IP" || true
-            done
-          done
-
-          # GitHub Actions IP-диапазоны
-          for CIDR in $(curl -s --max-time 10 https://api.github.com/meta | python3 -c \
-            "import json,sys; d=json.load(sys.stdin); [print(c) for c in d.get('actions',[])+d.get('hooks',[])]" 2>/dev/null || echo ""); do
-            [ -z "$CIDR" ] && continue
-            sudo ip route add $CIDR via $ORIG_GW dev $ORIG_IF 2>/dev/null && echo "Bypass GitHub CIDR: $CIDR" || true
-          done
-
-          # ── Теперь подключаем VPN ──
-          VPN_OK=false
-          for cfg in vpn0.ovpn vpn1.ovpn vpn2.ovpn vpn3.ovpn vpn4.ovpn; do
-            [ -f "$cfg" ] || continue
-            echo "Trying $cfg..."
-            sudo openvpn --config "$cfg" --daemon --log /tmp/vpn.log
-            sleep 15
-            VPN_IP=$(curl -s --max-time 10 https://api.ipify.org || echo unknown)
-            GEO=$(curl -s --max-time 5 "https://ipinfo.io/$VPN_IP/country" || echo unknown)
-            echo "  IP: $VPN_IP  Country: $GEO"
-            if [ "$GEO" = "RU" ]; then
-              echo "VPN OK: $cfg -> $VPN_IP (RU)"
-              VPN_OK=true
-              break
-            else
-              echo "  Not RU, killing and trying next..."
-              sudo pkill openvpn || true
-              sleep 3
-            fi
-          done
-
-          if [ "$VPN_OK" = "false" ]; then
-            echo "WARNING: all VPN profiles failed, running without VPN"
-          fi
-
-          sudo tail -5 /tmp/vpn.log || true
-          echo "Telegram reachable: $(curl -s --max-time 5 https://api.telegram.org || echo FAIL)"
-
       - name: Run monitor
         run: python3 -u lab_monitor.py
-
-      - name: Disconnect VPN
-        if: always()
-        run: sudo pkill openvpn || true
 
       - name: Save seen promos
         run: |

@@ -8,7 +8,7 @@
 5. Шлём уведомления
 """
 
-import json, os, re, time
+import json, os, re, subprocess, time
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urljoin, urlencode
@@ -86,6 +86,7 @@ SITES = [
         "base": "https://kdl.ru",
         "pattern": r'href="(/?akcii/[a-zA-Z0-9_\-]+)"',
         "skip": ["/akcii", "akcii"],
+        "needs_vpn": True,
     },
     {
         "name": "Инвитро",
@@ -379,6 +380,39 @@ def ai_analyze(promos):
     return result
 
 
+# ── VPN ──────────────────────────────────────────────────────────────────────
+
+def _vpn_start():
+    """Пробует vpn0..vpn4.ovpn, возвращает True если получили RU IP."""
+    for i in range(5):
+        cfg = Path(f"vpn{i}.ovpn")
+        if not cfg.exists():
+            continue
+        print(f"  VPN: пробуем vpn{i}.ovpn…")
+        subprocess.run(["sudo", "openvpn", "--config", str(cfg), "--daemon",
+                        "--log", "/tmp/vpn.log"], check=False)
+        time.sleep(15)
+        try:
+            ip = urlopen(Request("https://api.ipify.org"), timeout=10).read().decode().strip()
+            geo = urlopen(Request(f"https://ipinfo.io/{ip}/country"), timeout=5).read().decode().strip()
+            print(f"  VPN IP: {ip} ({geo})")
+            if geo == "RU":
+                print("  VPN OK — RU")
+                return True
+        except Exception as e:
+            print(f"  VPN IP check error: {e}")
+        subprocess.run(["sudo", "pkill", "openvpn"], check=False)
+        time.sleep(3)
+    print("  VPN: не удалось получить RU IP, работаем без VPN")
+    return False
+
+
+def _vpn_stop():
+    subprocess.run(["sudo", "pkill", "openvpn"], check=False)
+    time.sleep(2)
+    print("  VPN отключён")
+
+
 # ── Telegram ─────────────────────────────────────────────────────────────────
 
 def tg_send(text):
@@ -418,13 +452,27 @@ def run():
 
     # 1. Собираем текущие акции со всех листингов
     site_counts = []
-    for site in SITES:
+    vpn_sites = [s for s in SITES if s.get("needs_vpn")]
+    normal_sites = [s for s in SITES if not s.get("needs_vpn")]
+
+    for site in normal_sites:
         links = get_listing_links(site)
         count = len(links)
         print(f"  {site['name']}: {count} акций")
         site_counts.append(f"{site['name']}: {count}")
         for url in links:
             current[url] = site
+
+    if vpn_sites:
+        vpn_started = _vpn_start()
+        for site in vpn_sites:
+            links = get_listing_links(site)
+            count = len(links)
+            print(f"  {site['name']}: {count} акций (VPN)")
+            site_counts.append(f"{site['name']}: {count}")
+            for url in links:
+                current[url] = site
+        _vpn_stop()
 
     try:
         tg_send("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts))
