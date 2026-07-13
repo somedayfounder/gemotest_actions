@@ -60,14 +60,14 @@ SITES = [
     },
     {
         "name": "ДНКом",
-        "url": "https://dnkom.ru/actions/",
+        "url": "https://dnkom.ru/moscow/actions/",
         "base": "https://dnkom.ru",
         "pattern": r'href="(/actions/[a-z0-9_\-]+/)"',
         "skip": ["/actions/"],
     },
     {
         "name": "LabQuest",
-        "url": "https://www.labquest.ru/aktsii/",
+        "url": "https://www.labquest.ru/moscow/aktsii/",
         "base": "https://www.labquest.ru",
         "pattern": r'href="(/aktsii/[a-z0-9\-]+/)"',
         # обрезать страницу до раздела "Завершившиеся акции"
