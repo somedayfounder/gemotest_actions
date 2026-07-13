@@ -261,11 +261,13 @@ def get_listing_links(site):
         print(f"    [{site['name']}] sample hrefs: {sample}")
         title = re.search(r'<title[^>]*>(.*?)</title>', html, re.I)
         print(f"    [{site['name']}] title: {title.group(1)[:100] if title else 'no title'}")
-        # Ищем вхождения "akcii" в HTML
-        akcii_idx = [i for i in range(len(html)) if html[i:i+6] == "akcii"][:5]
-        for idx in akcii_idx:
-            print(f"    [{site['name']}] akcii@{idx}: {html[max(0,idx-30):idx+80]}")
-        print(f"    [{site['name']}] html_len: {len(html)}, tail[-500]: {html[-500:]}")
+        # Ищем все ссылки начинающиеся с основного ключевого слова паттерна
+        pat_prefix = re.search(r'\(/([a-zA-Z]+)', site["pattern"])
+        if pat_prefix:
+            key = pat_prefix.group(1)
+            key_hrefs = re.findall(rf'href="(/{key}[^"{{}}]{{0,100}})"', html)[:15]
+            print(f"    [{site['name']}] {key}* hrefs: {key_hrefs}")
+        print(f"    [{site['name']}] html_len: {len(html)}, tail[-200]: {html[-200:]}")
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
     for path in raw:
