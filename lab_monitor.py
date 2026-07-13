@@ -13,6 +13,8 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urljoin, urlencode
 
+_api_cache = {}  # url -> prefetched text from listing API
+
 DATA_DIR = Path(__file__).parent
 SEEN_FILE = DATA_DIR / "seen_promos.json"
 
@@ -92,11 +94,8 @@ SITES = [
         "name": "Инвитро",
         "url": "https://www.invitro.ru/moscow/ak/",
         "base": "https://www.invitro.ru",
+        "api_fetch": "invitro",
         "pattern": r'href="(/moscow/ak/[a-z0-9\-]+/)"',
-        "skip": ["/moscow/ak/"],
-        "js": True,
-        "js_wait_ms": 15000,
-        "intercept_key": "/moscow/ak/",
     },
     {
         "name": "Ситилаб",
@@ -139,10 +138,9 @@ def fetch_js(url, wait_ms=5000, intercept_key=None):
                     body = response.text()
                     if intercept_key and intercept_key in body:
                         captured.append(body)
-                    elif not intercept_key:
-                        pass
                     rurl = response.url
-                    if any(x in rurl for x in ["/api/", "/promo", "/akcii", "/ak/", "action"]):
+                    # log all JSON API calls (not just known patterns) for debugging
+                    if "yandex" not in rurl and "google" not in rurl and "mc." not in rurl:
                         api_calls.append(rurl)
                 except Exception:
                     pass
@@ -155,7 +153,7 @@ def fetch_js(url, wait_ms=5000, intercept_key=None):
         page.wait_for_timeout(wait_ms)
 
         if api_calls:
-            print(f"    API calls: {api_calls[:5]}")
+            print(f"    API calls: {api_calls[:10]}")
 
         if captured:
             html = "\n".join(captured)
@@ -187,7 +185,44 @@ def strip_html(html):
 
 # ── Список акций со страницы листинга ────────────────────────────────────────
 
+def get_invitro_links():
+    """Получаем акции Инвитро напрямую из CMS API."""
+    api_url = (
+        "https://www.invitro.ru/golk/cms/cms-proxy/promotions/filtered"
+        "?targetPage=promotions&cityId=f1c3c4f0-3426-4cda-8449-e5d326e02f97&depth=3"
+    )
+    headers = {**HEADERS, "Referer": "https://www.invitro.ru/moscow/ak/"}
+    raw = urlopen(Request(api_url, headers=headers), timeout=20).read()
+    docs = json.loads(raw)["docs"]
+    links = []
+    for doc in docs:
+        url = None
+        for block in (doc.get("page") or []):
+            if block.get("blockType") == "newPageLink":
+                slug = (block.get("newPage") or {}).get("slug", "")
+                if slug:
+                    url = f"https://www.invitro.ru/moscow/ak/{slug}/"
+            elif block.get("blockType") == "oldPageLink":
+                old = block.get("oldPageUrl", "")
+                if old:
+                    url = old if old.startswith("http") else f"https://www.invitro.ru{old}"
+        if not url:
+            continue
+        title = doc.get("title", "")
+        desc = doc.get("description", "")
+        _api_cache[url] = f"Инвитро | {title}\n{desc}"
+        links.append(url)
+    return links
+
+
 def get_listing_links(site):
+    if site.get("api_fetch") == "invitro":
+        try:
+            return get_invitro_links()
+        except Exception as e:
+            print(f"  {site['name']}: ошибка API — {e}")
+            return []
+
     try:
         if site.get("js"):
             html = fetch_js(site["url"], wait_ms=site.get("js_wait_ms", 5000),
@@ -243,6 +278,8 @@ def get_listing_links(site):
 # ── Полная страница акции ─────────────────────────────────────────────────────
 
 def fetch_promo_page(url, site):
+    if url in _api_cache:
+        return _api_cache[url]
     try:
         if site.get("js"):
             html = fetch_js(url, wait_ms=site.get("js_wait_ms", 5000),
