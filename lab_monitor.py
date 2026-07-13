@@ -182,10 +182,12 @@ def get_listing_links(site):
     if raw and isinstance(raw[0], tuple):
         raw = [next(g for g in groups if g) for groups in raw]
     if not raw:
-        # отладка: показываем первые href на странице
+        # отладка: показываем первые href и кусок HTML
         sample = re.findall(r'href="(/[^"]{5,60})"', html)[:8]
-        if sample:
-            print(f"    [{site['name']}] sample hrefs: {sample}")
+        print(f"    [{site['name']}] sample hrefs: {sample}")
+        title = re.search(r'<title[^>]*>(.*?)</title>', html, re.I)
+        print(f"    [{site['name']}] title: {title.group(1)[:100] if title else 'no title'}")
+        print(f"    [{site['name']}] html[2000:3500]: {html[2000:3500]}")
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
     for path in raw:
