@@ -84,11 +84,8 @@ SITES = [
         "name": "КДЛ",
         "url": "https://kdl.ru/akcii",
         "base": "https://kdl.ru",
-        "pattern": r'href="(/akcii/[a-zA-Z0-9_\-]+)"',
-        "skip": ["/akcii"],
-        "js": True,
-        "js_wait_ms": 20000,
-        "intercept_url": "7medica.ru",
+        "pattern": r'href="(/?akcii/[a-zA-Z0-9_\-]+)"',
+        "skip": ["/akcii", "akcii"],
     },
     {
         "name": "Инвитро",
