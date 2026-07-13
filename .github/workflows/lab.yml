@@ -2,7 +2,8 @@ name: Lab Monitor Daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 7 * * *'
+    - cron: '0 3 * * *'
+    - cron: '0 14 * * *'
 permissions:
   contents: write
 jobs:
