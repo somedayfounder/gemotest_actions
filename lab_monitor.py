@@ -85,6 +85,7 @@ SITES = [
         "pattern": r'href="(/akcii/[a-zA-Z0-9_\-]+)"',
         "skip": ["/akcii"],
         "js": True,
+        "wait_selector": "a[href*='/akcii/']",
     },
     {
         "name": "Инвитро",
@@ -93,6 +94,7 @@ SITES = [
         "pattern": r'href="(/moscow/ak/[a-z0-9\-]+/)"',
         "skip": ["/moscow/ak/"],
         "js": True,
+        "wait_selector": "a[href*='/moscow/ak/']",
     },
     {
         "name": "Ситилаб",
@@ -111,13 +113,19 @@ def fetch_html(url, encoding="utf-8", timeout=20):
     return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
 
 
-def fetch_js(url):
+def fetch_js(url, wait_selector=None):
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
         page.goto(url, wait_until="load", timeout=60000)
-        page.wait_for_timeout(5000)
+        if wait_selector:
+            try:
+                page.wait_for_selector(wait_selector, timeout=30000)
+            except Exception:
+                pass
+        else:
+            page.wait_for_timeout(5000)
         html = page.content()
         browser.close()
     return html
@@ -148,7 +156,7 @@ def strip_html(html):
 def get_listing_links(site):
     try:
         if site.get("js"):
-            html = fetch_js(site["url"])
+            html = fetch_js(site["url"], wait_selector=site.get("wait_selector"))
         else:
             html = fetch_html(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
@@ -196,7 +204,7 @@ def get_listing_links(site):
 def fetch_promo_page(url, site):
     try:
         if site.get("js"):
-            html = fetch_js(url)
+            html = fetch_js(url, wait_selector=site.get("wait_selector"))
         else:
             html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=15)
         return strip_html(html)
