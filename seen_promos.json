@@ -1062,5 +1062,77 @@
     "dates": "Бессрочно",
     "price": "",
     "composition": "Вакцинация от желтой лихорадки, Шигеллвак, Вианвак, Альговак, Диагностика малярии"
+  },
+  "https://www.invitro.ru/moscow/ak/3-faktora-zdorovya-06-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Инвитро | Скидка до 45%",
+    "summary": "Проверьте уровень ТТГ, витаминов и минералов.",
+    "dates": "до 6 августа 2026",
+    "price": "",
+    "composition": "ТТГ, витамины, минералы"
+  },
+  "https://www.invitro.ru/city/vnd": {
+    "lab": "Инвитро",
+    "title": "Инвитро | Выезд за 1 рубль",
+    "summary": "При заказе услуг от 2490 рублей.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://www.invitro.ru/moscow/ak/invitro-zabotitsya-o-zdorove-vsekh-07-2026-msk/": {
+    "lab": "Инвитро",
+    "title": "Инвитро | -10% на ветеринарные услуги",
+    "summary": "Скидка 10% на ветеринарные услуги.",
+    "dates": "до июля 2026",
+    "price": "",
+    "composition": ""
+  },
+  "https://www.invitro.ru/moscow/ak/vitamin-v12-so-skidkoj-15-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Инвитро | Найдите причину усталости со скидкой 15%",
+    "summary": "Скидка 15% на анализ витамина B12.",
+    "dates": "до 7 июня 2026",
+    "price": "",
+    "composition": "анализ витамина B12"
+  },
+  "https://www.invitro.ru/moscow/ak/uznayte-o-sebe-bolshe-07-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Инвитро | Тест в подарок",
+    "summary": "Получите тест в подарок.",
+    "dates": "до 8 июля 2026",
+    "price": "",
+    "composition": ""
+  },
+  "https://www.invitro.ru/moscow/ak/15-na-zakaz-v-gorzdrav-07-08-2026-msk-spb/": {
+    "lab": "Инвитро",
+    "title": "-15% НА ЗАКАЗ В ГОРЗДРАВ",
+    "summary": "Скидка 15% на заказы в Горздрав.",
+    "dates": "до 7 августа",
+    "price": "",
+    "composition": ""
+  },
+  "https://www.invitro.ru/moscow/ak/uznajte-prichinu-sezonnoj-allergii-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Узнайте причину сезонной аллергии",
+    "summary": "Повышенный кешбэк 15% на анализы для выявления причин аллергии.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://www.invitro.ru/moscow/ak/nipt-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Неинвазивный пренатальный тест",
+    "summary": "Кешбэк 15% на оценку генетических рисков при беременности.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
+  },
+  "https://www.invitro.ru/loyalty/": {
+    "lab": "Инвитро",
+    "title": "Следите за здоровьем",
+    "summary": "Получайте кешбэк за анализы и услуги в ИНВИТРО.",
+    "dates": "Бессрочно",
+    "price": "",
+    "composition": ""
   }
 }
