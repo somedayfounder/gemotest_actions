@@ -20,7 +20,7 @@ jobs:
         run: |
           pip install playwright
           playwright install chromium --with-deps
-          sudo apt-get install -y openvpn
+          sudo apt-get install -y openvpn dnsutils
 
       - name: Download VPN config
         run: |
@@ -34,17 +34,28 @@ jobs:
               urllib.request.urlretrieve(links[0], "vpn.ovpn")
               print("Downloaded:", links[0])
           else:
-              print("No VPN config found, continuing without VPN")
+              print("No VPN config found")
           PYEOF
 
-      - name: Connect VPN
+      - name: Connect VPN (route only RU labs)
         run: |
-          if [ -f vpn.ovpn ]; then
-            sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
-            sleep 8
-            echo "VPN started"
-          else
-            echo "No VPN config, skipping"
+          if [ ! -f vpn.ovpn ]; then echo "No VPN config, skipping"; exit 0; fi
+          # Добавляем route-nopull чтобы VPN не захватывал весь трафик
+          echo "route-nopull" >> vpn.ovpn
+          sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
+          sleep 10
+          # Получаем gateway и интерфейс VPN
+          VPN_GW=$(ip route | grep tun | awk '{print $3}' | head -1)
+          VPN_IF=$(ip route | grep tun | awk '{print $5}' | head -1)
+          echo "VPN_GW=$VPN_GW VPN_IF=$VPN_IF"
+          if [ -n "$VPN_GW" ] && [ -n "$VPN_IF" ]; then
+            # Маршруты только для KDL и Invitro
+            for HOST in kdl.ru www.invitro.ru; do
+              IP=$(dig +short $HOST | grep -E "^[0-9]+" | head -1)
+              if [ -n "$IP" ]; then
+                sudo ip route add $IP/32 via $VPN_GW dev $VPN_IF 2>/dev/null && echo "Route: $HOST -> $IP" || true
+              fi
+            done
           fi
 
       - name: Run monitor
