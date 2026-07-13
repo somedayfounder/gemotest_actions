@@ -181,7 +181,11 @@ def get_listing_links(site):
         print(f"    [{site['name']}] sample hrefs: {sample}")
         title = re.search(r'<title[^>]*>(.*?)</title>', html, re.I)
         print(f"    [{site['name']}] title: {title.group(1)[:100] if title else 'no title'}")
-        print(f"    [{site['name']}] html[2000:3500]: {html[2000:3500]}")
+        # Ищем вхождения "akcii" в HTML
+        akcii_idx = [i for i in range(len(html)) if html[i:i+6] == "akcii"][:5]
+        for idx in akcii_idx:
+            print(f"    [{site['name']}] akcii@{idx}: {html[max(0,idx-30):idx+80]}")
+        print(f"    [{site['name']}] html_len: {len(html)}, tail[-500]: {html[-500:]}")
     skip = set(site.get("skip", []))
     links, seen_slugs = [], set()
     for path in raw:
