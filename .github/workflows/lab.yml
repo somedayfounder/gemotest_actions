@@ -50,8 +50,11 @@ jobs:
           sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
           sleep 15
 
-          echo "IP after VPN: $(curl -s --max-time 10 https://api.ipify.org || echo unknown)"
-          echo "VPN log tail:"; tail -5 /tmp/vpn.log
+          VPN_IP=$(curl -s --max-time 10 https://api.ipify.org || echo unknown)
+          echo "IP after VPN: $VPN_IP"
+          GEO=$(curl -s --max-time 5 "https://ipinfo.io/$VPN_IP/country" || echo unknown)
+          echo "Country: $GEO"
+          sudo tail -5 /tmp/vpn.log || true
 
           # Bypass Telegram и OpenAI через оригинальный шлюз
           for HOST in api.telegram.org api.openai.com; do
