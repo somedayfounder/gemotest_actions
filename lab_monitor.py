@@ -84,6 +84,7 @@ SITES = [
         "name": "КДЛ",
         "url": "https://kdl.ru/akcii",
         "base": "https://kdl.ru",
+        "pre_urls": ["https://kdl.ru/analizy-i-tseny/msk"],  # устанавливает cookie города Москва
         "pattern": r'href="(/?akcii/[a-zA-Z0-9_\-]+)"',
         "skip": ["/akcii", "akcii"],
         "needs_vpn": True,
@@ -107,9 +108,24 @@ SITES = [
 
 # ── Загрузка ─────────────────────────────────────────────────────────────────
 
-def fetch_html(url, encoding="utf-8", timeout=20):
-    req = Request(url, headers=HEADERS)
+def fetch_html(url, encoding="utf-8", timeout=20, cookie=None):
+    headers = dict(HEADERS)
+    if cookie:
+        headers["Cookie"] = cookie
+    req = Request(url, headers=headers)
     return urlopen(req, timeout=timeout).read().decode(encoding, "replace")
+
+
+def fetch_html_with_session(urls, encoding="utf-8", timeout=20):
+    """Открывает URL по очереди с сохранением Set-Cookie между запросами."""
+    from http.cookiejar import CookieJar
+    from urllib.request import build_opener, HTTPCookieProcessor
+    opener = build_opener(HTTPCookieProcessor(CookieJar()))
+    html = ""
+    for url in urls:
+        req = Request(url, headers=HEADERS)
+        html = opener.open(req, timeout=timeout).read().decode(encoding, "replace")
+    return html
 
 
 def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
@@ -234,6 +250,10 @@ def get_listing_links(site):
             html = fetch_js(site["url"], wait_ms=site.get("js_wait_ms", 5000),
                             intercept_key=site.get("intercept_key"),
                             intercept_url=site.get("intercept_url"))
+        elif site.get("pre_urls"):
+            # Сначала открываем pre_urls чтобы установить cookie (напр. выбор города)
+            html = fetch_html_with_session(site["pre_urls"] + [site["url"]],
+                                           encoding=site.get("encoding", "utf-8"))
         else:
             html = fetch_html(site["url"], encoding=site.get("encoding", "utf-8"))
     except Exception as e:
