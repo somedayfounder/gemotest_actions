@@ -22,7 +22,7 @@ jobs:
           playwright install chromium --with-deps
           sudo apt-get install -y openvpn dnsutils curl
 
-      - name: Download VPN config
+      - name: Download VPN configs
         run: |
           python3 - <<'PYEOF'
           import urllib.request, re
@@ -30,30 +30,44 @@ jobs:
           links = re.findall(r'href="(https://vpnobratno\.info/servers/[^"]+_ip_udp\.ovpn)"', html)
           if not links:
               links = re.findall(r'href="(https://vpnobratno\.info/servers/[^"]+\.ovpn)"', html)
-          if links:
-              urllib.request.urlretrieve(links[0], "vpn.ovpn")
-              print("Downloaded:", links[0])
-          else:
-              print("No VPN config found")
+          for i, link in enumerate(links[:5]):
+              urllib.request.urlretrieve(link, f"vpn{i}.ovpn")
+              print(f"Downloaded vpn{i}.ovpn: {link}")
+          if not links:
+              print("No VPN configs found")
           PYEOF
 
       - name: Connect VPN + bypass Telegram/OpenAI
         run: |
-          if [ ! -f vpn.ovpn ]; then echo "No VPN config, skipping"; exit 0; fi
-
-          echo "IP before VPN: $(curl -s --max-time 5 https://api.ipify.org || echo unknown)"
-
           ORIG_GW=$(ip route | grep '^default' | awk '{print $3}' | head -1)
           ORIG_IF=$(ip route | grep '^default' | awk '{print $5}' | head -1)
           echo "Original GW: $ORIG_GW via $ORIG_IF"
+          echo "IP before VPN: $(curl -s --max-time 5 https://api.ipify.org || echo unknown)"
 
-          sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
-          sleep 15
+          VPN_OK=false
+          for cfg in vpn0.ovpn vpn1.ovpn vpn2.ovpn vpn3.ovpn vpn4.ovpn; do
+            [ -f "$cfg" ] || continue
+            echo "Trying $cfg..."
+            sudo openvpn --config "$cfg" --daemon --log /tmp/vpn.log
+            sleep 15
+            VPN_IP=$(curl -s --max-time 10 https://api.ipify.org || echo unknown)
+            GEO=$(curl -s --max-time 5 "https://ipinfo.io/$VPN_IP/country" || echo unknown)
+            echo "  IP: $VPN_IP  Country: $GEO"
+            if [ "$GEO" = "RU" ]; then
+              echo "VPN OK: $cfg -> $VPN_IP (RU)"
+              VPN_OK=true
+              break
+            else
+              echo "  Not RU, killing and trying next..."
+              sudo pkill openvpn || true
+              sleep 3
+            fi
+          done
 
-          VPN_IP=$(curl -s --max-time 10 https://api.ipify.org || echo unknown)
-          echo "IP after VPN: $VPN_IP"
-          GEO=$(curl -s --max-time 5 "https://ipinfo.io/$VPN_IP/country" || echo unknown)
-          echo "Country: $GEO"
+          if [ "$VPN_OK" = "false" ]; then
+            echo "WARNING: all VPN profiles failed, running without VPN"
+          fi
+
           sudo tail -5 /tmp/vpn.log || true
 
           # Bypass Telegram и OpenAI через оригинальный шлюз
