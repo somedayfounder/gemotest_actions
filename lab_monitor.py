@@ -94,6 +94,13 @@ SITES = [
         "skip": ["/moscow/ak/"],
         "js": True,
     },
+    {
+        "name": "Ситилаб",
+        "url": "https://citilab.ru/discounts/",
+        "base": "https://citilab.ru",
+        "pattern": r'href="(/discounts/[a-z0-9\-]+/)"',
+        "skip": ["/discounts/"],
+    },
 ]
 
 
