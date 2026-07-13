@@ -82,12 +82,10 @@ SITES = [
     },
     {
         "name": "КДЛ",
-        "url": "https://kdl.ru/akcii",
+        "url": "https://kdl.ru/moscow/akcii",
         "base": "https://kdl.ru",
-        # Матчим как /akcii/slug, так и /city/akcii/slug (когда VPN даёт региональный IP)
-        "pattern": r'href="(/?(?:[a-z][a-z\-]*/)?akcii/[a-zA-Z0-9_\-]+)"',
-        # Пропускаем саму страницу листинга (URL заканчивается на /akcii или akcii)
-        "skip_re": r'^/?(?:[a-z][a-z\-]*/)?akcii/?$',
+        "pattern": r'href="(/?(?:moscow/)?akcii/[a-zA-Z0-9_\-]+)"',
+        "skip": ["/moscow/akcii", "moscow/akcii", "/akcii", "akcii"],
         "needs_vpn": True,
     },
     {
