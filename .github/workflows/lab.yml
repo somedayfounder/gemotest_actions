@@ -14,12 +14,45 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v4
+
       - name: Install dependencies
         run: |
           pip install playwright
           playwright install chromium --with-deps
+          sudo apt-get install -y openvpn
+
+      - name: Download VPN config
+        run: |
+          python3 - <<'PYEOF'
+          import urllib.request, re
+          html = urllib.request.urlopen("https://vpnobratno.info/russia_server_list.html", timeout=15).read().decode("utf-8", "replace")
+          links = re.findall(r'href="(https://vpnobratno\.info/servers/[^"]+_ip_udp\.ovpn)"', html)
+          if not links:
+              links = re.findall(r'href="(https://vpnobratno\.info/servers/[^"]+\.ovpn)"', html)
+          if links:
+              urllib.request.urlretrieve(links[0], "vpn.ovpn")
+              print("Downloaded:", links[0])
+          else:
+              print("No VPN config found, continuing without VPN")
+          PYEOF
+
+      - name: Connect VPN
+        run: |
+          if [ -f vpn.ovpn ]; then
+            sudo openvpn --config vpn.ovpn --daemon --log /tmp/vpn.log
+            sleep 8
+            echo "VPN started"
+          else
+            echo "No VPN config, skipping"
+          fi
+
       - name: Run monitor
         run: python3 lab_monitor.py
+
+      - name: Disconnect VPN
+        if: always()
+        run: sudo pkill openvpn || true
+
       - name: Save seen promos
         run: |
           git config user.name "github-actions"
