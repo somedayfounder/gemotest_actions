@@ -41,8 +41,33 @@ jobs:
         run: |
           ORIG_GW=$(ip route | grep '^default' | awk '{print $3}' | head -1)
           ORIG_IF=$(ip route | grep '^default' | awk '{print $5}' | head -1)
+          echo "Original GW: $ORIG_GW via $ORIG_IF"
           echo "IP before VPN: $(curl -s --max-time 5 https://api.ipify.org || echo unknown)"
 
+          # ── Bypass маршруты ПЕРЕД VPN (пока DNS ещё оригинальный) ──
+          # Известные CIDR Telegram
+          for CIDR in 149.154.160.0/20 91.108.4.0/22 91.108.8.0/22 91.108.56.0/22 95.161.64.0/20; do
+            sudo ip route add $CIDR via $ORIG_GW dev $ORIG_IF 2>/dev/null && echo "Bypass Telegram CIDR: $CIDR" || true
+          done
+
+          # Хосты — резолвим сейчас, пока DNS не через VPN
+          for HOST in api.telegram.org api.openai.com github.com api.github.com \
+                      pipelines.actions.githubusercontent.com vstoken.actions.githubusercontent.com \
+                      results-receiver.actions.githubusercontent.com; do
+            for IP in $(dig +short $HOST | grep -E '^[0-9]+'); do
+              sudo ip route add $IP/32 via $ORIG_GW dev $ORIG_IF 2>/dev/null \
+                && echo "Bypass: $HOST -> $IP" || true
+            done
+          done
+
+          # GitHub Actions IP-диапазоны
+          for CIDR in $(curl -s --max-time 10 https://api.github.com/meta | python3 -c \
+            "import json,sys; d=json.load(sys.stdin); [print(c) for c in d.get('actions',[])+d.get('hooks',[])]" 2>/dev/null || echo ""); do
+            [ -z "$CIDR" ] && continue
+            sudo ip route add $CIDR via $ORIG_GW dev $ORIG_IF 2>/dev/null && echo "Bypass GitHub CIDR: $CIDR" || true
+          done
+
+          # ── Теперь подключаем VPN ──
           VPN_OK=false
           for cfg in vpn0.ovpn vpn1.ovpn vpn2.ovpn vpn3.ovpn vpn4.ovpn; do
             [ -f "$cfg" ] || continue
@@ -68,22 +93,7 @@ jobs:
           fi
 
           sudo tail -5 /tmp/vpn.log || true
-
-          # Bypass VPN для Telegram, OpenAI и GitHub (Actions runner связь)
-          for HOST in api.telegram.org api.openai.com github.com api.github.com \
-                      pipelines.actions.githubusercontent.com vstoken.actions.githubusercontent.com \
-                      results-receiver.actions.githubusercontent.com; do
-            for IP in $(dig +short $HOST | grep -E '^[0-9]+'); do
-              sudo ip route add $IP/32 via $ORIG_GW dev $ORIG_IF 2>/dev/null \
-                && echo "Bypass VPN: $HOST -> $IP" || true
-            done
-          done
-
-          # Bypass всех IP-диапазонов GitHub Actions
-          for CIDR in $(curl -s https://api.github.com/meta | python3 -c \
-            "import json,sys; d=json.load(sys.stdin); [print(c) for c in d.get('actions',[])+d.get('hooks',[])]"); do
-            sudo ip route add $CIDR via $ORIG_GW dev $ORIG_IF 2>/dev/null && echo "Bypass CIDR: $CIDR" || true
-          done
+          echo "Telegram reachable: $(curl -s --max-time 5 https://api.telegram.org || echo FAIL)"
 
       - name: Run monitor
         run: python3 -u lab_monitor.py
