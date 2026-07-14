@@ -537,8 +537,12 @@ def run():
         if not vpn_external:
             _vpn_stop()
 
+    # Сравниваем только по сайтам, которые реально проверялись в этом запуске
+    checked_sites = set(site_urls.keys())
+    active_checked = {u: v for u, v in active.items() if v.get("name") in checked_sites}
+
     new_urls = [u for u in current if u not in active]
-    gone_urls = [u for u in active if u not in current]
+    gone_urls = [u for u in active_checked if u not in current]
     print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
 
     # 2. Сводка по сайтам — разделяем на "есть новые" и "нет новых"
@@ -550,6 +554,8 @@ def run():
     with_new, without_new = [], []
     for site in SITES:
         name = site["name"]
+        if name not in checked_sites:
+            continue
         total = len(site_urls.get(name, []))
         n = new_by_site.get(name, 0)
         if n:
@@ -564,8 +570,8 @@ def run():
         summary_parts.append("Есть новые: " + ", ".join(with_new))
     notify("\n".join(summary_parts), "listing")
 
-    # Защита от сбоя сети/VPN
-    if len(current) < 10 and len(gone_urls) > 5:
+    # Защита от сбоя сети/VPN (только если проверяли все сайты)
+    if not kdl_only and not skip_kdl and len(current) < 10 and len(gone_urls) > 5:
         msg = f"Нашли только {len(current)} акций (обычно 100+). Возможен сбой VPN ⚠️"
         print(msg)
         notify(msg, "safety")
