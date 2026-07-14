@@ -642,11 +642,7 @@ def run():
         notify("\n".join(gone_lines).strip(), "gone")
 
     if is_init:
-        msg = f"Первый запуск, запомнили {len(active)} акций"
-    else:
-        msg = f"Готово. Новых {len(new_urls)}, завершено {len(gone_urls)}"
-    print(msg)
-    notify(msg, "finish")
+        notify(f"Первый запуск, запомнили {len(active)} акций", "finish")
     save_active(active)
     print("Готово")
 
