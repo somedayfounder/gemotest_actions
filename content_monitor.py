@@ -43,8 +43,8 @@ SOURCES = [
 
     ("ДНКом",     "news",    "paged_html",  "https://dnkom.ru/o-kompanii/novosti/",
      (r'href="(/o-kompanii/novosti/[^"?#]{10,})"', 1)),
-    ("ДНКом",     "article", "html_links",  "https://dnkom.ru/o-kompanii/stati/",
-     r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"'),
+    ("ДНКом",     "article", "paged_html",  "https://dnkom.ru/o-kompanii/stati/",
+     (r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"', 1, "PAGEN_2")),
 
     ("LabQuest",  "news",    "sitemap",     "https://www.labquest.ru/sitemap-iblock-12.xml",
      lambda l: "/novosti/" in l),
@@ -77,13 +77,13 @@ def get_html_links(url, pattern, encoding="utf-8"):
     return list(dict.fromkeys(re.findall(pattern, html)))
 
 
-def get_paged_html_links(base_url, pattern, start_page=1):
-    """Итерирует ?PAGEN_1=N пока страницы не повторяются или не пустые."""
+def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1"):
+    """Итерирует ?PAGEN_N=N пока страницы не повторяются, не пустые, или нет кнопки 'ещё'."""
     all_links = []
     seen_on_pages = set()
     page = start_page
     while True:
-        url = f"{base_url}?PAGEN_1={page}"
+        url = base_url if page == start_page else f"{base_url}?{pagen_param}={page}"
         try:
             html = fetch(url)
         except Exception as e:
@@ -195,8 +195,8 @@ def run():
                 links = get_html_links(url, extra, enc)
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "paged_html":
-                pattern, start = extra
-                links = get_paged_html_links(url, pattern, start)
+                pagen = extra[2] if len(extra) > 2 else "PAGEN_1"
+                links = get_paged_html_links(url, extra[0], extra[1], pagen)
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "sitemap":
                 links = get_sitemap_links(url, filter_fn=extra if callable(extra) else None)
