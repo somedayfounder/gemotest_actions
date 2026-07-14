@@ -58,11 +58,11 @@ SOURCES = [
     ("Инвитро",   "article", "sitemap",     "https://www.invitro.ru/sitemap/library.xml",
      lambda l: "/library/" in l and l.count("/") > 4),
 
-    # КДЛ — только с VPN
-    ("КДЛ",       "news",    "sitemap",     "https://kdl.ru/sitemap.xml",
-     lambda l: any(x in l for x in ["/news/", "/novosti/", "/press/", "/blog/"])),
-    ("КДЛ",       "article", "sitemap",     "https://kdl.ru/sitemap.xml",
-     lambda l: any(x in l for x in ["/articles/", "/stati/", "/enciklopediya/", "/poleznoe/"])),
+    # КДЛ — только с VPN; новости и статьи через HTML (sitemap содержит только анализы)
+    ("КДЛ",       "news",    "paged_html",  "https://kdl.ru/press-center/",
+     (r'href="(/press-center/[^"?#]{5,})"', 1)),
+    ("КДЛ",       "article", "paged_html",  "https://kdl.ru/blog/",
+     (r'href="(/blog/[^"?#]{5,})"', 1)),
 ]
 
 # Источники только под VPN
