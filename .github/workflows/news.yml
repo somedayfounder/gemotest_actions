@@ -1,0 +1,35 @@
+name: News Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+concurrency:
+  group: news-monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    env:
+      TG_TOKEN: ${{ secrets.TG_TOKEN }}
+      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run news monitor
+        run: python3 -u news_monitor.py
+
+      - name: Save seen news
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add seen_news.json || true
+          git diff --staged --quiet && echo "nothing to commit" && exit 0
+          git commit -m "update seen_news"
+          git pull --rebase origin main
+          git push
