@@ -1,19 +1,19 @@
-name: News Monitor
+name: Content Monitor
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 6 * * *'
 
 concurrency:
-  group: news-monitor
+  group: content-monitor
   cancel-in-progress: false
 
 permissions:
   contents: write
 
 jobs:
-  news:
+  content:
     runs-on: ubuntu-latest
     env:
       TG_TOKEN: ${{ secrets.TG_TOKEN }}
@@ -21,18 +21,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run news monitor
-        run: python3 -u news_monitor.py
+      - name: Run content monitor
+        run: python3 -u content_monitor.py
 
       - name: Build stats page
         run: python3 -u build_stats_html.py
 
-      - name: Save files
+      - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add seen_news.json stats.html || true
+          git add seen_content.json stats.html || true
           git diff --staged --quiet && echo "nothing to commit" && exit 0
-          git commit -m "update seen_news + stats"
+          git commit -m "update content $(date +%Y-%m-%d)"
           git pull --rebase origin main
           git push
