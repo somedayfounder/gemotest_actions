@@ -31,6 +31,10 @@ def _cfg():
 TOKEN, CHAT_ID = _cfg()
 OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "")
 
+VKT_TOKEN = os.environ.get("VKTEAMS_TOKEN", "")
+VKT_CHAT_ID = os.environ.get("VKTEAMS_CHAT_ID", "")
+VKT_API = "https://myteam.mail.ru/bot/v1"
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
     "Accept-Language": "ru-RU,ru;q=0.9",
@@ -457,6 +461,25 @@ def tg_safe(text, label=""):
         print(f"TG error{' ' + label if label else ''}: {e}")
 
 
+def vkt_send(text):
+    if not VKT_TOKEN or not VKT_CHAT_ID:
+        return
+    # VK Teams не поддерживает HTML-теги Telegram — убираем их
+    clean = re.sub(r"<[^>]+>", "", text)
+    url = f"{VKT_API}/messages/sendText"
+    params = urlencode({"token": VKT_TOKEN, "chatId": VKT_CHAT_ID, "text": clean})
+    urlopen(Request(f"{url}?{params}"), timeout=10)
+
+
+def notify(text, label=""):
+    """Отправить в Telegram и VK Teams."""
+    tg_safe(text, label)
+    try:
+        vkt_send(text)
+    except Exception as e:
+        print(f"VKT error{' ' + label if label else ''}: {e}")
+
+
 # ── Хранилище ────────────────────────────────────────────────────────────────
 
 def load_active():
@@ -478,7 +501,7 @@ def run():
     is_init = not active
     current = {}  # url -> site
 
-    tg_safe("⏳ <b>Акции</b>: запуск…", "start")
+    notify("⏳ <b>Акции</b>: запуск…", "start")
 
     # 1. Собираем текущие акции со всех листингов
     site_counts = []
@@ -508,7 +531,7 @@ def run():
                 site_counts.append(f"{site['name']}: VPN не запущен")
         _vpn_stop()
 
-    tg_safe("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts), "listing")
+    notify("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts), "listing")
 
     new_urls = [u for u in current if u not in active]
     gone_urls = [u for u in active if u not in current]
@@ -518,14 +541,14 @@ def run():
     if len(current) < 10 and len(gone_urls) > 5:
         msg = f"⚠️ <b>Акции</b>: нашли только {len(current)} акций (обычно 100+). Возможен сбой VPN. Пропускаем обработку исчезнувших."
         print(msg)
-        tg_safe(msg, "safety")
+        notify(msg, "safety")
         save_active(active)
         return
 
     # 2. Для новых акций загружаем страницы
     promos_to_analyze = []
     if new_urls:
-        tg_safe(f"🔍 Загружаем страницы {len(new_urls)} новых акций…", "fetch")
+        notify(f"🔍 Загружаем страницы {len(new_urls)} новых акций…", "fetch")
 
         def _fetch_one(url):
             site = current[url]
@@ -540,7 +563,7 @@ def run():
     # 3. GPT-анализ всех новых акций одним запросом
     ai = {}
     if promos_to_analyze:
-        tg_safe(f"🤖 Отдаём {len(promos_to_analyze)} акций в GPT…", "gpt")
+        notify(f"🤖 Отдаём {len(promos_to_analyze)} акций в GPT…", "gpt")
         try:
             ai = ai_analyze(promos_to_analyze)
             print(f"AI: {len(ai)} проанализировано")
@@ -590,7 +613,7 @@ def run():
         text += f'<a href="{url}">{url}</a>'
         if len(text) > 4090:
             text = text[:4090] + "…"
-        tg_safe(text)
+        notify(text)
         time.sleep(0.3)
 
     # 5. Уведомления об исчезнувших акциях
@@ -601,7 +624,7 @@ def run():
             f"{info.get('title') or url}\n"
             f'<a href="{url}">{url}</a>'
         )
-        tg_safe(text)
+        notify(text)
         time.sleep(0.3)
 
     if is_init:
@@ -610,7 +633,7 @@ def run():
     else:
         msg = f"✅ <b>Акции</b>: готово. Новых {len(new_urls)}, исчезло {len(gone_urls)}"
         print(msg)
-    tg_safe(msg, "finish")
+    notify(msg, "finish")
     save_active(active)
     print("Готово")
 
