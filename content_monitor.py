@@ -58,11 +58,11 @@ SOURCES = [
     ("Инвитро",   "article", "sitemap",     "https://www.invitro.ru/sitemap/library.xml",
      lambda l: "/library/" in l and l.count("/") > 4),
 
-    # КДЛ — только с VPN; фильтры уточняются после первого успешного прогона
+    # КДЛ — только с VPN
     ("КДЛ",       "news",    "sitemap",     "https://kdl.ru/sitemap.xml",
-     lambda l: any(x in l for x in ["/news/", "/novosti/", "/press/"]) and l.count("/") > 4),
+     lambda l: any(x in l for x in ["/news/", "/novosti/", "/press/", "/blog/"])),
     ("КДЛ",       "article", "sitemap",     "https://kdl.ru/sitemap.xml",
-     lambda l: any(x in l for x in ["/articles/", "/stati/", "/blog/", "/enciklopediya/"]) and l.count("/") > 4),
+     lambda l: any(x in l for x in ["/articles/", "/stati/", "/enciklopediya/", "/poleznoe/"])),
 ]
 
 # Источники только под VPN
@@ -109,10 +109,35 @@ def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1")
 
 def get_sitemap_links(url, filter_fn=None):
     html = fetch(url)
-    tree = ET.fromstring(html)
-    urls = [u.findtext("s:loc", namespaces=NS) for u in tree.findall("s:url", NS)]
-    urls = [u for u in urls if u]
+    # sitemap index → рекурсивно обходим дочерние sitemaps
+    if "<sitemapindex" in html:
+        tree = ET.fromstring(html)
+        all_urls = []
+        children = [s.findtext("s:loc", namespaces=NS) for s in tree.findall("s:sitemap", NS)]
+        children = [c for c in children if c]
+        print(f"  sitemap index: {len(children)} дочерних")
+        for child in children:
+            try:
+                child_html = fetch(child)
+                child_tree = ET.fromstring(child_html)
+                child_urls = [u.findtext("s:loc", namespaces=NS) for u in child_tree.findall("s:url", NS)]
+                all_urls.extend(u for u in child_urls if u)
+            except Exception as e:
+                print(f"  ❌ child sitemap {child}: {e}")
+        urls = all_urls
+    else:
+        tree = ET.fromstring(html)
+        urls = [u.findtext("s:loc", namespaces=NS) for u in tree.findall("s:url", NS)]
+        urls = [u for u in urls if u]
     if filter_fn:
+        # Диагностика для КДЛ: показать уникальные сегменты путей
+        if "kdl.ru" in url and not any(filter_fn(u) for u in urls[:100]):
+            segments = set()
+            for u in urls[:200]:
+                parts = u.replace("https://kdl.ru/", "").split("/")
+                if parts:
+                    segments.add(parts[0])
+            print(f"  КДЛ sitemap segments: {sorted(segments)[:20]}")
         urls = [u for u in urls if filter_fn(u)]
     return urls
 
@@ -278,7 +303,7 @@ def run():
         print(f"❌ Инвитро news: {e}")
 
     # Горлаб новости — sequential pages
-    last_page = seen.get("_gorlab_last_page", 0)
+    last_page = seen.get("_gorlab_last_page", 81)
     try:
         new_pages, last_page = get_gorlab_news(last_page)
         seen["_gorlab_last_page"] = last_page
