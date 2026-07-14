@@ -464,11 +464,10 @@ def tg_safe(text, label=""):
 def vkt_send(text):
     if not VKT_TOKEN or not VKT_CHAT_ID:
         return
-    # VK Teams не поддерживает HTML-теги Telegram — убираем их
     clean = re.sub(r"<[^>]+>", "", text)
     url = f"{VKT_API}/messages/sendText"
-    params = urlencode({"token": VKT_TOKEN, "chatId": VKT_CHAT_ID, "text": clean})
-    urlopen(Request(f"{url}?{params}"), timeout=10)
+    data = urlencode({"token": VKT_TOKEN, "chatId": VKT_CHAT_ID, "text": clean}).encode()
+    urlopen(Request(url, data=data), timeout=10)
 
 
 def notify(text, label=""):
