@@ -331,7 +331,10 @@ def run():
         print(f"❌ Инвитро news: {e}")
 
     # Helix новости — sequential IDs /feed/select/N
-    last_helix_id = seen.get("_helix_last_news_id", 17)
+    # При первом запуске (is_init) начинаем с 17 чтобы собрать всю историю
+    # При обычном запуске default = 1572 (последние известные)
+    default_helix_id = 17 if is_init else 1572
+    last_helix_id = seen.get("_helix_last_news_id", default_helix_id)
     try:
         new_helix, last_helix_id = get_helix_news(last_helix_id)
         seen["_helix_last_news_id"] = last_helix_id
