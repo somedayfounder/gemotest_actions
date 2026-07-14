@@ -18,7 +18,12 @@ SEEN_FILE = DATA_DIR / "seen_content.json"
 
 NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Accept-Encoding": "identity",
+}
 
 _INVITRO_YEARS = list(range(2018, date.today().year + 1))
 
@@ -84,6 +89,21 @@ def fetch_retry(url, encoding="utf-8", retries=2):
             if attempt == retries:
                 raise
             time.sleep(2 * (attempt + 1))
+
+
+def get_title(url, encoding="utf-8"):
+    """Извлекает заголовок страницы из <h1> или <title>."""
+    try:
+        html = fetch(url, encoding, timeout=12)
+        h1 = re.search(r'<h1[^>]*>([^<]{3,200})</h1>', html)
+        if h1:
+            return re.sub(r'\s+', ' ', h1.group(1)).strip()
+        title = re.search(r'<title>([^<]{3,200})</title>', html)
+        if title:
+            return re.sub(r'\s+', ' ', title.group(1)).strip().split('|')[0].split('—')[0].strip()
+    except:
+        pass
+    return None
 
 
 def get_html_links(url, pattern, encoding="utf-8"):
@@ -299,8 +319,10 @@ def run():
 
             new_links = [l for l in links if l not in seen]
             print(f"{lab} {typ}: {len(links)} всего, {len(new_links)} новых")
+            enc = "windows-1251" if "gorlab" in url else "utf-8"
             for link in new_links:
-                seen[link] = {"lab": lab, "type": typ, "date": today}
+                title = get_title(link, enc) if not is_init else None
+                seen[link] = {"lab": lab, "type": typ, "date": today, "title": title}
             notify_new(lab, typ, new_links, is_init)
             new_count += len(new_links) if not is_init else 0
 
@@ -324,7 +346,8 @@ def run():
         new_inv = [l for l in inv_links if l not in seen]
         print(f"Инвитро news: {len(inv_links)} всего, {len(new_inv)} новых")
         for link in new_inv:
-            seen[link] = {"lab": "Инвитро", "type": "news", "date": today}
+            title = get_title(link) if not is_init else None
+            seen[link] = {"lab": "Инвитро", "type": "news", "date": today, "title": title}
         notify_new("Инвитро", "news", new_inv, is_init)
         new_count += len(new_inv) if not is_init else 0
     except Exception as e:
@@ -340,7 +363,8 @@ def run():
         seen["_helix_last_news_id"] = last_helix_id
         print(f"Helix news: {len(new_helix)} новых (последний ID {last_helix_id})")
         for u in new_helix:
-            seen[u] = {"lab": "Helix", "type": "news", "date": today}
+            title = get_title(u) if not is_init else None
+            seen[u] = {"lab": "Helix", "type": "news", "date": today, "title": title}
         notify_new("Helix", "news", new_helix, is_init)
         new_count += len(new_helix) if not is_init else 0
     except Exception as e:
@@ -353,7 +377,8 @@ def run():
         seen["_gorlab_last_page"] = last_page
         print(f"Горлаб news: {len(new_pages)} новых (последняя стр. {last_page})")
         for u in new_pages:
-            seen[u] = {"lab": "Горлаб", "type": "news", "date": today}
+            title = get_title(u, "windows-1251") if not is_init else None
+            seen[u] = {"lab": "Горлаб", "type": "news", "date": today, "title": title}
         notify_new("Горлаб", "news", new_pages, is_init)
         new_count += len(new_pages) if not is_init else 0
     except Exception as e:
@@ -366,7 +391,8 @@ def run():
         seen["_gorlab_last_book_item"] = last_item
         print(f"Горлаб article: {len(new_items)} новых (последний item {last_item})")
         for u in new_items:
-            seen[u] = {"lab": "Горлаб", "type": "article", "date": today}
+            title = get_title(u, "windows-1251") if not is_init else None
+            seen[u] = {"lab": "Горлаб", "type": "article", "date": today, "title": title}
         notify_new("Горлаб", "article", new_items, is_init)
         new_count += len(new_items) if not is_init else 0
     except Exception as e:
