@@ -70,10 +70,20 @@ VPN_LABS = {"КДЛ"}
 
 # ─── helpers ──────────────────────────────────────────────────────────────────
 
-def fetch(url, encoding="utf-8"):
+def fetch(url, encoding="utf-8", timeout=20):
     req = Request(url, headers=HEADERS)
-    r = urlopen(req, timeout=15)
+    r = urlopen(req, timeout=timeout)
     return r.read().decode(encoding, "replace")
+
+
+def fetch_retry(url, encoding="utf-8", retries=2):
+    for attempt in range(retries + 1):
+        try:
+            return fetch(url, encoding)
+        except Exception as e:
+            if attempt == retries:
+                raise
+            time.sleep(2 * (attempt + 1))
 
 
 def get_html_links(url, pattern, encoding="utf-8"):
@@ -89,7 +99,7 @@ def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1")
     while True:
         url = base_url if page == start_page else f"{base_url}?{pagen_param}={page}"
         try:
-            html = fetch(url)
+            html = fetch_retry(url)
         except Exception as e:
             print(f"  paged page {page}: ❌ {e}")
             break
@@ -156,6 +166,24 @@ def get_invitro_news():
         except Exception as e:
             print(f"  Инвитро news {year}: ❌ {e}")
     return all_links
+
+
+def get_helix_news(last_id):
+    """Проверяем /feed/select/N начиная с last_id+1."""
+    found = []
+    n = last_id + 1
+    while True:
+        url = f"https://helix.ru/feed/select/{n}"
+        try:
+            html = fetch(url, timeout=10)
+            if len(html) < 3000:
+                break
+            found.append(url)
+            n += 1
+            time.sleep(0.2)
+        except:
+            break
+    return found, n - 1 if found else last_id
 
 
 def get_gorlab_news(last_page):
@@ -301,6 +329,19 @@ def run():
         new_count += len(new_inv) if not is_init else 0
     except Exception as e:
         print(f"❌ Инвитро news: {e}")
+
+    # Helix новости — sequential IDs /feed/select/N
+    last_helix_id = seen.get("_helix_last_news_id", 17)
+    try:
+        new_helix, last_helix_id = get_helix_news(last_helix_id)
+        seen["_helix_last_news_id"] = last_helix_id
+        print(f"Helix news: {len(new_helix)} новых (последний ID {last_helix_id})")
+        for u in new_helix:
+            seen[u] = {"lab": "Helix", "type": "news", "date": today}
+        notify_new("Helix", "news", new_helix, is_init)
+        new_count += len(new_helix) if not is_init else 0
+    except Exception as e:
+        print(f"❌ Helix news: {e}")
 
     # Горлаб новости — sequential pages
     last_page = seen.get("_gorlab_last_page", 81)
