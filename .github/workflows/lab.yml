@@ -39,12 +39,36 @@ jobs:
               print("No VPN configs found")
           PYEOF
 
-      - name: Run monitor
-        run: python3 -u lab_monitor.py
+      - name: Run monitor (без КДЛ)
+        run: SKIP_KDL=1 python3 -u lab_monitor.py
 
-      - name: Run КДЛ content monitor (VPN still up)
+      - name: Run content monitor (без КДЛ)
+        run: python3 -u content_monitor.py
+
+      - name: Connect VPN
+        run: |
+          for f in vpn*.ovpn; do
+            sudo openvpn --config "$f" --daemon --log /tmp/vpn.log
+            sleep 8
+            IP=$(curl -s --max-time 8 https://api.ipify.org || echo "unknown")
+            echo "VPN $f → IP: $IP"
+            if python3 -c "import urllib.request; urllib.request.urlopen('https://kdl.ru/', timeout=8)" 2>/dev/null; then
+              echo "KDL accessible, VPN OK"
+              break
+            fi
+            sudo pkill openvpn || true
+            sleep 3
+          done
+
+      - name: Run КДЛ акции (VPN)
+        run: KDL_ONLY=1 python3 -u lab_monitor.py
+
+      - name: Run КДЛ content (VPN)
         run: VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
         continue-on-error: true
+
+      - name: Disconnect VPN
+        run: sudo pkill openvpn || true
 
       - name: Build stats page
         run: python3 -u build_stats_html.py
@@ -55,6 +79,6 @@ jobs:
           git config user.email "actions@github.com"
           git add seen_promos.json seen_content.json stats.html || true
           git diff --staged --quiet && echo "nothing to commit" && exit 0
-          git commit -m "update seen_promos + kdl content + stats"
+          git commit -m "update promos + content + stats"
           git pull --rebase origin main
           git push

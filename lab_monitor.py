@@ -504,18 +504,26 @@ def run():
     notify("Проверяем новые акции...", "start")
 
     # 1. Собираем листинги
+    kdl_only  = bool(os.environ.get("KDL_ONLY"))
+    skip_kdl  = bool(os.environ.get("SKIP_KDL"))
+    vpn_external = kdl_only  # VPN поднят снаружи
+
     vpn_sites = [s for s in SITES if s.get("needs_vpn")]
     normal_sites = [s for s in SITES if not s.get("needs_vpn")]
 
-    for site in normal_sites:
-        links = get_listing_links(site)
-        print(f"  {site['name']}: {len(links)} акций")
-        site_urls[site["name"]] = links
-        for url in links:
-            current[url] = site
+    if not kdl_only:
+        for site in normal_sites:
+            links = get_listing_links(site)
+            print(f"  {site['name']}: {len(links)} акций")
+            site_urls[site["name"]] = links
+            for url in links:
+                current[url] = site
 
-    if vpn_sites:
-        vpn_started = _vpn_start()
+    if vpn_sites and not skip_kdl:
+        if vpn_external:
+            vpn_started = True
+        else:
+            vpn_started = _vpn_start()
         if vpn_started:
             for site in vpn_sites:
                 links = get_listing_links(site)
@@ -526,7 +534,8 @@ def run():
         else:
             for site in vpn_sites:
                 site_urls[site["name"]] = []
-        _vpn_stop()
+        if not vpn_external:
+            _vpn_stop()
 
     new_urls = [u for u in current if u not in active]
     gone_urls = [u for u in active if u not in current]
