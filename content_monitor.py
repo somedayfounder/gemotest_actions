@@ -36,8 +36,8 @@ SOURCES = [
 
     ("CMD",       "news",    "sitemap",     "https://www.cmd-online.ru/sitemap-iblock-6.xml",
      lambda l: "/o-cmd/news/" in l and l.count("/") > 5),
-    ("CMD",       "article", "html_links",  "https://www.cmd-online.ru/patsientam/poleznyye-statii/",
-     r'href="(/patsientam/poleznyye-statii/[^"?#]{5,})"'),
+    ("CMD",       "article", "paged_html",  "https://www.cmd-online.ru/patsientam/poleznyye-statii/",
+     (r'href="(/patsientam/poleznyye-statii/[^"?#]{5,})"', 1)),
 
     ("Helix",     "article", "sitemap",     "https://helix.ru/sitemap-kb.xml",     None),
 
@@ -48,8 +48,8 @@ SOURCES = [
 
     ("LabQuest",  "news",    "sitemap",     "https://www.labquest.ru/sitemap-iblock-12.xml",
      lambda l: "/novosti/" in l),
-    ("LabQuest",  "article", "html_links",  "https://www.labquest.ru/articles/",
-     r'href="(/articles/[^"?#]{5,})"'),
+    ("LabQuest",  "article", "paged_html",  "https://www.labquest.ru/articles/",
+     (r'href="(/articles/[^"?#]{5,})"', 1)),
 
     ("Ситилаб",   "news",    "sitemap",     "https://citilab.ru/sitemaps/news.xml",     None),
     ("Ситилаб",   "article", "sitemap",     "https://citilab.ru/sitemaps/articles.xml", None),
