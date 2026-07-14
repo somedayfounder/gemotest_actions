@@ -498,20 +498,19 @@ def save_active(data):
 def run():
     active = load_active()
     is_init = not active
-    current = {}  # url -> site
+    current = {}        # url -> site
+    site_urls = {}      # site_name -> [urls]
 
-    notify("⏳ <b>Акции</b>: запуск…", "start")
+    notify("Проверяем новые акции...", "start")
 
-    # 1. Собираем текущие акции со всех листингов
-    site_counts = []
+    # 1. Собираем листинги
     vpn_sites = [s for s in SITES if s.get("needs_vpn")]
     normal_sites = [s for s in SITES if not s.get("needs_vpn")]
 
     for site in normal_sites:
         links = get_listing_links(site)
-        count = len(links)
-        print(f"  {site['name']}: {count} акций")
-        site_counts.append(f"{site['name']}: {count}")
+        print(f"  {site['name']}: {len(links)} акций")
+        site_urls[site["name"]] = links
         for url in links:
             current[url] = site
 
@@ -520,34 +519,54 @@ def run():
         if vpn_started:
             for site in vpn_sites:
                 links = get_listing_links(site)
-                count = len(links)
-                print(f"  {site['name']}: {count} акций (VPN)")
-                site_counts.append(f"{site['name']}: {count}")
+                print(f"  {site['name']}: {len(links)} акций (VPN)")
+                site_urls[site["name"]] = links
                 for url in links:
                     current[url] = site
         else:
             for site in vpn_sites:
-                site_counts.append(f"{site['name']}: VPN не запущен")
+                site_urls[site["name"]] = []
         _vpn_stop()
-
-    notify("📋 <b>Собрали листинги:</b>\n" + "\n".join(site_counts), "listing")
 
     new_urls = [u for u in current if u not in active]
     gone_urls = [u for u in active if u not in current]
     print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
 
-    # Защита от сбоя сети/VPN: если нашли мало акций — не обрабатываем исчезнувшие
+    # 2. Сводка по сайтам — разделяем на "есть новые" и "нет новых"
+    new_by_site = {}
+    for url in new_urls:
+        name = current[url]["name"]
+        new_by_site[name] = new_by_site.get(name, 0) + 1
+
+    with_new, without_new = [], []
+    for site in SITES:
+        name = site["name"]
+        total = len(site_urls.get(name, []))
+        n = new_by_site.get(name, 0)
+        if n:
+            with_new.append(f"{name} ({total} / {n} {'новая' if n == 1 else 'новых'})")
+        else:
+            without_new.append(f"{name} ({total})")
+
+    summary_parts = []
+    if without_new:
+        summary_parts.append("Нет новых: " + ", ".join(without_new))
+    if with_new:
+        summary_parts.append("Есть новые: " + ", ".join(with_new))
+    notify("\n".join(summary_parts), "listing")
+
+    # Защита от сбоя сети/VPN
     if len(current) < 10 and len(gone_urls) > 5:
-        msg = f"⚠️ <b>Акции</b>: нашли только {len(current)} акций (обычно 100+). Возможен сбой VPN. Пропускаем обработку исчезнувших."
+        msg = f"Нашли только {len(current)} акций (обычно 100+). Возможен сбой VPN ⚠️"
         print(msg)
         notify(msg, "safety")
         save_active(active)
         return
 
-    # 2. Для новых акций загружаем страницы
+    # 3. Загружаем страницы новых акций
     promos_to_analyze = []
     if new_urls:
-        notify(f"🔍 Загружаем страницы {len(new_urls)} новых акций…", "fetch")
+        notify(f"Сканируем {len(new_urls)} {'новую акцию' if len(new_urls) == 1 else 'новых акции' if len(new_urls) < 5 else 'новых акций'}...", "fetch")
 
         def _fetch_one(url):
             site = current[url]
@@ -559,17 +578,17 @@ def run():
                 site = current[url]
                 promos_to_analyze.append({"lab": site["name"], "url": url, "page_text": page_text})
 
-    # 3. GPT-анализ всех новых акций одним запросом
+    # 4. GPT-анализ
     ai = {}
     if promos_to_analyze:
-        notify(f"🤖 Отдаём {len(promos_to_analyze)} акций в GPT…", "gpt")
+        notify("Обработка GPT-4o...", "gpt")
         try:
             ai = ai_analyze(promos_to_analyze)
             print(f"AI: {len(ai)} проанализировано")
         except Exception as e:
             print(f"AI ошибка: {e}")
 
-    # 4. Уведомления о новых акциях
+    # 5. Уведомления о новых акциях
     for url in new_urls:
         info = ai.get(url, {})
         site = current[url]
@@ -578,60 +597,55 @@ def run():
         dates = info.get("dates", "") or "Бессрочно"
         price = info.get("price", "")
         is_local = info.get("is_local", False)
-
         kind = info.get("kind", "offer")
         tests = info.get("tests", "")
+
         active[url] = {
             "lab": site["name"], "title": title, "summary": summary,
             "dates": dates, "price": price, "kind": kind,
         }
 
-        is_marketing = info.get("is_marketing", False)
-
-        # Локальные акции (только в одном филиале) — не отправляем
         if is_local:
             print(f"  пропускаем локальную: {title}")
             continue
-
-        # Пиар-страницы без реальной скидки/цены — не отправляем
-        if is_marketing:
-            print(f"  пропускаем маркетинговую (нет выгоды): {title}")
+        if info.get("is_marketing", False):
+            print(f"  пропускаем маркетинговую: {title}")
             continue
 
-        text = f"🆕 <b>{site['name']}</b>\n<b>{title}</b>\n"
+        lines = [site["name"], "", title, ""]
         if kind == "product" and tests:
-            text += f"\n{tests}\n"
+            lines += [tests, ""]
             if price:
-                text += f"\n💰 Итого: {price}\n"
+                lines += [price, ""]
         else:
             if summary:
-                text += f"{summary}\n"
+                lines += [summary, ""]
             if price:
-                text += f"💰 {price}\n"
-        text += f"📅 {dates}\n"
-        text += f'<a href="{url}">{url}</a>'
+                lines += [price, ""]
+        lines.append(dates)
+        lines.append(url)
+
+        text = "\n".join(lines)
         if len(text) > 4090:
             text = text[:4090] + "…"
         notify(text)
         time.sleep(0.3)
 
-    # 5. Уведомления об исчезнувших акциях
-    for url in gone_urls:
-        info = active.pop(url)
-        text = (
-            f"❌ <b>{info['lab']}</b> — акция завершена\n"
-            f"{info.get('title') or url}\n"
-            f'<a href="{url}">{url}</a>'
-        )
-        notify(text)
-        time.sleep(0.3)
+    # 6. Исчезнувшие акции — одним сообщением
+    if gone_urls:
+        gone_lines = [f"Завершены {len(gone_urls)} {'акция' if len(gone_urls) == 1 else 'акции' if len(gone_urls) < 5 else 'акций'}:", ""]
+        for url in gone_urls:
+            info = active.pop(url)
+            gone_lines.append(info.get("title") or url)
+            gone_lines.append(url)
+            gone_lines.append("")
+        notify("\n".join(gone_lines).strip(), "gone")
 
     if is_init:
-        msg = f"✅ <b>Акции</b>: первый запуск, запомнили {len(active)} акций"
-        print(msg)
+        msg = f"Первый запуск, запомнили {len(active)} акций"
     else:
-        msg = f"✅ <b>Акции</b>: готово. Новых {len(new_urls)}, исчезло {len(gone_urls)}"
-        print(msg)
+        msg = f"Готово. Новых {len(new_urls)}, завершено {len(gone_urls)}"
+    print(msg)
     notify(msg, "finish")
     save_active(active)
     print("Готово")
