@@ -78,5 +78,1149 @@
     "dates": "Бессрочно",
     "price": "",
     "kind": "offer"
+  },
+  "https://gemotest.ru/actions/great_discounts/": {
+    "lab": "Гемотест",
+    "title": "Чекап Pro «Печень и почки»",
+    "summary": "",
+    "dates": "до 19 июля",
+    "price": "2 390 ₽",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/helicobacter/": {
+    "lab": "Гемотест",
+    "title": "Диагностика хеликобактера",
+    "summary": "Скидка до 18% на первичную диагностику хеликобактера. Проверьте себя и помогите науке!",
+    "dates": "Бессрочно",
+    "price": "до 18%",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/with-care/": {
+    "lab": "Гемотест",
+    "title": "С заботой о тебе",
+    "summary": "Скидка 15% на УЗИ молочных желёз и приём онколога. Профилактика рака молочной железы.",
+    "dates": "до 30 сентября",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/mg_moloday/": {
+    "lab": "Гемотест",
+    "title": "Магний MOLODAY в подарок",
+    "summary": "При заказе анализов на сумму от 4000 ₽ получите упаковку цитрата магния бесплатно.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/allergy/": {
+    "lab": "Гемотест",
+    "title": "Диагностика аллергии",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/health4all_parasites/": {
+    "lab": "Гемотест",
+    "title": "Паразиты в Гемотест",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "Бессрочно",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/klesch/": {
+    "lab": "Гемотест",
+    "title": "Клещевые инфекции в Гемотест",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "Бессрочно",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/after-forty/": {
+    "lab": "Гемотест",
+    "title": "Анализы 40+ в Гемотест",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "Бессрочно",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/diabetes/": {
+    "lab": "Гемотест",
+    "title": "Контроль здоровья при диабете в Гемотест",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "Бессрочно",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/mountain/": {
+    "lab": "Гемотест",
+    "title": "Горный комплекс в Гемотест",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "Бессрочно",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/lald/": {
+    "lab": "Гемотест",
+    "title": "Скрининг ДЛКЛ",
+    "summary": "Бесплатная программа ранней диагностики наследственного заболевания, позволяющая выявить или исключить ДЛКЛ. Участие в программе доступно для пациентов с увеличением печени.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/hypophosphatasia/": {
+    "lab": "Гемотест",
+    "title": "Скрининг гипофосфатазии",
+    "summary": "Бесплатная программа ранней диагностики гипофосфатазии, позволяющая выявить или исключить это редкое наследственное заболевание. Участие доступно для пациентов с низким уровнем щелочной фосфатазы.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/nezhnost/": {
+    "lab": "Гемотест",
+    "title": "С нежностью к себе",
+    "summary": "Специальный проект о стрессе и женском здоровье с комплексами анализов для оценки уровня стресса, обмена веществ и гормонального баланса.",
+    "dates": "Бессрочно",
+    "price": "1 260 ₽",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/fairy_tale/": {
+    "lab": "Гемотест",
+    "title": "Не жизнь, а сказка!",
+    "summary": "Программа по восстановлению баланса витаминов для улучшения здоровья и внешнего вида.",
+    "dates": "Бессрочно",
+    "price": "2 130 ₽",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/position_of_adult/": {
+    "lab": "Гемотест",
+    "title": "В позиции взрослого",
+    "summary": "Специальный проект о заботе и уважении к своему здоровью, где обсуждаются важные вопросы об ИППП и здоровье в целом.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/health_dropper/": {
+    "lab": "Гемотест",
+    "title": "Капельницы здоровья",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "1 490 ₽",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/time_for_ultrasound/": {
+    "lab": "Гемотест",
+    "title": "Время для себя: УЗИ + консультация врача",
+    "summary": "Скрининг женского здоровья доступен по специальной цене. Уделите время себе и проверьте репродуктивное здоровье.",
+    "dates": "до 31 декабря",
+    "price": "от 2 390 ₽",
+    "kind": "offer"
+  },
+  "https://gemotest.ru/actions/all-nipt/": {
+    "lab": "Гемотест",
+    "title": "НИПТ: скрининг хромосомных аномалий плода",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/genetic-risk/": {
+    "lab": "Гемотест",
+    "title": "Генетические риски будущих родителей",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/exome/": {
+    "lab": "Гемотест",
+    "title": "Полное секвенирование экзома",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/krasota/": {
+    "lab": "Гемотест",
+    "title": "Красота и молодость",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/liver_transplant/": {
+    "lab": "Гемотест",
+    "title": "Трансплантация печени",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gemotest.ru/actions/kidney_transplant/": {
+    "lab": "Гемотест",
+    "title": "Трансплантация почки",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/bolshaya-skidka-2026-2-0/": {
+    "lab": "CMD",
+    "title": "Большому заказу – большая скидка 2.0",
+    "summary": "Скидка 20% при оформлении договора-заказа на от 16 лабораторных исследований. Скидка не суммируется с другими акциями.",
+    "dates": "с 06.04.2026 по 31.08.2026",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/aktsiya-letnie-chekapy/": {
+    "lab": "CMD",
+    "title": "Летние чекапы",
+    "summary": "Специальные комплексные предложения со скидкой 20% для проверки ключевых показателей здоровья. Помогут поддерживать высокий уровень энергии.",
+    "dates": "с 08.06.2026 по 31.08.2026",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/beregite-zdorovye-letom2026/": {
+    "lab": "CMD",
+    "title": "Скидка 25% на диагностику кишечных инфекций",
+    "summary": "Скидка 25% на комплексные исследования острых кишечных инфекций. Позволяет установить точный источник инфекции и начать правильное лечение.",
+    "dates": "до 15 августа 2026 года",
+    "price": "−25%",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/biokhimiya-so-skidkoy-20/": {
+    "lab": "CMD",
+    "title": "Биохимия со скидкой 20%",
+    "summary": "Скидка 20% на комплексный биохимический анализ крови. Помогает выявить скрытые нарушения в работе внутренних органов.",
+    "dates": "до 31 августа 2026 года",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/10-na-pervichnyy-priyem-vrachey-plus-centr/": {
+    "lab": "CMD",
+    "title": "Скидка 10% на первичный приём врачей",
+    "summary": "Скидка 10% на первичный приём врачей клиники. Позволяет получить квалифицированную медицинскую помощь по сниженной цене.",
+    "dates": "до 31 июля 2026 года",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/chekap-dlya-zhenshchin/": {
+    "lab": "CMD",
+    "title": "Чекап для женщин",
+    "summary": "Комплексная программа для проверки женского здоровья, включающая важные анализы для мониторинга состояния организма.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/chekap-dlya-muzhchin/": {
+    "lab": "CMD",
+    "title": "Чекап для мужчин",
+    "summary": "Комплексная программа для проверки мужского здоровья, включающая важные анализы для мониторинга состояния организма.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/skidka-15-na-pervichnyy-priyem-vrachey-posle-sdachi-analizov-v-klinike-tsentrplyus/": {
+    "lab": "CMD",
+    "title": "Скидка 15% на первичный приём врачей",
+    "summary": "При оплате любого договора-заказа на лабораторные исследования вы можете получить купон на скидку 15% на первичный приём врачей. Скидка действует в клинике «ЦентрПлюс».",
+    "dates": "до 31 декабря 2026 года",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vash-vnutrenniy-shchit-pod-kontrolem/": {
+    "lab": "CMD",
+    "title": "Ваш внутренний щит под контролем",
+    "summary": "Реклама лабораторных исследований для оценки состояния здоровья после болезни. Предложение не содержит конкретных цен или скидок.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vaktsinatsiya-ot-tropicheskikh-zabolevaniy/": {
+    "lab": "CMD",
+    "title": "Вакцинация от тропических заболеваний",
+    "summary": "Реклама вакцинации от тропических заболеваний с упоминанием индивидуального графика прививок. Не содержит конкретных цен или скидок.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/8035": {
+    "lab": "Helix",
+    "title": "Расширенная проверка здоровья",
+    "summary": "Комплексная программа для всесторонней проверки здоровья, включающая 11 базовых исследований.",
+    "dates": "до 31 августа",
+    "price": "2 590 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/8040": {
+    "lab": "Helix",
+    "title": "Проверьте влияние стресса на здоровье",
+    "summary": "Комплекс анализов для оценки влияния стресса на здоровье.",
+    "dates": "до 31 августа",
+    "price": "2 290 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/8030": {
+    "lab": "Helix",
+    "title": "Скидка 55% на биохимический анализ крови",
+    "summary": "",
+    "dates": "до 31 июля 2026",
+    "price": "1 190 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/8056": {
+    "lab": "Helix",
+    "title": "С заботой о близких. Скидка 1000 руб. на анализы в честь Дня семьи, любви и верности",
+    "summary": "Скидка 1000 руб. на анализы при заказе от 5000 руб. в честь Дня семьи, любви и верности. Используйте промокод БЛИЗКИЕ для получения скидки.",
+    "dates": "до 19 июля 2026",
+    "price": "−1000 ₽",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/8050": {
+    "lab": "Helix",
+    "title": "Лето на максимум. Комплексы анализов от 390 руб.",
+    "summary": "Популярные комплексы анализов по сниженным ценам от 390 руб. Используйте промокод ЛЕТО для получения скидки.",
+    "dates": "до 31 июля 2026",
+    "price": "от 390 ₽",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/8041": {
+    "lab": "Helix",
+    "title": "8041",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": ""
+  },
+  "https://helix.ru/promotions/select/8031": {
+    "lab": "Helix",
+    "title": "8031",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": ""
+  },
+  "https://helix.ru/promotions/select/8026": {
+    "lab": "Helix",
+    "title": "Не указано",
+    "summary": "Страница содержит информацию о лабораторных услугах, но не предлагает конкретных акций или скидок.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/8022": {
+    "lab": "Helix",
+    "title": "Не указано",
+    "summary": "Страница содержит информацию о лабораторных услугах, но не предлагает конкретных акций или скидок.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/8007": {
+    "lab": "Helix",
+    "title": "Диагностика анемии",
+    "summary": "Комплексное обследование для диагностики анемии по специальной цене.",
+    "dates": "до 31 июля",
+    "price": "1 390 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7974": {
+    "lab": "Helix",
+    "title": "Анализы на клещевые инфекции",
+    "summary": "Анализы на клещевые инфекции для определения инфицированности клеща.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7933": {
+    "lab": "Helix",
+    "title": "Весна без аллергии",
+    "summary": "Широкий спектр анализов на аллергены для точной диагностики аллергии и подбора эффективного лечения.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7930": {
+    "lab": "Helix",
+    "title": "Генетические тесты на норму кофе",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7896": {
+    "lab": "Helix",
+    "title": "Спермограмма и MAR-тест",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7888": {
+    "lab": "Helix",
+    "title": "7888",
+    "summary": "Страница не содержит информации о конкретных акциях или скидках.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7884": {
+    "lab": "Helix",
+    "title": "7884",
+    "summary": "Страница не содержит информации о конкретных акциях или скидках.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7822": {
+    "lab": "Helix",
+    "title": "Комплексы анализов для детей",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7821": {
+    "lab": "Helix",
+    "title": "Комплексы анализов для женщин",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7820": {
+    "lab": "Helix",
+    "title": "Комплексы анализов для мужчин",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7793": {
+    "lab": "Helix",
+    "title": "Спермограмма с MAR-тестом",
+    "summary": "Спермограмма с MAR-тестом за 6000 руб. вместо 7160 руб. в Центре на Летчика Ульянина. Необходима предварительная запись.",
+    "dates": "до 12 ноября 2026 года",
+    "price": "6000 ₽",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7725": {
+    "lab": "Helix",
+    "title": "Актуальные анализы в сезон простуд",
+    "summary": "Предложение включает анализы для диагностики ОРВИ и COVID-19, что особенно важно в осенний сезон.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7715": {
+    "lab": "Helix",
+    "title": "7715",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": ""
+  },
+  "https://helix.ru/promotions/select/7714": {
+    "lab": "Helix",
+    "title": "Кинезиотейпирование в Центре Троицк",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7713": {
+    "lab": "Helix",
+    "title": "Внутривенное лазерное облучение крови (ВЛОК) в Центре Троицк",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7712": {
+    "lab": "Helix",
+    "title": "Обязательные анализы и обследования при подготовке к беременности",
+    "summary": "Предлагается полный спектр анализов для мужчин и женщин при подготовке к беременности. Рекомендуется записаться на прием для уточнения необходимых исследований.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7670": {
+    "lab": "Helix",
+    "title": "Срочные анализы – результаты от 5 часов в Москве",
+    "summary": "В ряде Центров Хеликс в Москве выполняются срочные анализы с выдачей результатов от 5 часов. Это удобно для тех, кто не может ждать.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7620": {
+    "lab": "Helix",
+    "title": "Скидка 15% на анализы на дому",
+    "summary": "Скидка 15% на все анализы Хеликс на дому в Санкт-Петербурге, Москве и Екатеринбурге. Для получения скидки необходимо назвать промокод УДОБНО.",
+    "dates": "до 15 августа",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7605": {
+    "lab": "Helix",
+    "title": "Активное долголетие",
+    "summary": "Предложение о широком спектре исследований для определения биологического возраста и контроля здоровья. Вы можете узнать о рисках и предпринять необходимые меры.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7604": {
+    "lab": "Helix",
+    "title": "Стресс, тревога, усталость",
+    "summary": "Предложение о широком спектре исследований для выявления влияния стресса на здоровье. Рекомендуется обратиться к врачу и сдать анализы.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7603": {
+    "lab": "Helix",
+    "title": "Кожа, волосы, ногти",
+    "summary": "Предложение о широком спектре исследований для оценки состояния кожи, волос и ногтей. Рекомендуется обратиться к врачу для диагностики.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7545": {
+    "lab": "Helix",
+    "title": "Внимание, аллергия",
+    "summary": "Широкий спектр анализов на аллергены с использованием технологии ImmunoCAP для точной диагностики аллергии.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7542": {
+    "lab": "Helix",
+    "title": "Бесплатная консультация врача",
+    "summary": "Бесплатная консультация врача-консультанта для рекомендации анализов и интерпретации результатов.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7522": {
+    "lab": "Helix",
+    "title": "Новый специалист: врач – акушер-гинеколог",
+    "summary": "В Центре Лосиноостровский начала работу новый акушер-гинеколог. Запись на прием доступна онлайн.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7407": {
+    "lab": "Helix",
+    "title": "Позаботьтесь о женском здоровье",
+    "summary": "Набор Qvintip® позволяет женщинам заботиться о здоровье без посещения врача, что удобно и конфиденциально.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7372": {
+    "lab": "Helix",
+    "title": "Онлайн-запись на прием к врачу",
+    "summary": "Теперь записаться на прием к врачу можно онлайн, что делает процесс более удобным и быстрым.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7351": {
+    "lab": "Helix",
+    "title": "Новые комплексы по направлениям медицины",
+    "summary": "Специалисты Хеликс разработали новые комплексы для оценки здоровья и выявления факторов риска.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7263": {
+    "lab": "Helix",
+    "title": "Комплексы анализов для детей",
+    "summary": "Комплексы анализов помогут выявить заболевания у детей и получить необходимые справки.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7259": {
+    "lab": "Helix",
+    "title": "Гастроскрин: проверьте состояние ЖКТ без гастроскопии и ФГДС",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "от 4095 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/7244": {
+    "lab": "Helix",
+    "title": "Скидка 10% на анализы по карте москвича",
+    "summary": "Держатели карты москвича могут получить скидку 10% на анализы в Центрах Хеликс. Скидка предоставляется при показе карты администратору перед оплатой.",
+    "dates": "Бессрочно",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7225": {
+    "lab": "Helix",
+    "title": "Новая категория анализов: превентивная медицина и нутрициология",
+    "summary": "Представлены новые комплексы анализов для контроля здоровья и профилактики заболеваний. Это поможет выявить факторы риска и улучшить качество жизни.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7154": {
+    "lab": "Helix",
+    "title": "Получите 350 приветственных баллов за первый заказ",
+    "summary": "Новые клиенты могут получить 350 приветственных баллов за первый заказ, которые можно использовать для оплаты анализов.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/7085": {
+    "lab": "Helix",
+    "title": "Скидка 15% за отзыв о Хеликс",
+    "summary": "Оставьте отзыв о Центре Хеликс и получите скидку 15% на анализы. Скидка предоставляется по уникальному штрихкоду после публикации отзыва.",
+    "dates": "до 31 декабря 2026 года",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/6506": {
+    "lab": "Helix",
+    "title": "Комплексное обследование анемии",
+    "summary": "",
+    "dates": "до 30 апреля 2023 года",
+    "price": "3 200 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/6321": {
+    "lab": "Helix",
+    "title": "ЭКГ с расшифровкой за 15 минут",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "1 100 ₽",
+    "kind": "product"
+  },
+  "https://helix.ru/promotions/select/6013": {
+    "lab": "Helix",
+    "title": "Прием врача ультразвуковой диагностики",
+    "summary": "Запись на прием к врачу ультразвуковой диагностики и акушера-гинеколога. Услуга доступна в ДЦ Сходненская.",
+    "dates": "с 09 августа 2022 года",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/5773": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "Скидка 10% на лабораторные исследования для пенсионеров, ветеранов и инвалидов. Не суммируется с другими акциями.",
+    "dates": "до 31 июля 2027 года",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/5625": {
+    "lab": "Helix",
+    "title": "Бесконтактная сдача теста на COVID-19",
+    "summary": "Услуга по бесконтактной сдаче теста на COVID-19 на дому с доставкой набора для взятия биоматериала.",
+    "dates": "Бессрочно",
+    "price": "1 900 ₽",
+    "kind": "offer"
+  },
+  "https://helix.ru/promotions/select/55": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "Скидка 10% на лабораторные исследования для льготных категорий граждан, включая пенсионеров и инвалидов. Скидка не суммируется с другими акциями.",
+    "dates": "до 31 июля 2027",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/biokhimiya_krovi/": {
+    "lab": "ДНКом",
+    "title": "Биохимия крови: 8 ключевых показателей",
+    "summary": "Описание анализа биохимии крови с ключевыми показателями.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://dnkom.ru/actions/shchitovidnaya-zheleza-skrining/": {
+    "lab": "ДНКом",
+    "title": "Щитовидная железа: скрининг",
+    "summary": "Описание скрининга на гормоны щитовидной железы.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://dnkom.ru/actions/issledovanie-kleshcha-na-vozbuditeli-infektsiy/": {
+    "lab": "ДНКом",
+    "title": "Исследование клеща на возбудители инфекций",
+    "summary": "Специальная цена на исследование клеща на инфекционные заболевания. Важная информация о профилактике и действиях после укуса.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/allergochip-alex2-na-300-allergenov-i-obshchiy-ige-po-spetsialnoy-tsene/": {
+    "lab": "ДНКом",
+    "title": "Аллергочип ALEX2: до 300 аллергенов",
+    "summary": "Специальная цена на исследование до 300 аллергенов и общий IgE. Подробности о подготовке к исследованию.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/food-xplorer-fox-po-spetsialnoy-tsene/": {
+    "lab": "ДНКом",
+    "title": "Food Xplorer (FOX) по специальной цене",
+    "summary": "Тест на пищевую непереносимость к 286 продуктам по специальной цене. Узнайте о преимуществах FOX.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/issledovanie-urovnya-glyukozy-metodom-nepreryvnogo-monitorirovaniya-datchik-lumiflex-linx-do-16-suto/": {
+    "lab": "ДНКом",
+    "title": "Исследование уровня глюкозы методом непрерывного мониторирования",
+    "summary": "Метод непрерывного мониторинга глюкозы с использованием датчика Lumiflex Linx. Узнайте, чем он отличается от обычного глюкометра.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/skidka-10-vnd/": {
+    "lab": "ДНКом",
+    "title": "Скидка 10% на анализы на дому для двоих",
+    "summary": "Получите 10% скидку на анализы на дому для двоих. Новый уровень комфорта для вас и вашего партнера.",
+    "dates": "Бессрочно",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/vyigrayte-2-bileta-na-kontsert-shakiry-v-madride/": {
+    "lab": "ДНКом",
+    "title": "Выиграйте 2 билета на концерт Шакиры в Мадриде!",
+    "summary": "Подписывайтесь на Telegram-каналы ДНКОМ и Европасс, чтобы участвовать в розыгрыше билетов на концерт Шакиры.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/khudeem-pod-kontrolem/": {
+    "lab": "ДНКом",
+    "title": "Худеем под контролем!",
+    "summary": "Комплексные исследования для выявления причин изменения веса и контроля состояния обмена веществ.",
+    "dates": "Бессрочно",
+    "price": "2 065 ₽",
+    "kind": "product"
+  },
+  "https://dnkom.ru/actions/vyezd-medsestry-na-dom-za-1-rub-/": {
+    "lab": "ДНКом",
+    "title": "Бесплатный выезд медсестры на дом",
+    "summary": "Бесплатный выезд медицинской сестры на дом в Москве. Условия акции и дополнительная выгода с акцией «Здоровое долголетие».",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/prostudilis-uznayte-nuzhen-li-antibiotik/": {
+    "lab": "ДНКом",
+    "title": "Узнайте, нужен ли антибиотик",
+    "summary": "Информация о том, как определить необходимость антибиотиков при простудах. Важные исследования и рекомендации.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/helicobacteriosis/": {
+    "lab": "ДНКом",
+    "title": "Тесты на Helicobacter pylori",
+    "summary": "Тесты для диагностики Helicobacter pylori. Важность диагностики и первичные тесты.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/femoflor/": {
+    "lab": "ДНКом",
+    "title": "Фемофлор II — тесты для женского здоровья",
+    "summary": "Тесты нового поколения для оценки состояния женской микробиоты. Подробности о ФЕМОФЛОР II, АльфаСкрин и ДельтаСкрин.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/kompleksy-dlya-domashnego-personala/": {
+    "lab": "ДНКом",
+    "title": "Комплексы для домашнего персонала",
+    "summary": "Исследования для домашнего персонала и их важность. Подробности о комплексах.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/immunitet-nachinaetsya-s-mikrobioty-kishechnika-/": {
+    "lab": "ДНКом",
+    "title": "Иммунитет начинается с микробиоты кишечника!",
+    "summary": "Предложение направлено на восстановление баланса микробиоты для укрепления иммунитета. Информация о важности микробиоты для здоровья.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/zashchiti-sebya-i-drugikh-proydite-vaktsinatsiyu/": {
+    "lab": "ДНКом",
+    "title": "Защити себя и других! Пройдите вакцинацию",
+    "summary": "Акция на анализы и исследования для вакцинации с возможностью записи со скидкой. Вакцинация помогает избежать инфекционных заболеваний.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/innovatsionnaya-italyanskaya-tekhnologiya-dlya-vashego-intimnogo-zdorovya/": {
+    "lab": "ДНКом",
+    "title": "Инновационная итальянская технология для вашего интимного здоровья",
+    "summary": "Предложение о новой технологии для интимного здоровья, с описанием проблем, которые она решает.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/defitsit-vitaminov-i-mikroelementov/": {
+    "lab": "ДНКом",
+    "title": "Дефицит витаминов и микроэлементов",
+    "summary": "Исследования для выявления дефицита витаминов и микроэлементов с указанием на важность этих исследований.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/skidka-500-dlya-novykh-klientov-sluzhby-vyezda-na-dom/": {
+    "lab": "ДНКом",
+    "title": "Скидка 500 для новых клиентов службы выезда на дом",
+    "summary": "Скидка 500 рублей для новых клиентов, которые воспользуются услугой выезда на дом.",
+    "dates": "Бессрочно",
+    "price": "−500 ₽",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/zdorovoe-dolgoletie-skidka-10-dlya-patsientov-starshe-60/": {
+    "lab": "ДНКом",
+    "title": "Скидка 10% для пациентов старше 60",
+    "summary": "Скидка 10% для пациентов старше 60 лет на все анализы. Выгода для пожилых пациентов.",
+    "dates": "Бессрочно",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://dnkom.ru/actions/chek-ap-byt-pervym/": {
+    "lab": "ДНКом",
+    "title": "Чек ап: будь первым",
+    "summary": "Предложение о прохождении чек-апа без конкретной выгоды для пациента.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/skidka-do-70-dlya-novykh-klientov/": {
+    "lab": "LabQuest",
+    "title": "Скидка до 70% для новых клиентов",
+    "summary": "Скидка до 70% для новых клиентов при первом обращении. Выгода до 900 рублей от общей суммы заказа.",
+    "dates": "с 01.01.2026 по 31.07.2026",
+    "price": "−70%",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/skrining-shchitovidnoj-zhelezy/": {
+    "lab": "LabQuest",
+    "title": "Скрининг щитовидной железы",
+    "summary": "Комплексы для оценки функции щитовидной железы и энергообмена по специальной цене.",
+    "dates": "с 22.05.2026 по 31.08.2026",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.labquest.ru/aktsii/ukusil-kleshch-izvleki-i-prover-za-1-den-/": {
+    "lab": "LabQuest",
+    "title": "Укусил клещ? Проверь на 5 инфекций",
+    "summary": "Проверка клеща на 5 опасных инфекций с результатом за 2 дня.",
+    "dates": "с 20.03.2026 по 31.10.2026",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.labquest.ru/aktsii/kompleksy-s-vitaminom-d-po-spetsialnoy-tsene/": {
+    "lab": "LabQuest",
+    "title": "Комплексы с витамином D по специальной цене",
+    "summary": "",
+    "dates": "до 31 декабря 2026 года",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.labquest.ru/aktsii/operedite-virusy-i-bakterialnye-infektsii-s-novoy-aktsiey/": {
+    "lab": "LabQuest",
+    "title": "Вирусные и бактериальные инфекции",
+    "summary": "При покупке 2-х Q-ТЕСТОВ на 19 респираторных инфекций скидка 15%, а при покупке 3-х — 20%. Это поможет быстро определить причину недомогания.",
+    "dates": "с 16.03.2026 по 31.12.2026 г.",
+    "price": "−15% / −20%",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/biokhimiya-krovi-2025/": {
+    "lab": "LabQuest",
+    "title": "Биохимические комплексы анализов по специальной цене",
+    "summary": "",
+    "dates": "с 01.02.2025 по 31.12.2026 г.",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.labquest.ru/aktsii/energiya-vesny/": {
+    "lab": "LabQuest",
+    "title": "Энергия весны",
+    "summary": "",
+    "dates": "с 19.05.2026 по 31.07.2026 г.",
+    "price": "",
+    "kind": "product"
+  },
+  "https://www.labquest.ru/aktsii/ratsionalnaya-diagnostika/": {
+    "lab": "LabQuest",
+    "title": "Рациональная диагностика",
+    "summary": "Скидка до 50% на профилактические комплексы лабораторных тестов при заказе от 4000 рублей в Москве и от 3000 рублей в других офисах.",
+    "dates": "с 25.12.2024 по 31.12.2026 г.",
+    "price": "до 50%",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/semeynaya-skidka-na-uslugu-vyezd-na-dom/": {
+    "lab": "LabQuest",
+    "title": "Семейная скидка на услугу \"Выезд на дом\"",
+    "summary": "Закажите услугу «Выезд на дом» и получите промокод на скидку 10% на сдачу анализов на дому для всей семьи. Скидка позволяет сэкономить на анализах, не выходя из дома.",
+    "dates": "с 19.05.2026 по 31.08.2026",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/schastlivyy-den-skidka-15-na-analizy-po-voskresenyam/": {
+    "lab": "LabQuest",
+    "title": "Счастливый день - скидка 15% на анализы по воскресеньям",
+    "summary": "Каждое воскресенье предоставляем скидку 15% на лабораторные исследования по промокоду «HD15». Это отличная возможность сэкономить на анализах в выходные.",
+    "dates": "с 15.02.2024 по 31.12.2026",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/labkvest-zapuskaet-referalnuyu-programmu-privedi-druga/": {
+    "lab": "LabQuest",
+    "title": "Приведи друга",
+    "summary": "Пригласите друзей в «ЛабКвест» и получите до 1500 бонусов в программе лояльности. Ваши друзья также получат скидку на первый заказ.",
+    "dates": "с 14.02.2024 по 31.12.2026",
+    "price": "до 1500 бонусов",
+    "kind": "offer"
+  },
+  "https://www.labquest.ru/aktsii/skidka-20-na-analizy-v-schastlivye-chasy/": {
+    "lab": "LabQuest",
+    "title": "Скидка на анализы в счастливые часы",
+    "summary": "Сдавайте анализы после 13:00 и получайте скидку 20% по промокоду «HН20». Это отличная возможность сэкономить на анализах в течение дня.",
+    "dates": "с 21.05.2024 по 31.12.2026",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://gorlab.ru/news/uzi.html": {
+    "lab": "Горлаб",
+    "title": "Скидка на УЗИ на Щелковской",
+    "summary": "Специальная цена на ультразвуковую диагностику в лаборатории «Горлаб Щелковская». Скидка предоставляется только на УЗИ, проводимое врачом Шарифовым Илькином.",
+    "dates": "с 1 июля по 31 августа 2026 года",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gorlab.ru/news/giftcard.html": {
+    "lab": "Горлаб",
+    "title": "Подарочные сертификаты «ГОРЛАБ»",
+    "summary": "Подарочные сертификаты позволяют пройти любые виды лабораторных исследований. Доступны физические и электронные сертификаты.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gorlab.ru/news/cito-free.html": {
+    "lab": "Горлаб",
+    "title": "Срочные анализы без доплат!",
+    "summary": "Получите срочные анализы без доплат за срочность, если придете до 9:00 в указанные офисы.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://gorlab.ru/news/social-discount.html": {
+    "lab": "Горлаб",
+    "title": "Скидка 15% для льготных категорий граждан",
+    "summary": "Скидка 15% на любые лабораторные исследования для пенсионеров, инвалидов и других льготных категорий граждан.",
+    "dates": "Бессрочно",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://gorlab.ru/news/vitamins.html": {
+    "lab": "Горлаб",
+    "title": "Анализы на витамины и микроэлементы",
+    "summary": "Предлагаются различные анализы на витамины и микроэлементы с указанием цен.",
+    "dates": "Бессрочно",
+    "price": "24 950 ₽",
+    "kind": "product"
+  },
+  "https://gorlab.ru/news/checkup6090.html": {
+    "lab": "Горлаб",
+    "title": "Развернутый скрининг организма",
+    "summary": "Предлагается развернутый скрининг организма с различными комплексными чекапами.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "product"
+  },
+  "https://gorlab.ru/news/caring-health.html": {
+    "lab": "Горлаб",
+    "title": "Забота о здоровье",
+    "summary": "Скидка 20% на сдачу анализов с выездом на дом и бесплатная онлайн-консультация с врачом по результатам анализов по промокоду.",
+    "dates": "с 18 июня по 15 августа 2026",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://gorlab.ru/news/health-control.html": {
+    "lab": "Горлаб",
+    "title": "Здоровье под контролем",
+    "summary": "Скидка 20% на сдачу анализов в клиниках и бесплатная онлайн-консультация с врачом по результатам анализов по промокоду.",
+    "dates": "с 18 июня по 15 августа 2026",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/3-faktora-zdorovya-06-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Скидка до 45%",
+    "summary": "Проверьте уровень ТТГ, витаминов и минералов.",
+    "dates": "Бессрочно",
+    "price": "до 45%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/city/vnd": {
+    "lab": "Инвитро",
+    "title": "Выезд за 1 рубль",
+    "summary": "При заказе услуг от 2490 рублей выезд осуществляется за 1 рубль.",
+    "dates": "Бессрочно",
+    "price": "1 ₽",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/invitro-zabotitsya-o-zdorove-vsekh-07-2026-msk/": {
+    "lab": "Инвитро",
+    "title": "-10% на ветеринарные услуги",
+    "summary": "Скидка 10% на ветеринарные услуги.",
+    "dates": "Бессрочно",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/vitamin-v12-so-skidkoj-15-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Витамин B12 со скидкой 15%",
+    "summary": "Скидка 15% на анализ витамина B12, что позволяет сэкономить на диагностике.",
+    "dates": "до 7 июня 2026",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/uznayte-o-sebe-bolshe-07-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Тест в подарок",
+    "summary": "При заказе определенных анализов вы получаете тест в подарок, что позволяет узнать больше о своем здоровье.",
+    "dates": "до 7 августа 2026",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/15-na-zakaz-v-gorzdrav-07-08-2026-msk-spb/": {
+    "lab": "Инвитро",
+    "title": "-15% НА ЗАКАЗ В ГОРЗДРАВ",
+    "summary": "Скидка 15% на заказы в Горздрав, что позволяет сэкономить на медицинских услугах.",
+    "dates": "до 7 августа",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/uznajte-prichinu-sezonnoj-allergii-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Узнайте причину сезонной аллергии",
+    "summary": "Получите повышенный кешбэк 15% на анализы, связанные с сезонной аллергией.",
+    "dates": "до 6 июля 2026",
+    "price": "Кешбэк 15%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/moscow/ak/nipt-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Неинвазивный пренатальный тест",
+    "summary": "Кешбэк 15% на оценку генетических рисков с помощью неинвазивного пренатального теста.",
+    "dates": "Бессрочно",
+    "price": "Кешбэк 15%",
+    "kind": "offer"
+  },
+  "https://www.invitro.ru/loyalty/": {
+    "lab": "Инвитро",
+    "title": "Кешбэк в ИНВИТРО",
+    "summary": "Получайте кешбэк на услуги лаборатории ИНВИТРО. Условия участия не указаны.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/darim-4-000-na-lyubye-analizy/": {
+    "lab": "Ситилаб",
+    "title": "Розыгрыш сертификата на 4 000 ₽",
+    "summary": "Участвуйте в розыгрыше сертификата на 4 000 ₽ на любые анализы в Ситилаб. Подробности на странице.",
+    "dates": "до 21 июля",
+    "price": "",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/allergiya-na-moloko/": {
+    "lab": "Ситилаб",
+    "title": "Скидка 40% на диагностику аллергии на молоко",
+    "summary": "Получите скидку 40% на компонентную диагностику аллергии на белки коровьего молока, назвав промокод при оплате.",
+    "dates": "с 01.07.2026 по 31.07.2026",
+    "price": "−40%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/dyshat-legko/": {
+    "lab": "Ситилаб",
+    "title": "Скидка 20% на диагностику астмы и ринита",
+    "summary": "Скидка 20% на панели «Астма/Ринит» для детей и взрослых. Назовите промокод при оплате.",
+    "dates": "с 01.06.2026 по 31.07.2026",
+    "price": "−20%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/kompleksnaya-diagnostika-dlya-zhenskogo-zdorovya/": {
+    "lab": "Ситилаб",
+    "title": "Скидка 40% на комплексный тест ФЛОРОСКРИН®",
+    "summary": "Получите скидку 40% на комплексный тест для диагностики вагинальных инфекций, назвав промокод при оплате.",
+    "dates": "с 01.06.2026 по 31.07.2026",
+    "price": "−40%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/40-na-analizy-dlya-spravki-v-lager/": {
+    "lab": "Ситилаб",
+    "title": "−40% на анализы для справки в лагерь",
+    "summary": "Скидка 40% на лабораторные исследования, необходимые для оформления справки по форме 079/у. Для получения скидки используйте промокод «ЛАГЕРЬ40» при оплате.",
+    "dates": "до 31 августа",
+    "price": "−40%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/ostorozhno-kleshchi/": {
+    "lab": "Ситилаб",
+    "title": "Диагностика клещевых инфекций со скидкой 50%",
+    "summary": "Скидка 50% на анализ клеща на наличие опасных инфекций. Используйте промокод «КЛЕЩИ50» для получения скидки.",
+    "dates": "Бессрочно",
+    "price": "−50%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/energiya-i-immunitet/": {
+    "lab": "Ситилаб",
+    "title": "Сила трех: витамин D, ферритин, кальций",
+    "summary": "Скидка 60% на два анализа с витамином D, кальцием и ферритином. Промокод «ВИТАМИНД60» для получения скидки.",
+    "dates": "до 31 июля",
+    "price": "−60%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/aprel-skidok/": {
+    "lab": "Ситилаб",
+    "title": "Счастливые часы",
+    "summary": "Скидки на анализы зависят от времени визита: 10% до 14:00, 35% с 14:00 до 23:00, 25% в понедельник. Используйте соответствующие промокоды.",
+    "dates": "до 31 июля",
+    "price": "−10% / −35% / −25%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/skidka-15-na-analizy-dlya-chlenov-profsoyuzov-rossii/": {
+    "lab": "Ситилаб",
+    "title": "Профсоюзная скидка 15% на анализы",
+    "summary": "Скидка 15% на лабораторные исследования для членов профсоюзов. Необходимо предъявить профсоюзный билет и использовать промокод «ПРОФСОЮЗ».",
+    "dates": "до 31 декабря",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/skidka-pensioneram-20-na-vse/": {
+    "lab": "Ситилаб",
+    "title": "Скидка пенсионерам 15%",
+    "summary": "Скидка 15% на все лабораторные исследования для пенсионеров при предъявлении удостоверения. Это выгодное предложение для контроля здоровья.",
+    "dates": "до 31 декабря 2026",
+    "price": "−15%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/radi-zhizni-s-zabotoy-o-tekh-kto-zashchishchaet/": {
+    "lab": "Ситилаб",
+    "title": "Ради жизни: с заботой о тех, кто защищает",
+    "summary": "Скидка 10% на важные лабораторные исследования для участников СВО и их семей. Это возможность проверить здоровье по специальной цене.",
+    "dates": "до 31 декабря 2026",
+    "price": "−10%",
+    "kind": "offer"
+  },
+  "https://citilab.ru/discounts/skidka-mnogodetnym-semyam/": {
+    "lab": "Ситилаб",
+    "title": "Скидка многодетным семьям",
+    "summary": "Скидка 23% на все анализы для многодетных семей в выходные дни. Это отличная возможность проверить здоровье всей семьи.",
+    "dates": "до 31 декабря 2026",
+    "price": "−23%",
+    "kind": "offer"
   }
 }
