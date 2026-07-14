@@ -2,8 +2,8 @@ name: Lab Monitor Daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'
-    - cron: '0 14 * * *'
+    - cron: '0 5 * * *'
+    - cron: '0 15 * * *'
 concurrency:
   group: lab-monitor
   cancel-in-progress: false
