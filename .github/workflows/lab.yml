@@ -42,6 +42,10 @@ jobs:
       - name: Run monitor
         run: python3 -u lab_monitor.py
 
+      - name: Run КДЛ content monitor (VPN still up)
+        run: VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
+        continue-on-error: true
+
       - name: Build stats page
         run: python3 -u build_stats_html.py
 
@@ -49,8 +53,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add seen_promos.json stats.html || true
+          git add seen_promos.json seen_content.json stats.html || true
           git diff --staged --quiet && echo "nothing to commit" && exit 0
-          git commit -m "update seen_promos + stats"
+          git commit -m "update seen_promos + kdl content + stats"
           git pull --rebase origin main
           git push

@@ -4,13 +4,13 @@
 Запускается ежедневно, шлёт только новые материалы в Telegram.
 """
 import json, os, re, time
-from datetime import date, datetime, timezone
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
-TG_TOKEN  = os.environ.get("TG_TOKEN", "")
+TG_TOKEN   = os.environ.get("TG_TOKEN", "")
 TG_CHAT_ID = os.environ.get("TG_CHAT_ID", "")
 
 DATA_DIR  = Path(__file__).parent
@@ -24,9 +24,10 @@ _INVITRO_YEARS = list(range(2018, date.today().year + 1))
 
 # ─── источники ────────────────────────────────────────────────────────────────
 # method:
-#   html_links   — одна страница, regex
-#   paged_html   — пагинация через ?PAGEN_1=N, regex; extra = (pattern, start_page)
-#   sitemap      — XML sitemap, optional filter fn
+#   html_links  — одна страница, regex
+#   paged_html  — пагинация ?PARAM=N; extra = (pattern, start_page[, param_name])
+#   sitemap     — XML sitemap, optional filter fn
+# needs_vpn=True — пропускается если VPN_READY не установлен
 
 SOURCES = [
     ("Гемотест",  "news",    "paged_html",  "https://gemotest.ru/info/news/",
@@ -39,7 +40,7 @@ SOURCES = [
     ("CMD",       "article", "paged_html",  "https://www.cmd-online.ru/patsientam/poleznyye-statii/",
      (r'href="(/patsientam/poleznyye-statii/[^"?#]{5,})"', 1)),
 
-    ("Helix",     "article", "sitemap",     "https://helix.ru/sitemap-kb.xml",     None),
+    ("Helix",     "article", "sitemap",     "https://helix.ru/sitemap-kb.xml", None),
 
     ("ДНКом",     "news",    "paged_html",  "https://dnkom.ru/o-kompanii/novosti/",
      (r'href="(/o-kompanii/novosti/[^"?#]{10,})"', 1)),
@@ -54,15 +55,18 @@ SOURCES = [
     ("Ситилаб",   "news",    "sitemap",     "https://citilab.ru/sitemaps/news.xml",     None),
     ("Ситилаб",   "article", "sitemap",     "https://citilab.ru/sitemaps/articles.xml", None),
 
-    ("Горлаб",    "article", "html_links",  "https://gorlab.ru/book/",
-     r'href="(/book/[^"?#]{5,})"'),
-    # Горлаб новости — sequential pages, обрабатывается отдельно
-    # Инвитро новости — по годам, обрабатывается отдельно
-    # Инвитро статьи — sitemap
     ("Инвитро",   "article", "sitemap",     "https://www.invitro.ru/sitemap/library.xml",
      lambda l: "/library/" in l and l.count("/") > 4),
+
+    # КДЛ — только с VPN; фильтры уточняются после первого успешного прогона
+    ("КДЛ",       "news",    "sitemap",     "https://kdl.ru/sitemap.xml",
+     lambda l: any(x in l for x in ["/news/", "/novosti/", "/press/"]) and l.count("/") > 4),
+    ("КДЛ",       "article", "sitemap",     "https://kdl.ru/sitemap.xml",
+     lambda l: any(x in l for x in ["/articles/", "/stati/", "/blog/", "/enciklopediya/"]) and l.count("/") > 4),
 ]
 
+# Источники только под VPN
+VPN_LABS = {"КДЛ"}
 
 # ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -78,7 +82,7 @@ def get_html_links(url, pattern, encoding="utf-8"):
 
 
 def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1"):
-    """Итерирует ?PAGEN_N=N пока страницы не повторяются, не пустые, или нет кнопки 'ещё'."""
+    """Итерирует ?PARAM=N пока страницы не повторяются или не пустые."""
     all_links = []
     seen_on_pages = set()
     page = start_page
@@ -87,12 +91,11 @@ def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1")
         try:
             html = fetch(url)
         except Exception as e:
-            print(f"  paged {base_url} page {page}: ❌ {e}")
+            print(f"  paged page {page}: ❌ {e}")
             break
         links = list(dict.fromkeys(re.findall(pattern, html)))
         if not links:
             break
-        # Если первая ссылка страницы уже видели — дошли до конца (зациклилось)
         if links[0] in seen_on_pages:
             break
         for l in links:
@@ -121,8 +124,7 @@ def get_invitro_news():
     for year in _INVITRO_YEARS:
         try:
             url = f"https://www.invitro.ru/moscow/about/news/year-{year}/"
-            html = fetch(url)
-            links = list(dict.fromkeys(re.findall(pattern, html)))
+            links = list(dict.fromkeys(re.findall(pattern, fetch(url))))
             print(f"  Инвитро news {year}: {len(links)}")
             all_links.extend(l for l in links if l not in all_links)
             time.sleep(0.3)
@@ -149,6 +151,24 @@ def get_gorlab_news(last_page):
     return found, n - 1 if found else last_page
 
 
+def get_gorlab_book(last_item):
+    """Проверяем /book/itemN.html начиная с last_item+1."""
+    found = []
+    n = last_item + 1
+    while True:
+        url = f"https://gorlab.ru/book/item{n}.html"
+        try:
+            html = fetch(url, encoding="windows-1251")
+            if len(html) < 5000:
+                break
+            found.append(url)
+            n += 1
+            time.sleep(0.3)
+        except:
+            break
+    return found, n - 1 if found else last_item
+
+
 def tg_send(text):
     url = f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage"
     data = urlencode({
@@ -163,6 +183,19 @@ def tg_safe(text, label=""):
         tg_send(text)
     except Exception as e:
         print(f"TG error {label}: {e}")
+
+
+def notify_new(lab, typ, new_links, is_init):
+    if not new_links or is_init:
+        return
+    label = "новости" if typ == "news" else "статьи"
+    lines = [f"<b>{'📰' if typ == 'news' else '📄'} {lab} — {label}</b>"]
+    for l in new_links[:5]:
+        lines.append(f"<a href=\"{l}\">{l.rstrip('/').split('/')[-1]}</a>")
+    if len(new_links) > 5:
+        lines.append(f"...и ещё {len(new_links) - 5}")
+    tg_safe("\n".join(lines), f"{lab}-{typ}")
+    time.sleep(0.5)
 
 
 def load_seen():
@@ -186,9 +219,17 @@ def run():
     is_init = not seen
     today = date.today().isoformat()
     new_count = 0
+    vpn_ready = bool(os.environ.get("VPN_READY"))
+    vpn_only  = bool(os.environ.get("VPN_ONLY"))
 
     # Обычные источники
     for lab, typ, method, url, extra in SOURCES:
+        needs_vpn = lab in VPN_LABS
+        if vpn_only and not needs_vpn:
+            continue
+        if needs_vpn and not vpn_ready:
+            print(f"⏭ {lab} {typ}: пропущен (нет VPN)")
+            continue
         try:
             enc = "windows-1251" if "gorlab" in url else "utf-8"
             if method == "html_links":
@@ -205,64 +246,62 @@ def run():
 
             new_links = [l for l in links if l not in seen]
             print(f"{lab} {typ}: {len(links)} всего, {len(new_links)} новых")
-
             for link in new_links:
                 seen[link] = {"lab": lab, "type": typ, "date": today}
-
-            if new_links and not is_init:
-                label = "новости" if typ == "news" else "статьи"
-                lines = [f"<b>{'📰' if typ == 'news' else '📄'} {lab} — {label}</b>"]
-                for l in new_links[:5]:
-                    lines.append(f"<a href=\"{l}\">{l.rstrip('/').split('/')[-1]}</a>")
-                if len(new_links) > 5:
-                    lines.append(f"...и ещё {len(new_links) - 5}")
-                tg_safe("\n".join(lines), f"{lab}-{typ}")
-                time.sleep(0.5)
-                new_count += len(new_links)
+            notify_new(lab, typ, new_links, is_init)
+            new_count += len(new_links) if not is_init else 0
 
         except Exception as e:
             print(f"❌ {lab} {typ}: {e}")
 
         time.sleep(0.3)
 
+    if vpn_only:
+        if is_init:
+            print(f"Первый запуск (VPN), запомнили {len(seen)} материалов")
+        else:
+            print(f"Новых материалов (VPN): {new_count}")
+        save_seen(seen)
+        print("Готово")
+        return
+
     # Инвитро новости — по годам
     try:
-        inv_links = get_invitro_news()
-        inv_links_full = ["https://www.invitro.ru" + l for l in inv_links]
-        new_inv = [l for l in inv_links_full if l not in seen]
-        print(f"Инвитро news: {len(inv_links_full)} всего, {len(new_inv)} новых")
+        inv_links = ["https://www.invitro.ru" + l for l in get_invitro_news()]
+        new_inv = [l for l in inv_links if l not in seen]
+        print(f"Инвитро news: {len(inv_links)} всего, {len(new_inv)} новых")
         for link in new_inv:
             seen[link] = {"lab": "Инвитро", "type": "news", "date": today}
-        if new_inv and not is_init:
-            lines = ["<b>📰 Инвитро — новости</b>"]
-            for l in new_inv[:5]:
-                lines.append(f"<a href=\"{l}\">{l.rstrip('/').split('/')[-1]}</a>")
-            if len(new_inv) > 5:
-                lines.append(f"...и ещё {len(new_inv) - 5}")
-            tg_safe("\n".join(lines), "invitro-news")
-            new_count += len(new_inv)
+        notify_new("Инвитро", "news", new_inv, is_init)
+        new_count += len(new_inv) if not is_init else 0
     except Exception as e:
         print(f"❌ Инвитро news: {e}")
 
-    # Горлаб новости — sequential
+    # Горлаб новости — sequential pages
     last_page = seen.get("_gorlab_last_page", 0)
     try:
         new_pages, last_page = get_gorlab_news(last_page)
         seen["_gorlab_last_page"] = last_page
-        if new_pages:
-            print(f"Горлаб news: {len(new_pages)} новых страниц")
-            for url in new_pages:
-                seen[url] = {"lab": "Горлаб", "type": "news", "date": today}
-            if not is_init:
-                lines = ["<b>📰 Горлаб — новости</b>"]
-                for url in new_pages:
-                    lines.append(f"<a href=\"{url}\">{url}</a>")
-                tg_safe("\n".join(lines), "gorlab-news")
-                new_count += len(new_pages)
-        else:
-            print(f"Горлаб news: 0 новых (последняя страница {last_page})")
+        print(f"Горлаб news: {len(new_pages)} новых (последняя стр. {last_page})")
+        for u in new_pages:
+            seen[u] = {"lab": "Горлаб", "type": "news", "date": today}
+        notify_new("Горлаб", "news", new_pages, is_init)
+        new_count += len(new_pages) if not is_init else 0
     except Exception as e:
         print(f"❌ Горлаб news: {e}")
+
+    # Горлаб статьи — sequential items
+    last_item = seen.get("_gorlab_last_book_item", 100)
+    try:
+        new_items, last_item = get_gorlab_book(last_item)
+        seen["_gorlab_last_book_item"] = last_item
+        print(f"Горлаб article: {len(new_items)} новых (последний item {last_item})")
+        for u in new_items:
+            seen[u] = {"lab": "Горлаб", "type": "article", "date": today}
+        notify_new("Горлаб", "article", new_items, is_init)
+        new_count += len(new_items) if not is_init else 0
+    except Exception as e:
+        print(f"❌ Горлаб article: {e}")
 
     if is_init:
         print(f"Первый запуск, запомнили {len(seen)} материалов")
