@@ -66,10 +66,10 @@ SOURCES = [
      lambda l: "/library/" in l and l.count("/") > 4),
 
     # КДЛ — только с VPN; новости и статьи через HTML (sitemap содержит только анализы)
-    ("КДЛ",       "news",    "paged_html",  "https://kdl.ru/press-center/",
-     (r'href="(/press-center/[^"?#]{5,})"', 1)),
-    ("КДЛ",       "article", "paged_html",  "https://kdl.ru/blog/",
-     (r'href="(/blog/[^"?#]{5,})"', 1)),
+    ("КДЛ",       "news",    "paged_html",  "https://kdl.ru/o-nas/news",
+     (r'href="(/o-nas/news/[^"?#]{5,})"', 1)),
+    ("КДЛ",       "article", "paged_html",  "https://kdl.ru/patient/blog",
+     (r'href="(/patient/blog/[^"?#]{5,})"', 1)),
 ]
 
 # Источники только под VPN
