@@ -195,11 +195,11 @@ def get_invitro_news(progress_cb=None):
                 break
             try:
                 url = f"https://www.invitro.ru/moscow/about/news/year-{year}/{month:02d}/"
-                links = list(dict.fromkeys(re.findall(pattern, fetch(url))))
+                links = list(dict.fromkeys(re.findall(pattern, fetch_retry(url, retries=3))))
                 new = [l for l in links if l not in all_links]
                 all_links.extend(new)
                 year_count += len(new)
-                time.sleep(0.2)
+                time.sleep(0.5 if year < 2010 else 0.2)
             except Exception as e:
                 print(f"    Инвитро {year}/{month:02d}: ❌ {e}")
         print(f"  Инвитро news {year}: {year_count} уникальных")
