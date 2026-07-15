@@ -210,6 +210,12 @@ def get_kdl_articles(already_seen=None):
     """Статьи КДЛ — /patient/blog (все на одной странице, JS-рендеринг)."""
     html = _kdl_fetch_js(f"{_KDL_BASE}/patient/blog")
     links = list(dict.fromkeys(re.findall(r'href="(/patient/blog/[^"?#]{5,})"', html)))
+    if not links:
+        print(f"  КДЛ article DEBUG: html len={len(html)}")
+        # ищем любые /patient/ ссылки
+        any_links = re.findall(r'href="(/patient/[^"]{5,})"', html)
+        print(f"  КДЛ article DEBUG: /patient/ hrefs={any_links[:5]}")
+        print(f"  КДЛ article DEBUG: html[:600]={html[:600]}")
     return [_KDL_BASE + l for l in links]
 
 
@@ -238,7 +244,14 @@ def get_kdl_news(already_seen=None):
             return re.findall(r'href="(/o-nas/news/[^"?#]{5,})"', html)
 
         # Собираем текущий год
-        all_links.extend(collect_links())
+        initial = collect_links()
+        all_links.extend(initial)
+        html_snap = page.content()
+        print(f"  КДЛ news DEBUG: initial={len(initial)} links, html={len(html_snap)} bytes")
+        if not initial:
+            any_news = re.findall(r'href="(/[^"]{5,}news[^"]{3,})"', html_snap)
+            print(f"  КДЛ news DEBUG: any news hrefs={any_news[:5]}")
+            print(f"  КДЛ news DEBUG: html[:600]={html_snap[:600]}")
 
         # Кликаем по вкладкам других годов
         year_tabs = page.query_selector_all("a[href*='year'], button[data-year], [class*='year']")
@@ -246,6 +259,7 @@ def get_kdl_news(already_seen=None):
             # Пробуем найти по тексту — цифры 20xx
             year_tabs = [el for el in page.query_selector_all("a, button")
                          if re.match(r'20\d\d$', (el.inner_text() or "").strip())]
+        print(f"  КДЛ news DEBUG: year_tabs найдено={len(year_tabs)}")
 
         seen_years = set()
         for tab in year_tabs:
@@ -259,7 +273,7 @@ def get_kdl_news(already_seen=None):
                 new = collect_links()
                 all_links.extend(new)
                 print(f"  КДЛ news год {txt}: {len(new)} ссылок")
-                if already_seen and all((_KDL_BASE + l) in already_seen for l in new if new):
+                if already_seen and new and all((_KDL_BASE + l) in already_seen for l in new):
                     print(f"  КДЛ news: год {txt} полностью известен, стоп")
                     break
             except Exception as e:
