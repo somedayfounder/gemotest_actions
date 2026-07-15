@@ -65,15 +65,14 @@ SOURCES = [
     ("Инвитро",   "article", "sitemap",     "https://www.invitro.ru/sitemap/library.xml",
      lambda l: "/library/" in l and l.count("/") > 4),
 
-    # КДЛ — только с VPN; новости и статьи через HTML (sitemap содержит только анализы)
-    ("КДЛ",       "news",    "paged_html",  "https://kdl.ru/o-nas/news",
-     (r'href="(/o-nas/news/[^"?#]{5,})"', 1)),
-    ("КДЛ",       "article", "paged_html",  "https://kdl.ru/patient/blog",
-     (r'href="(/patient/blog/[^"?#]{5,})"', 1)),
+    # КДЛ обрабатывается отдельно через get_kdl_news() / get_kdl_articles() (JS-рендеринг)
 ]
 
 # Источники только под VPN
 VPN_LABS = {"КДЛ"}
+
+_KDL_BASE = "https://kdl.ru"
+_KDL_PRE  = "https://kdl.ru/analizy-i-tseny/msk"  # устанавливает cookie города Москва
 
 # ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -183,6 +182,93 @@ def get_sitemap_links(url, filter_fn=None):
             print(f"  КДЛ sitemap segments: {sorted(segments)[:20]}")
         urls = [u for u in urls if filter_fn(u)]
     return urls
+
+
+def _kdl_fetch_js(url):
+    """Рендерит КДЛ-страницу через Playwright с cookie города Москва."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
+        ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
+        page = ctx.new_page()
+        try:
+            page.goto(_KDL_PRE, wait_until="load", timeout=20000)
+            page.wait_for_timeout(500)
+        except Exception:
+            pass
+        try:
+            page.goto(url, wait_until="networkidle", timeout=30000)
+        except Exception:
+            page.goto(url, wait_until="load", timeout=30000)
+        page.wait_for_timeout(2000)
+        html = page.content()
+        browser.close()
+    return html
+
+
+def get_kdl_articles(already_seen=None):
+    """Статьи КДЛ — /patient/blog (все на одной странице, JS-рендеринг)."""
+    html = _kdl_fetch_js(f"{_KDL_BASE}/patient/blog")
+    links = list(dict.fromkeys(re.findall(r'href="(/patient/blog/[^"?#]{5,})"', html)))
+    return [_KDL_BASE + l for l in links]
+
+
+def get_kdl_news(already_seen=None):
+    """Новости КДЛ — /o-nas/news с переключалкой по годам (JS).
+    Кликает каждую вкладку года и собирает ссылки."""
+    from playwright.sync_api import sync_playwright
+    all_links = []
+    with sync_playwright() as p:
+        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
+        ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
+        page = ctx.new_page()
+        try:
+            page.goto(_KDL_PRE, wait_until="load", timeout=20000)
+            page.wait_for_timeout(500)
+        except Exception:
+            pass
+        try:
+            page.goto(f"{_KDL_BASE}/o-nas/news", wait_until="networkidle", timeout=30000)
+        except Exception:
+            page.goto(f"{_KDL_BASE}/o-nas/news", wait_until="load", timeout=30000)
+        page.wait_for_timeout(2000)
+
+        def collect_links():
+            html = page.content()
+            return re.findall(r'href="(/o-nas/news/[^"?#]{5,})"', html)
+
+        # Собираем текущий год
+        all_links.extend(collect_links())
+
+        # Кликаем по вкладкам других годов
+        year_tabs = page.query_selector_all("a[href*='year'], button[data-year], [class*='year']")
+        if not year_tabs:
+            # Пробуем найти по тексту — цифры 20xx
+            year_tabs = [el for el in page.query_selector_all("a, button")
+                         if re.match(r'20\d\d$', (el.inner_text() or "").strip())]
+
+        seen_years = set()
+        for tab in year_tabs:
+            try:
+                txt = (tab.inner_text() or "").strip()
+                if txt in seen_years or not re.match(r'20\d\d$', txt):
+                    continue
+                seen_years.add(txt)
+                tab.click()
+                page.wait_for_timeout(1500)
+                new = collect_links()
+                all_links.extend(new)
+                print(f"  КДЛ news год {txt}: {len(new)} ссылок")
+                if already_seen and all((_KDL_BASE + l) in already_seen for l in new if new):
+                    print(f"  КДЛ news: год {txt} полностью известен, стоп")
+                    break
+            except Exception as e:
+                print(f"  КДЛ news tab error: {e}")
+
+        browser.close()
+
+    unique = list(dict.fromkeys(all_links))
+    return [_KDL_BASE + l for l in unique]
 
 
 def get_invitro_news(already_seen=None, progress_cb=None):
@@ -452,6 +538,32 @@ def run():
         time.sleep(0.3)
 
     if vpn_only:
+        # КДЛ news — JS-рендеринг, Playwright
+        kdl_news, elapsed = tg_step("КДЛ news (JS)", get_kdl_news, seen)
+        if kdl_news is not None:
+            new_kdl_news = [l for l in kdl_news if l not in seen]
+            known_kdl_news = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "КДЛ" and v.get("type") == "news")
+            done("КДЛ news", known_kdl_news + len(new_kdl_news), len(new_kdl_news), elapsed)
+            fetch_t = not is_init and len(new_kdl_news) <= 50
+            for link in new_kdl_news:
+                title = get_title(link) if fetch_t else None
+                seen[link] = {"lab": "КДЛ", "type": "news", "date": today, "title": title}
+            notify_new("КДЛ", "news", new_kdl_news, is_init)
+            new_count += len(new_kdl_news) if not is_init else 0
+
+        # КДЛ articles — JS-рендеринг, Playwright
+        kdl_art, elapsed = tg_step("КДЛ article (JS)", get_kdl_articles, seen)
+        if kdl_art is not None:
+            new_kdl_art = [l for l in kdl_art if l not in seen]
+            known_kdl_art = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "КДЛ" and v.get("type") == "article")
+            done("КДЛ article", known_kdl_art + len(new_kdl_art), len(new_kdl_art), elapsed)
+            fetch_t = not is_init and len(new_kdl_art) <= 50
+            for link in new_kdl_art:
+                title = get_title(link) if fetch_t else None
+                seen[link] = {"lab": "КДЛ", "type": "article", "date": today, "title": title}
+            notify_new("КДЛ", "article", new_kdl_art, is_init)
+            new_count += len(new_kdl_art) if not is_init else 0
+
         _send_stats(stats, new_count, is_init, vpn_only=True)
         save_seen(seen)
         print("Готово")
