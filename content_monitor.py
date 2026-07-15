@@ -201,7 +201,7 @@ def get_invitro_news(progress_cb=None):
                 year_count += len(new)
                 time.sleep(0.2)
             except Exception as e:
-                print(f"    Инвитро {year}/{month:02d}: ❌ {e}")
+                pass
         print(f"  Инвитро news {year}: {year_count} уникальных")
         if progress_cb:
             progress_cb(year, len(all_links))
