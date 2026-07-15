@@ -212,15 +212,10 @@ def get_kdl_articles(already_seen=None):
     links = list(dict.fromkeys(re.findall(r'href="(/patient/blog/[^"?#]{5,})"', html)))
     if not links:
         print(f"  КДЛ article DEBUG: html len={len(html)}")
-        # ищем известный slug
-        idx = html.find("akne-i-zhirnaya")
-        if idx >= 0:
-            print(f"  КДЛ article DEBUG: 'akne' found at {idx}: ...{html[max(0,idx-80):idx+120]}...")
-        else:
-            print("  КДЛ article DEBUG: 'akne' not found in html")
-        # ищем /patient/blog в любом виде
-        blog_ctx = re.findall(r'.{0,30}/patient/blog/[^"\s<]{5,}.{0,30}', html)
-        print(f"  КДЛ article DEBUG: /patient/blog/ contexts={blog_ctx[:3]}")
+        # ищем любые /patient/ ссылки
+        any_links = re.findall(r'href="(/patient/[^"]{5,})"', html)
+        print(f"  КДЛ article DEBUG: /patient/ hrefs={any_links[:5]}")
+        print(f"  КДЛ article DEBUG: html[:600]={html[:600]}")
     return [_KDL_BASE + l for l in links]
 
 
@@ -254,13 +249,9 @@ def get_kdl_news(already_seen=None):
         html_snap = page.content()
         print(f"  КДЛ news DEBUG: initial={len(initial)} links, html={len(html_snap)} bytes")
         if not initial:
-            # ищем /o-nas/news/ в любом виде
-            news_ctx = re.findall(r'.{0,30}/o-nas/news/[^"\s<]{5,}.{0,30}', html_snap)
-            print(f"  КДЛ news DEBUG: /o-nas/news/ contexts={news_ctx[:3]}")
-            # ищем просто "news" вхождения
-            any_hrefs = re.findall(r'href=["\']?(/[^"\'\s>]{5,})["\']?', html_snap)
-            news_hrefs = [h for h in any_hrefs if 'news' in h.lower()]
-            print(f"  КДЛ news DEBUG: hrefs with 'news'={news_hrefs[:5]}")
+            any_news = re.findall(r'href="(/[^"]{5,}news[^"]{3,})"', html_snap)
+            print(f"  КДЛ news DEBUG: any news hrefs={any_news[:5]}")
+            print(f"  КДЛ news DEBUG: html[:600]={html_snap[:600]}")
 
         # Кликаем по вкладкам других годов
         year_tabs = page.query_selector_all("a[href*='year'], button[data-year], [class*='year']")
