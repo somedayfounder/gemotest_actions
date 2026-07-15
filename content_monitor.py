@@ -49,8 +49,8 @@ SOURCES = [
 
     ("ДНКом",     "news",    "paged_html",  "https://dnkom.ru/o-kompanii/novosti/",
      (r'href="(/o-kompanii/novosti/[^"?#]{10,})"', 1)),
-    ("ДНКом",     "article", "paged_html",  "https://dnkom.ru/o-kompanii/stati/",
-     (r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"', 1, "PAGEN_2")),
+    # ДНКом articles — обрабатывается через get_dnkom_articles() в run()
+
 
     ("LabQuest",  "news",    "sitemap",     "https://www.labquest.ru/sitemap-iblock-12.xml",
      lambda l: "/novosti/" in l),
@@ -173,37 +173,63 @@ def get_sitemap_links(url, filter_fn=None):
 
 
 def get_invitro_news():
-    """Собирает новости Инвитро по годам 2018-текущий."""
+    """Собирает новости Инвитро по годам 2018-текущий, с пагинацией PAGEN_1."""
     pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{10,})"'
     all_links = []
     for year in _INVITRO_YEARS:
         try:
-            url = f"https://www.invitro.ru/moscow/about/news/year-{year}/"
-            links = list(dict.fromkeys(re.findall(pattern, fetch(url))))
-            print(f"  Инвитро news {year}: {len(links)}")
-            all_links.extend(l for l in links if l not in all_links)
-            time.sleep(0.3)
+            base = f"https://www.invitro.ru/moscow/about/news/year-{year}/"
+            links = get_paged_html_links(base, pattern)
+            new = [l for l in links if l not in all_links]
+            all_links.extend(new)
+            print(f"  Инвитро news {year}: {len(links)} ({len(new)} уникальных)")
         except Exception as e:
             print(f"  Инвитро news {year}: ❌ {e}")
     return all_links
 
 
-def get_helix_news(last_id):
-    """Проверяем /feed/select/N начиная с last_id+1."""
-    found = []
-    n = last_id + 1
+def get_helix_news_all():
+    """Собирает все новости Helix из архивных страниц /feed/archive."""
+    pattern = r'"(https://helix\.ru/feed/select/\d+)"'
+    base = "https://helix.ru/feed/archive"
+    links = get_paged_html_links(base, pattern)
+    if not links:
+        # fallback: ищем относительные ссылки
+        pattern2 = r'href="(/feed/select/\d+)"'
+        links2 = get_paged_html_links(base, pattern2)
+        links = ["https://helix.ru" + l for l in links2]
+    return links
+
+
+def get_dnkom_articles():
+    """Статьи ДНКом через PAGEN_2 (Bitrix AJAX «показать ещё»)."""
+    base = "https://dnkom.ru/o-kompanii/stati/"
+    pattern = r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"'
+    ajax_hdrs = {**HEADERS, "X-Requested-With": "XMLHttpRequest", "BX-AJAX": "1"}
+    all_links = []
+    seen_on_pages = set()
+    page = 1
     while True:
-        url = f"https://helix.ru/feed/select/{n}"
+        url = base if page == 1 else f"{base}?PAGEN_2={page}"
         try:
-            html = fetch(url, timeout=10)
-            if len(html) < 3000:
-                break
-            found.append(url)
-            n += 1
-            time.sleep(0.2)
-        except:
+            hdrs = HEADERS if page == 1 else ajax_hdrs
+            req = Request(url, headers=hdrs)
+            html = urlopen(req, timeout=20).read().decode("utf-8", "replace")
+        except Exception as e:
+            print(f"  ДНКом articles p{page}: ❌ {e}")
             break
-    return found, n - 1 if found else last_id
+        links = list(dict.fromkeys(re.findall(pattern, html)))
+        if not links:
+            break
+        if links[0] in seen_on_pages:
+            break
+        for l in links:
+            seen_on_pages.add(l)
+            if l not in all_links:
+                all_links.append(l)
+        page += 1
+        time.sleep(0.3)
+    return all_links
 
 
 def get_gorlab_news(last_page):
@@ -353,15 +379,11 @@ def run():
     except Exception as e:
         print(f"❌ Инвитро news: {e}")
 
-    # Helix новости — sequential IDs /feed/select/N
-    # При первом запуске (is_init) начинаем с 17 чтобы собрать всю историю
-    # При обычном запуске default = 1572 (последние известные)
-    default_helix_id = 17 if is_init else 1572
-    last_helix_id = seen.get("_helix_last_news_id", default_helix_id)
+    # Helix новости — из архивных страниц /feed/archive
     try:
-        new_helix, last_helix_id = get_helix_news(last_helix_id)
-        seen["_helix_last_news_id"] = last_helix_id
-        print(f"Helix news: {len(new_helix)} новых (последний ID {last_helix_id})")
+        helix_all = get_helix_news_all()
+        new_helix = [l for l in helix_all if l not in seen]
+        print(f"Helix news: {len(helix_all)} всего, {len(new_helix)} новых")
         for u in new_helix:
             title = get_title(u) if not is_init else None
             seen[u] = {"lab": "Helix", "type": "news", "date": today, "title": title}
@@ -369,6 +391,21 @@ def run():
         new_count += len(new_helix) if not is_init else 0
     except Exception as e:
         print(f"❌ Helix news: {e}")
+
+    # ДНКом статьи — AJAX «показать ещё» (PAGEN_2)
+    try:
+        dnkom_articles = get_dnkom_articles()
+        dnkom_base = "https://dnkom.ru"
+        dnkom_links = [dnkom_base + l if l.startswith("/") else l for l in dnkom_articles]
+        new_dnkom = [l for l in dnkom_links if l not in seen]
+        print(f"ДНКом article: {len(dnkom_links)} всего, {len(new_dnkom)} новых")
+        for link in new_dnkom:
+            title = get_title(link) if not is_init else None
+            seen[link] = {"lab": "ДНКом", "type": "article", "date": today, "title": title}
+        notify_new("ДНКом", "article", new_dnkom, is_init)
+        new_count += len(new_dnkom) if not is_init else 0
+    except Exception as e:
+        print(f"❌ ДНКом article: {e}")
 
     # Горлаб новости — sequential pages
     last_page = seen.get("_gorlab_last_page", 81)
