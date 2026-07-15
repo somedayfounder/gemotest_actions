@@ -42,60 +42,29 @@ jobs:
               print("No VPN configs found")
           PYEOF
 
-      - name: VPN + КДЛ (с ретраями по VPN)
+      - name: Run monitor (все лабы, КДЛ через внутренний VPN)
+        run: python3 -u lab_monitor.py
+
+      - name: VPN + КДЛ content (с ретраями по VPN)
         run: |
-          KDL_OK=0
           for f in vpn*.ovpn; do
             echo "=== Пробуем $f ==="
             sudo openvpn --config "$f" --daemon --log /tmp/vpn.log
             sleep 8
             IP=$(curl -s --max-time 8 https://api.ipify.org || echo "unknown")
             echo "IP: $IP"
-
-            # Запускаем КДЛ акции, пишем вывод в файл
-            KDL_ONLY=1 python3 -u lab_monitor.py 2>&1 | tee /tmp/kdl_out.txt
-
-            # Успех = строка "КДЛ: X акций" есть и нет "ошибка листинга"
-            if grep -q "КДЛ:.*акций" /tmp/kdl_out.txt && ! grep -q "ошибка листинга" /tmp/kdl_out.txt; then
+            if python3 -c "import urllib.request; urllib.request.urlopen('https://kdl.ru/akcii', timeout=8)" 2>/dev/null; then
               echo "КДЛ доступен через $f"
               VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
               sudo pkill openvpn || true
-              KDL_OK=1
               break
             fi
-
             echo "КДЛ недоступен через $f, пробуем следующий..."
             sudo pkill openvpn || true
             sleep 3
           done
-
-          sudo pkill openvpn || true  # на случай если loop завершился без break
-          echo "KDL_OK=$KDL_OK"
+          sudo pkill openvpn || true
         continue-on-error: true
-
-      - name: Notify КДЛ акции (после VPN)
-        run: |
-          python3 - <<'PYEOF'
-          import json, os, urllib.request, urllib.parse
-          TG_TOKEN   = os.environ.get("TG_TOKEN", "")
-          TG_CHAT_ID = os.environ.get("TG_CHAT_ID", "")
-          try:
-              promos = json.loads(open("seen_promos.json").read())
-          except Exception:
-              promos = {}
-          kdl = {u: v for u, v in promos.items() if isinstance(v, dict) and v.get("lab") == "КДЛ"}
-          if not kdl or not TG_TOKEN:
-              print("КДЛ акции: нечего слать")
-          else:
-              text = f"✅ КДЛ акции: {len(kdl)} активных"
-              data = urllib.parse.urlencode({"chat_id": TG_CHAT_ID, "text": text, "parse_mode": "HTML"}).encode()
-              urllib.request.urlopen(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage", data=data, timeout=10)
-              print(f"Отправлено: {text}")
-          PYEOF
-        continue-on-error: true
-
-      - name: Run monitor (без КДЛ)
-        run: SKIP_KDL=1 python3 -u lab_monitor.py
 
       - name: Run content monitor (без КДЛ)
         run: python3 -u content_monitor.py
