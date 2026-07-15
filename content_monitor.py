@@ -111,12 +111,14 @@ def get_html_links(url, pattern, encoding="utf-8"):
     return list(dict.fromkeys(re.findall(pattern, html)))
 
 
-def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1", progress_cb=None):
+def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1", progress_cb=None, max_pages=None):
     """Итерирует ?PARAM=N пока страницы не повторяются или не пустые."""
     all_links = []
     seen_on_pages = set()
     page = start_page
     while True:
+        if max_pages and (page - start_page) >= max_pages:
+            break
         url = base_url if page == start_page else f"{base_url}?{pagen_param}={page}"
         try:
             html = fetch_retry(url)
@@ -221,14 +223,15 @@ def get_helix_news_all(seen_urls):
     return found
 
 
-def get_dnkom_articles():
+def get_dnkom_articles(is_init=False):
     """Статьи ДНКом через PAGEN_2; останавливается когда 3 страницы без новых ссылок."""
     base = "https://dnkom.ru/o-kompanii/stati/"
     pattern = r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"'
     all_links = []
     no_new = 0
     page = 1
-    while no_new < 3 and page <= 30:
+    max_p = 30 if is_init else 3
+    while no_new < 3 and page <= max_p:
         url = base if page == 1 else f"{base}?PAGEN_2={page}"
         try:
             html = fetch_retry(url)
@@ -389,7 +392,8 @@ def run():
             elif method == "paged_html":
                 pagen = extra[2] if len(extra) > 2 else "PAGEN_1"
                 cb = lambda p, n, k=key: tg_safe(f"  ↳ {k}: стр.{p}, найдено {n}...")
-                links = get_paged_html_links(url, extra[0], extra[1], pagen, progress_cb=cb)
+                mp = None if is_init else 3
+                links = get_paged_html_links(url, extra[0], extra[1], pagen, progress_cb=cb, max_pages=mp)
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "sitemap":
                 links = get_sitemap_links(url, filter_fn=extra if callable(extra) else None)
@@ -443,7 +447,7 @@ def run():
         new_count += len(new_helix) if not is_init else 0
 
     # ДНКом статьи — PAGEN_2
-    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles)
+    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, is_init)
     if dnkom_raw is not None:
         dnkom_links = ["https://dnkom.ru" + l if l.startswith("/") else l for l in dnkom_raw]
         new_dnkom = [l for l in dnkom_links if l not in seen]
