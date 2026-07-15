@@ -188,45 +188,48 @@ def get_invitro_news():
     return all_links
 
 
-def get_helix_news_all():
-    """Собирает все новости Helix из архивных страниц /feed/archive."""
-    pattern = r'"(https://helix\.ru/feed/select/\d+)"'
-    base = "https://helix.ru/feed/archive"
-    links = get_paged_html_links(base, pattern)
-    if not links:
-        # fallback: ищем относительные ссылки
-        pattern2 = r'href="(/feed/select/\d+)"'
-        links2 = get_paged_html_links(base, pattern2)
-        links = ["https://helix.ru" + l for l in links2]
-    return links
+def get_helix_news_all(seen_urls):
+    """Последовательный обход /feed/select/N с допуском пропусков."""
+    id_pat = re.compile(r'helix\.ru/feed/select/(\d+)')
+    known = [int(m.group(1)) for k in seen_urls if (m := id_pat.search(k))]
+    start = max(known) + 1 if known else 18
+    found = []
+    n = start
+    miss = 0
+    while miss < 20:
+        url = f"https://helix.ru/feed/select/{n}"
+        try:
+            html = fetch(url, timeout=10)
+            if len(html) >= 2000:
+                found.append(url)
+                miss = 0
+            else:
+                miss += 1
+        except:
+            miss += 1
+        n += 1
+        time.sleep(0.15)
+    return found
 
 
 def get_dnkom_articles():
-    """Статьи ДНКом через PAGEN_2 (Bitrix AJAX «показать ещё»)."""
+    """Статьи ДНКом через PAGEN_2; останавливается когда 3 страницы без новых ссылок."""
     base = "https://dnkom.ru/o-kompanii/stati/"
     pattern = r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"'
-    ajax_hdrs = {**HEADERS, "X-Requested-With": "XMLHttpRequest", "BX-AJAX": "1"}
     all_links = []
-    seen_on_pages = set()
+    no_new = 0
     page = 1
-    while True:
+    while no_new < 3 and page <= 30:
         url = base if page == 1 else f"{base}?PAGEN_2={page}"
         try:
-            hdrs = HEADERS if page == 1 else ajax_hdrs
-            req = Request(url, headers=hdrs)
-            html = urlopen(req, timeout=20).read().decode("utf-8", "replace")
+            html = fetch_retry(url)
+            links = list(dict.fromkeys(re.findall(pattern, html)))
+            new = [l for l in links if l not in all_links]
+            all_links.extend(new)
+            no_new = 0 if new else no_new + 1
         except Exception as e:
             print(f"  ДНКом articles p{page}: ❌ {e}")
-            break
-        links = list(dict.fromkeys(re.findall(pattern, html)))
-        if not links:
-            break
-        if links[0] in seen_on_pages:
-            break
-        for l in links:
-            seen_on_pages.add(l)
-            if l not in all_links:
-                all_links.append(l)
+            no_new += 1
         page += 1
         time.sleep(0.3)
     return all_links
@@ -379,9 +382,9 @@ def run():
     except Exception as e:
         print(f"❌ Инвитро news: {e}")
 
-    # Helix новости — из архивных страниц /feed/archive
+    # Helix новости — sequential scan с допуском пропусков
     try:
-        helix_all = get_helix_news_all()
+        helix_all = get_helix_news_all(seen)
         new_helix = [l for l in helix_all if l not in seen]
         print(f"Helix news: {len(helix_all)} всего, {len(new_helix)} новых")
         for u in new_helix:
