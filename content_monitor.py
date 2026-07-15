@@ -25,7 +25,7 @@ HEADERS = {
     "Accept-Encoding": "identity",
 }
 
-_INVITRO_YEARS = list(range(2018, date.today().year + 1))
+_INVITRO_YEARS = list(range(2005, date.today().year + 1))
 
 # ─── источники ────────────────────────────────────────────────────────────────
 # method:
