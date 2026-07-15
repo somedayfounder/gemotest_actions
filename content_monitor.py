@@ -208,7 +208,7 @@ def get_invitro_news(already_seen=None, progress_cb=None):
                     full = ["https://www.invitro.ru" + l for l in links]
                     if all(l in already_seen for l in full):
                         known_months += 1
-                        if known_months >= 3:
+                        if known_months >= 2:
                             done_early = True
                             break
                     else:
