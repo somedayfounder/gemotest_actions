@@ -39,12 +39,6 @@ jobs:
               print("No VPN configs found")
           PYEOF
 
-      - name: Run monitor (без КДЛ)
-        run: SKIP_KDL=1 python3 -u lab_monitor.py
-
-      - name: Run content monitor (без КДЛ)
-        run: python3 -u content_monitor.py
-
       - name: Connect VPN
         run: |
           for f in vpn*.ovpn; do
@@ -62,6 +56,7 @@ jobs:
 
       - name: Run КДЛ акции (VPN)
         run: KDL_ONLY=1 python3 -u lab_monitor.py
+        continue-on-error: true
 
       - name: Run КДЛ content (VPN)
         run: VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
@@ -69,6 +64,12 @@ jobs:
 
       - name: Disconnect VPN
         run: sudo pkill openvpn || true
+
+      - name: Run monitor (без КДЛ)
+        run: SKIP_KDL=1 python3 -u lab_monitor.py
+
+      - name: Run content monitor (без КДЛ)
+        run: python3 -u content_monitor.py
 
       - name: Build stats page
         run: python3 -u build_stats_html.py
