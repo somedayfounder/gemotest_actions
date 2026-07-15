@@ -185,7 +185,7 @@ def get_sitemap_links(url, filter_fn=None):
 
 def get_invitro_news(progress_cb=None):
     """Собирает новости Инвитро по годам и месяцам 2005-текущий."""
-    pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{10,})"'
+    pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{2,})"'
     today = date.today()
     all_links = []
     for year in _INVITRO_YEARS:
