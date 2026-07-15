@@ -54,6 +54,21 @@ jobs:
             sleep 3
           done
 
+      - name: Диагностика VPN + КДЛ
+        run: |
+          echo "=== External IP ==="
+          curl -s --max-time 8 https://api.ipify.org || echo "IP check failed"
+          echo ""
+          echo "=== KDL reachability ==="
+          curl -v --max-time 10 https://kdl.ru/ 2>&1 | head -40 || echo "KDL unreachable"
+          echo ""
+          echo "=== KDL press-center ==="
+          curl -s --max-time 10 -o /dev/null -w "HTTP %{http_code} in %{time_total}s" https://kdl.ru/press-center/ || echo "press-center failed"
+          echo ""
+          echo "=== KDL blog ==="
+          curl -s --max-time 10 -o /dev/null -w "HTTP %{http_code} in %{time_total}s" https://kdl.ru/blog/ || echo "blog failed"
+        continue-on-error: true
+
       - name: Run КДЛ акции (VPN)
         run: KDL_ONLY=1 python3 -u lab_monitor.py
         continue-on-error: true
