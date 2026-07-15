@@ -36,7 +36,7 @@ _INVITRO_YEARS = list(range(2005, date.today().year + 1))
 
 SOURCES = [
     ("Гемотест",  "news",    "paged_html",  "https://gemotest.ru/info/news/",
-     (r'href="(/info/news/\d[^"?#]{3,})"', 1)),
+     (r'href="(/info/news/[^"?#]{4,})"', 1)),
     ("Гемотест",  "article", "sitemap",     "https://gemotest.ru/sitemap/ru/sitemap-iblocks/sitemap-info-articles.xml",
      lambda l: "/info/" in l and "/info/news/" not in l and l.count("/") > 3),
     ("Гемотест",  "article", "paged_html",  "https://gemotest.ru/info/",
@@ -96,14 +96,17 @@ def get_title(url, encoding="utf-8"):
     """Извлекает заголовок страницы из <h1> или <title>."""
     try:
         html = fetch(url, encoding, timeout=12)
-        h1 = re.search(r'<h1[^>]*>([^<]{3,200})</h1>', html)
+        h1 = re.search(r'<h1[^>]*>(.*?)</h1>', html, re.DOTALL)
         if h1:
-            return re.sub(r'\s+', ' ', h1.group(1)).strip()
+            text = re.sub(r'<[^>]+>', '', h1.group(1))
+            text = re.sub(r'\s+', ' ', text).strip()
+            if len(text) >= 3:
+                return text
         title = re.search(r'<title>([^<]{3,200})</title>', html)
         if title:
             return re.sub(r'\s+', ' ', title.group(1)).strip().split('|')[0].split('—')[0].strip()
-    except:
-        pass
+    except Exception as e:
+        print(f"  get_title {url}: {e}")
     return None
 
 
@@ -141,7 +144,7 @@ def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1",
         links = list(dict.fromkeys(re.findall(pattern, html)))
         if not links:
             break
-        if links[0] in seen_on_pages:
+        if all(l in seen_on_pages for l in links):
             break
         for l in links:
             seen_on_pages.add(l)
@@ -239,6 +242,7 @@ def get_invitro_news(already_seen=None, progress_cb=None):
     pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{2,})"'
     today = date.today()
     all_links = []
+    all_links_set = set()
     known_months = 0  # счётчик подряд идущих полностью известных месяцев
     done_early = False
     for year in reversed(_INVITRO_YEARS):
@@ -251,8 +255,9 @@ def get_invitro_news(already_seen=None, progress_cb=None):
             try:
                 url = f"https://www.invitro.ru/moscow/about/news/year-{year}/{month:02d}/"
                 links = list(dict.fromkeys(re.findall(pattern, fetch_retry(url, retries=3))))
-                new = [l for l in links if l not in all_links]
+                new = [l for l in links if l not in all_links_set]
                 all_links.extend(new)
+                all_links_set.update(new)
                 year_count += len(new)
                 if already_seen is not None and links:
                     full = ["https://www.invitro.ru" + l for l in links]
@@ -276,7 +281,7 @@ def get_helix_news_all(seen_urls):
     """Последовательный обход /feed/select/N с допуском пропусков."""
     id_pat = re.compile(r'helix\.ru/feed/select/(\d+)')
     known = [int(m.group(1)) for k in seen_urls if (m := id_pat.search(k))]
-    start = max(known) + 1 if known else 18
+    start = max(known) + 1 if known else 1
     found = []
     n = start
     miss = 0
@@ -409,12 +414,17 @@ def _send_stats(stats, new_count, is_init, vpn_only=False):
 
 def load_seen():
     if SEEN_FILE.exists():
-        return json.loads(SEEN_FILE.read_text())
+        try:
+            return json.loads(SEEN_FILE.read_text())
+        except Exception as e:
+            print(f"⚠ {SEEN_FILE.name} повреждён: {e}, начинаем заново")
     return {}
 
 
 def save_seen(seen):
-    SEEN_FILE.write_text(json.dumps(seen, ensure_ascii=False, indent=2))
+    tmp = SEEN_FILE.with_suffix('.tmp')
+    tmp.write_text(json.dumps(seen, ensure_ascii=False, indent=2))
+    tmp.replace(SEEN_FILE)
 
 
 # ─── run ──────────────────────────────────────────────────────────────────────
@@ -494,8 +504,7 @@ def run():
             known_total = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == lab and v.get("type") == typ)
             display_total = known_total + len(new_links) if known_total else len(links)
             done(key, display_total, len(new_links), elapsed)
-            enc = "windows-1251" if "gorlab" in url else "utf-8"
-            fetch_titles = not is_init and len(new_links) <= 50
+            fetch_titles = not is_init
             for link in new_links:
                 title = get_title(link, enc) if fetch_titles else None
                 seen[link] = {"lab": lab, "type": typ, "date": today, "title": title}
@@ -529,13 +538,19 @@ def run():
 
         # Убиваем VPN — теперь TG доступен
         os.system("sudo pkill openvpn 2>/dev/null || true")
-        time.sleep(3)
+        for _ in range(10):
+            time.sleep(1)
+            try:
+                urlopen(Request("https://api.telegram.org"), timeout=3)
+                break
+            except Exception:
+                pass
 
         if kdl_news is not None:
             new_kdl_news = [l for l in kdl_news if l not in seen]
             known_kdl_news = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "КДЛ" and v.get("type") == "news")
             done("КДЛ news", known_kdl_news + len(new_kdl_news), len(new_kdl_news), elapsed_news)
-            fetch_t = not is_init and len(new_kdl_news) <= 50
+            fetch_t = not is_init
             for link in new_kdl_news:
                 title = get_title(link) if fetch_t else None
                 seen[link] = {"lab": "КДЛ", "type": "news", "date": today, "title": title}
@@ -566,7 +581,7 @@ def run():
         new_inv = [l for l in inv_links if l not in seen]
         known_inv = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "Инвитро" and v.get("type") == "news")
         done("Инвитро news", known_inv + len(new_inv), len(new_inv), elapsed)
-        fetch_titles_inv = not is_init and len(new_inv) <= 50
+        fetch_titles_inv = not is_init
         for link in new_inv:
             title = get_title(link) if fetch_titles_inv else None
             seen[link] = {"lab": "Инвитро", "type": "news", "date": today, "title": title}
@@ -579,7 +594,7 @@ def run():
         new_helix = [l for l in helix_all if l not in seen]
         known_helix = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "Helix" and v.get("type") == "news")
         done("Helix news", known_helix + len(new_helix), len(new_helix), elapsed)
-        fetch_titles_hx = not is_init and len(new_helix) <= 50
+        fetch_titles_hx = not is_init
         for u in new_helix:
             title = get_title(u) if fetch_titles_hx else None
             seen[u] = {"lab": "Helix", "type": "news", "date": today, "title": title}
@@ -593,7 +608,7 @@ def run():
         dnkom_links = ["https://dnkom.ru" + l if l.startswith("/") else l for l in dnkom_raw]
         new_dnkom = [l for l in dnkom_links if l not in seen]
         done("ДНКом article", len(dnkom_links), len(new_dnkom), elapsed)
-        fetch_titles_dk = not is_init and len(new_dnkom) <= 50
+        fetch_titles_dk = not is_init
         for link in new_dnkom:
             title = get_title(link) if fetch_titles_dk else None
             seen[link] = {"lab": "ДНКом", "type": "article", "date": today, "title": title}
@@ -607,7 +622,7 @@ def run():
         new_pages, last_page = gorlab_news_res
         seen["_gorlab_last_page"] = last_page
         done("Горлаб news", last_page, len(new_pages), elapsed)
-        fetch_titles_gl = not is_init and len(new_pages) <= 50
+        fetch_titles_gl = not is_init
         for u in new_pages:
             title = get_title(u, "windows-1251") if fetch_titles_gl else None
             seen[u] = {"lab": "Горлаб", "type": "news", "date": today, "title": title}
@@ -621,7 +636,7 @@ def run():
         new_items, last_item = gorlab_art_res
         seen["_gorlab_last_book_item"] = last_item
         done("Горлаб article", last_item, len(new_items), elapsed)
-        fetch_titles_gl2 = not is_init and len(new_items) <= 50
+        fetch_titles_gl2 = not is_init
         for u in new_items:
             title = get_title(u, "windows-1251") if fetch_titles_gl2 else None
             seen[u] = {"lab": "Горлаб", "type": "article", "date": today, "title": title}

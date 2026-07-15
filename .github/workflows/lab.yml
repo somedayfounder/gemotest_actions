@@ -85,7 +85,15 @@ jobs:
                   remote_raw = subprocess.check_output(['git', 'show', 'FETCH_HEAD:' + fname]).decode()
                   remote = json.loads(remote_raw)
                   merged = dict(remote)
-                  added = sum(1 for k, v in ours.items() if k not in merged and not merged.update({k: v}))
+                  added = 0
+                  for k, v in ours.items():
+                      if k not in merged:
+                          merged[k] = v
+                          added += 1
+                      elif isinstance(v, dict) and isinstance(merged[k], dict):
+                          # локальный title перекрывает null из remote
+                          if v.get('title') and not merged[k].get('title'):
+                              merged[k] = v
                   with open(fname, 'w') as f:
                       json.dump(merged, f, ensure_ascii=False, indent=2)
                   print(f'{fname}: +{added} (итого {len(merged)})')

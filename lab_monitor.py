@@ -282,7 +282,8 @@ def get_listing_links(site):
     raw = re.findall(site["pattern"], html, re.I)
     # если паттерн с несколькими группами — берём первую непустую
     if raw and isinstance(raw[0], tuple):
-        raw = [next(g for g in groups if g) for groups in raw]
+        raw = [next((g for g in groups if g), None) for groups in raw]
+        raw = [r for r in raw if r]
     if not raw:
         # отладка: показываем первые href и кусок HTML
         sample = re.findall(r'href="(/[^"]{5,60})"', html)[:8]
@@ -404,9 +405,8 @@ def ai_analyze(promos):
             result.update(ai_analyze_batch(batch))
         except Exception as e:
             print(f"  AI батч {i//batch_size + 1} ошибка: {e}")
-        finally:
-            if i + batch_size < len(promos):
-                time.sleep(1)
+        if i + batch_size < len(promos):
+            time.sleep(1)
     return result
 
 
@@ -539,7 +539,7 @@ def run():
 
     # Сравниваем только по сайтам, которые реально проверялись в этом запуске
     checked_sites = set(site_urls.keys())
-    active_checked = {u: v for u, v in active.items() if v.get("name") in checked_sites}
+    active_checked = {u: v for u, v in active.items() if v.get("lab") in checked_sites}
 
     new_urls = [u for u in current if u not in active]
     gone_urls = [u for u in active_checked if u not in current]
