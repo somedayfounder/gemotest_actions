@@ -35,11 +35,6 @@ def run():
     for url, info in content.items():
         if isinstance(info, dict) and "lab" in info:
             content_by_lab[info["lab"]][info.get("type", "?")] += 1
-    # Горлаб хранит счётчики в метаключах, не как отдельные URL
-    if "_gorlab_last_page" in content:
-        content_by_lab["Горлаб"]["news"] = content["_gorlab_last_page"]
-    if "_gorlab_last_book_item" in content:
-        content_by_lab["Горлаб"]["article"] = content["_gorlab_last_book_item"]
 
     now = datetime.now(timezone.utc).strftime("%d.%m.%Y %H:%M UTC")
 
