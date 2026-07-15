@@ -137,9 +137,12 @@ def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1",
                 all_links.append(l)
         if progress_cb and (page - start_page + 1) % 10 == 0:
             progress_cb(page, len(all_links))
-        # Если передан словарь уже известных URL — стопаем когда все ссылки страницы уже есть
-        if already_seen is not None and all(l in already_seen for l in links):
-            break
+        # Стоп когда все ссылки страницы уже есть в seen (сравниваем с полными URL)
+        if already_seen is not None:
+            proto_host = base_url.split("/")[0] + "//" + base_url.split("/")[2]
+            full = [proto_host + l if l.startswith("/") else l for l in links]
+            if all(l in already_seen for l in full):
+                break
         page += 1
         time.sleep(0.2)
     return all_links
@@ -241,9 +244,11 @@ def get_dnkom_articles(already_seen=None):
             links = list(dict.fromkeys(re.findall(pattern, html)))
             new = [l for l in links if l not in all_links]
             all_links.extend(new)
-            # Стоп если все ссылки страницы уже известны
-            if already_seen is not None and all(l in already_seen for l in links):
-                break
+            # Стоп если все ссылки страницы уже известны (полные URL)
+            if already_seen is not None:
+                full = ["https://dnkom.ru" + l if l.startswith("/") else l for l in links]
+                if all(l in already_seen for l in full):
+                    break
             no_new = 0 if new else no_new + 1
         except Exception as e:
             print(f"  ДНКом articles p{page}: ❌ {e}")
