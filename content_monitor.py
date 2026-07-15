@@ -347,7 +347,26 @@ def run():
     label = "VPN" if vpn_only else "контент"
     tg_safe(f"🔄 Сканируем {label}{'  (init)' if is_init else ''}...")
 
-    stats = {}  # lab+typ -> (total, new)
+    stats = {}
+
+    def tg_step(key, fn, *args, **kwargs):
+        tg_safe(f"⏳ {key}...")
+        t0 = time.time()
+        try:
+            result = fn(*args, **kwargs)
+            elapsed = int(time.time() - t0)
+            return result, elapsed
+        except Exception as e:
+            elapsed = int(time.time() - t0)
+            tg_safe(f"❌ {key} ({elapsed}s): {e}")
+            print(f"❌ {key}: {e}")
+            return None, elapsed
+
+    def done(key, total, new, elapsed):
+        stats[key] = (total, new)
+        mark = "🆕" if new > 0 else "✅"
+        tg_safe(f"{mark} {key}: {new} новых / {total} ({elapsed}s)")
+        print(f"{key}: {total} всего, {new} новых ({elapsed}s)")
 
     # Обычные источники
     for lab, typ, method, url, extra in SOURCES:
@@ -357,6 +376,9 @@ def run():
         if needs_vpn and not vpn_ready:
             print(f"⏭ {lab} {typ}: пропущен (нет VPN)")
             continue
+        key = f"{lab} {typ}"
+        tg_safe(f"⏳ {key}...")
+        t0 = time.time()
         try:
             enc = "windows-1251" if "gorlab" in url else "utf-8"
             if method == "html_links":
@@ -370,10 +392,9 @@ def run():
                 links = get_sitemap_links(url, filter_fn=extra if callable(extra) else None)
             else:
                 continue
-
             new_links = [l for l in links if l not in seen]
-            print(f"{lab} {typ}: {len(links)} всего, {len(new_links)} новых")
-            stats[f"{lab} {typ}"] = (len(links), len(new_links))
+            elapsed = int(time.time() - t0)
+            done(key, len(links), len(new_links), elapsed)
             enc = "windows-1251" if "gorlab" in url else "utf-8"
             fetch_titles = not is_init and len(new_links) <= 50
             for link in new_links:
@@ -381,10 +402,10 @@ def run():
                 seen[link] = {"lab": lab, "type": typ, "date": today, "title": title}
             notify_new(lab, typ, new_links, is_init)
             new_count += len(new_links) if not is_init else 0
-
         except Exception as e:
-            print(f"❌ {lab} {typ}: {e}")
-
+            elapsed = int(time.time() - t0)
+            tg_safe(f"❌ {key} ({elapsed}s): {e}")
+            print(f"❌ {key}: {e}")
         time.sleep(0.3)
 
     if vpn_only:
@@ -393,84 +414,71 @@ def run():
         print("Готово")
         return
 
-    # Инвитро новости — по годам
-    try:
-        inv_links = ["https://www.invitro.ru" + l for l in get_invitro_news()]
+    # Инвитро новости — по месяцам 2005-текущий
+    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news)
+    if inv_links_raw is not None:
+        inv_links = ["https://www.invitro.ru" + l for l in inv_links_raw]
         new_inv = [l for l in inv_links if l not in seen]
-        print(f"Инвитро news: {len(inv_links)} всего, {len(new_inv)} новых")
-        stats["Инвитро news"] = (len(inv_links), len(new_inv))
+        done("Инвитро news", len(inv_links), len(new_inv), elapsed)
         fetch_titles_inv = not is_init and len(new_inv) <= 50
         for link in new_inv:
             title = get_title(link) if fetch_titles_inv else None
             seen[link] = {"lab": "Инвитро", "type": "news", "date": today, "title": title}
         notify_new("Инвитро", "news", new_inv, is_init)
         new_count += len(new_inv) if not is_init else 0
-    except Exception as e:
-        print(f"❌ Инвитро news: {e}")
 
-    # Helix новости — sequential scan с допуском пропусков
-    try:
-        helix_all = get_helix_news_all(seen)
+    # Helix новости — sequential scan
+    helix_all, elapsed = tg_step("Helix news (sequential scan)", get_helix_news_all, seen)
+    if helix_all is not None:
         new_helix = [l for l in helix_all if l not in seen]
-        print(f"Helix news: {len(helix_all)} всего, {len(new_helix)} новых")
-        stats["Helix news"] = (len(helix_all), len(new_helix))
+        done("Helix news", len(helix_all), len(new_helix), elapsed)
         fetch_titles_hx = not is_init and len(new_helix) <= 50
         for u in new_helix:
             title = get_title(u) if fetch_titles_hx else None
             seen[u] = {"lab": "Helix", "type": "news", "date": today, "title": title}
         notify_new("Helix", "news", new_helix, is_init)
         new_count += len(new_helix) if not is_init else 0
-    except Exception as e:
-        print(f"❌ Helix news: {e}")
 
-    # ДНКом статьи — AJAX «показать ещё» (PAGEN_2)
-    try:
-        dnkom_articles = get_dnkom_articles()
-        dnkom_base = "https://dnkom.ru"
-        dnkom_links = [dnkom_base + l if l.startswith("/") else l for l in dnkom_articles]
+    # ДНКом статьи — PAGEN_2
+    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles)
+    if dnkom_raw is not None:
+        dnkom_links = ["https://dnkom.ru" + l if l.startswith("/") else l for l in dnkom_raw]
         new_dnkom = [l for l in dnkom_links if l not in seen]
-        print(f"ДНКом article: {len(dnkom_links)} всего, {len(new_dnkom)} новых")
-        stats["ДНКом article"] = (len(dnkom_links), len(new_dnkom))
+        done("ДНКом article", len(dnkom_links), len(new_dnkom), elapsed)
         fetch_titles_dk = not is_init and len(new_dnkom) <= 50
         for link in new_dnkom:
             title = get_title(link) if fetch_titles_dk else None
             seen[link] = {"lab": "ДНКом", "type": "article", "date": today, "title": title}
         notify_new("ДНКом", "article", new_dnkom, is_init)
         new_count += len(new_dnkom) if not is_init else 0
-    except Exception as e:
-        print(f"❌ ДНКом article: {e}")
 
-    # Горлаб новости — sequential pages
+    # Горлаб новости
     last_page = seen.get("_gorlab_last_page", 81)
-    try:
-        new_pages, last_page = get_gorlab_news(last_page)
+    gorlab_news_res, elapsed = tg_step("Горлаб news (sequential pages)", get_gorlab_news, last_page)
+    if gorlab_news_res is not None:
+        new_pages, last_page = gorlab_news_res
         seen["_gorlab_last_page"] = last_page
-        print(f"Горлаб news: {len(new_pages)} новых (последняя стр. {last_page})")
-        stats["Горлаб news"] = (0, len(new_pages))
+        done("Горлаб news", last_page, len(new_pages), elapsed)
         fetch_titles_gl = not is_init and len(new_pages) <= 50
         for u in new_pages:
             title = get_title(u, "windows-1251") if fetch_titles_gl else None
             seen[u] = {"lab": "Горлаб", "type": "news", "date": today, "title": title}
         notify_new("Горлаб", "news", new_pages, is_init)
         new_count += len(new_pages) if not is_init else 0
-    except Exception as e:
-        print(f"❌ Горлаб news: {e}")
 
-    # Горлаб статьи — sequential items
+    # Горлаб статьи
     last_item = seen.get("_gorlab_last_book_item", 100)
-    try:
-        new_items, last_item = get_gorlab_book(last_item)
+    gorlab_art_res, elapsed = tg_step("Горлаб article (sequential items)", get_gorlab_book, last_item)
+    if gorlab_art_res is not None:
+        new_items, last_item = gorlab_art_res
         seen["_gorlab_last_book_item"] = last_item
-        print(f"Горлаб article: {len(new_items)} новых (последний item {last_item})")
-        stats["Горлаб article"] = (0, len(new_items))
+        done("Горлаб article", last_item, len(new_items), elapsed)
         fetch_titles_gl2 = not is_init and len(new_items) <= 50
         for u in new_items:
             title = get_title(u, "windows-1251") if fetch_titles_gl2 else None
             seen[u] = {"lab": "Горлаб", "type": "article", "date": today, "title": title}
         notify_new("Горлаб", "article", new_items, is_init)
         new_count += len(new_items) if not is_init else 0
-    except Exception as e:
-        print(f"❌ Горлаб article: {e}")
 
     if is_init:
         print(f"Первый запуск, запомнили {len(seen)} материалов")
