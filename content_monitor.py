@@ -349,8 +349,9 @@ def run():
             new_links = [l for l in links if l not in seen]
             print(f"{lab} {typ}: {len(links)} всего, {len(new_links)} новых")
             enc = "windows-1251" if "gorlab" in url else "utf-8"
+            fetch_titles = not is_init and len(new_links) <= 50
             for link in new_links:
-                title = get_title(link, enc) if not is_init else None
+                title = get_title(link, enc) if fetch_titles else None
                 seen[link] = {"lab": lab, "type": typ, "date": today, "title": title}
             notify_new(lab, typ, new_links, is_init)
             new_count += len(new_links) if not is_init else 0
@@ -374,8 +375,9 @@ def run():
         inv_links = ["https://www.invitro.ru" + l for l in get_invitro_news()]
         new_inv = [l for l in inv_links if l not in seen]
         print(f"Инвитро news: {len(inv_links)} всего, {len(new_inv)} новых")
+        fetch_titles_inv = not is_init and len(new_inv) <= 50
         for link in new_inv:
-            title = get_title(link) if not is_init else None
+            title = get_title(link) if fetch_titles_inv else None
             seen[link] = {"lab": "Инвитро", "type": "news", "date": today, "title": title}
         notify_new("Инвитро", "news", new_inv, is_init)
         new_count += len(new_inv) if not is_init else 0
@@ -387,8 +389,9 @@ def run():
         helix_all = get_helix_news_all(seen)
         new_helix = [l for l in helix_all if l not in seen]
         print(f"Helix news: {len(helix_all)} всего, {len(new_helix)} новых")
+        fetch_titles_hx = not is_init and len(new_helix) <= 50
         for u in new_helix:
-            title = get_title(u) if not is_init else None
+            title = get_title(u) if fetch_titles_hx else None
             seen[u] = {"lab": "Helix", "type": "news", "date": today, "title": title}
         notify_new("Helix", "news", new_helix, is_init)
         new_count += len(new_helix) if not is_init else 0
@@ -402,8 +405,9 @@ def run():
         dnkom_links = [dnkom_base + l if l.startswith("/") else l for l in dnkom_articles]
         new_dnkom = [l for l in dnkom_links if l not in seen]
         print(f"ДНКом article: {len(dnkom_links)} всего, {len(new_dnkom)} новых")
+        fetch_titles_dk = not is_init and len(new_dnkom) <= 50
         for link in new_dnkom:
-            title = get_title(link) if not is_init else None
+            title = get_title(link) if fetch_titles_dk else None
             seen[link] = {"lab": "ДНКом", "type": "article", "date": today, "title": title}
         notify_new("ДНКом", "article", new_dnkom, is_init)
         new_count += len(new_dnkom) if not is_init else 0
@@ -416,8 +420,9 @@ def run():
         new_pages, last_page = get_gorlab_news(last_page)
         seen["_gorlab_last_page"] = last_page
         print(f"Горлаб news: {len(new_pages)} новых (последняя стр. {last_page})")
+        fetch_titles_gl = not is_init and len(new_pages) <= 50
         for u in new_pages:
-            title = get_title(u, "windows-1251") if not is_init else None
+            title = get_title(u, "windows-1251") if fetch_titles_gl else None
             seen[u] = {"lab": "Горлаб", "type": "news", "date": today, "title": title}
         notify_new("Горлаб", "news", new_pages, is_init)
         new_count += len(new_pages) if not is_init else 0
@@ -430,8 +435,9 @@ def run():
         new_items, last_item = get_gorlab_book(last_item)
         seen["_gorlab_last_book_item"] = last_item
         print(f"Горлаб article: {len(new_items)} новых (последний item {last_item})")
+        fetch_titles_gl2 = not is_init and len(new_items) <= 50
         for u in new_items:
-            title = get_title(u, "windows-1251") if not is_init else None
+            title = get_title(u, "windows-1251") if fetch_titles_gl2 else None
             seen[u] = {"lab": "Горлаб", "type": "article", "date": today, "title": title}
         notify_new("Горлаб", "article", new_items, is_init)
         new_count += len(new_items) if not is_init else 0
