@@ -236,7 +236,7 @@ def get_helix_news_all(seen_urls):
     return found
 
 
-def get_dnkom_articles(already_seen=None, progress_cb=None):
+def get_dnkom_articles(progress_cb=None):
     """Статьи ДНКом через PAGEN_2; останавливается когда страница не даёт новых ссылок."""
     base = "https://dnkom.ru/o-kompanii/stati/"
     pattern = r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"'
@@ -250,11 +250,6 @@ def get_dnkom_articles(already_seen=None, progress_cb=None):
             links = list(dict.fromkeys(re.findall(pattern, html)))
             new = [l for l in links if l not in all_links]
             all_links.extend(new)
-            # Стоп если страница полностью известна И мы уже прошли хотя бы 3 страницы
-            if already_seen is not None and page >= 3:
-                full = ["https://dnkom.ru" + l if l.startswith("/") else l for l in links]
-                if all(l in already_seen for l in full):
-                    break
             no_new = 0 if new else no_new + 1
             if progress_cb and page % 5 == 0:
                 progress_cb(page, len(all_links))
@@ -472,7 +467,7 @@ def run():
 
     # ДНКом статьи — PAGEN_2
     dnk_cb = lambda p, n: tg_safe(f"  ↳ ДНКом article: стр.{p}, найдено {n}...")
-    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, seen, dnk_cb)
+    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, dnk_cb)
     if dnkom_raw is not None:
         dnkom_links = ["https://dnkom.ru" + l if l.startswith("/") else l for l in dnkom_raw]
         new_dnkom = [l for l in dnkom_links if l not in seen]
