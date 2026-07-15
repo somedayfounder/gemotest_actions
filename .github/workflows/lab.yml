@@ -39,46 +39,37 @@ jobs:
               print("No VPN configs found")
           PYEOF
 
-      - name: Connect VPN
+      - name: VPN + КДЛ (с ретраями по VPN)
         run: |
+          KDL_OK=0
           for f in vpn*.ovpn; do
+            echo "=== Пробуем $f ==="
             sudo openvpn --config "$f" --daemon --log /tmp/vpn.log
             sleep 8
             IP=$(curl -s --max-time 8 https://api.ipify.org || echo "unknown")
-            echo "VPN $f → IP: $IP"
-            if python3 -c "import urllib.request; urllib.request.urlopen('https://kdl.ru/', timeout=8)" 2>/dev/null; then
-              echo "KDL accessible, VPN OK"
-              break
+            echo "IP: $IP"
+
+            # Запускаем КДЛ акции, пишем вывод в файл
+            KDL_ONLY=1 python3 -u lab_monitor.py 2>&1 | tee /tmp/kdl_out.txt
+
+            # Если ошибка соединения — пробуем следующий VPN
+            if grep -qiE "ошибка листинга|timed out|timeout|Errno|unreachable" /tmp/kdl_out.txt; then
+              echo "КДЛ недоступен через $f, пробуем следующий..."
+              sudo pkill openvpn || true
+              sleep 3
+              continue
             fi
-            sudo pkill openvpn || true
-            sleep 3
+
+            # Успех — запускаем контент и выходим из цикла
+            echo "КДЛ доступен через $f"
+            VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
+            KDL_OK=1
+            break
           done
 
-      - name: Диагностика VPN + КДЛ
-        run: |
-          echo "=== External IP ==="
-          curl -s --max-time 8 https://api.ipify.org || echo "IP check failed"
-          echo ""
-          echo "=== KDL reachability ==="
-          curl -v --max-time 10 https://kdl.ru/ 2>&1 | head -40 || echo "KDL unreachable"
-          echo ""
-          echo "=== KDL press-center ==="
-          curl -s --max-time 10 -o /dev/null -w "HTTP %{http_code} in %{time_total}s" https://kdl.ru/press-center/ || echo "press-center failed"
-          echo ""
-          echo "=== KDL blog ==="
-          curl -s --max-time 10 -o /dev/null -w "HTTP %{http_code} in %{time_total}s" https://kdl.ru/blog/ || echo "blog failed"
+          sudo pkill openvpn || true
+          echo "KDL_OK=$KDL_OK"
         continue-on-error: true
-
-      - name: Run КДЛ акции (VPN)
-        run: KDL_ONLY=1 python3 -u lab_monitor.py
-        continue-on-error: true
-
-      - name: Run КДЛ content (VPN)
-        run: VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
-        continue-on-error: true
-
-      - name: Disconnect VPN
-        run: sudo pkill openvpn || true
 
       - name: Run monitor (без КДЛ)
         run: SKIP_KDL=1 python3 -u lab_monitor.py
