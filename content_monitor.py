@@ -173,18 +173,25 @@ def get_sitemap_links(url, filter_fn=None):
 
 
 def get_invitro_news():
-    """Собирает новости Инвитро по годам 2018-текущий, с пагинацией PAGEN_1."""
+    """Собирает новости Инвитро по годам и месяцам 2018-текущий."""
     pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{10,})"'
+    today = date.today()
     all_links = []
     for year in _INVITRO_YEARS:
-        try:
-            base = f"https://www.invitro.ru/moscow/about/news/year-{year}/"
-            links = get_paged_html_links(base, pattern)
-            new = [l for l in links if l not in all_links]
-            all_links.extend(new)
-            print(f"  Инвитро news {year}: {len(links)} ({len(new)} уникальных)")
-        except Exception as e:
-            print(f"  Инвитро news {year}: ❌ {e}")
+        year_count = 0
+        for month in range(1, 13):
+            if year == today.year and month > today.month:
+                break
+            try:
+                url = f"https://www.invitro.ru/moscow/about/news/year-{year}/{month:02d}/"
+                links = list(dict.fromkeys(re.findall(pattern, fetch(url))))
+                new = [l for l in links if l not in all_links]
+                all_links.extend(new)
+                year_count += len(new)
+                time.sleep(0.2)
+            except Exception as e:
+                pass
+        print(f"  Инвитро news {year}: {year_count} уникальных")
     return all_links
 
 
