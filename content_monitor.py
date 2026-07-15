@@ -107,6 +107,17 @@ def get_title(url, encoding="utf-8"):
     return None
 
 
+def is_url_ok(url, timeout=8):
+    """HEAD-запрос: True если URL отвечает 2xx/3xx."""
+    try:
+        from urllib.request import Request as _Req
+        req = _Req(url, headers=HEADERS, method="HEAD")
+        r = urlopen(req, timeout=timeout)
+        return r.status < 400
+    except Exception:
+        return False
+
+
 def get_html_links(url, pattern, encoding="utf-8"):
     html = fetch(url, encoding)
     return list(dict.fromkeys(re.findall(pattern, html)))
@@ -470,6 +481,14 @@ def run():
             else:
                 continue
             new_links = [l for l in links if l not in seen]
+            if method == "sitemap" and new_links and not is_init:
+                ok = []
+                for l in new_links:
+                    if is_url_ok(l):
+                        ok.append(l)
+                    else:
+                        print(f"  ⚠ 404 пропущен: {l}")
+                new_links = ok
             elapsed = int(time.time() - t0)
             # links — только с проверенных страниц; для display берём из seen сколько всего знаем
             known_total = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == lab and v.get("type") == typ)
@@ -489,12 +508,33 @@ def run():
         time.sleep(0.3)
 
     if vpn_only:
-        # КДЛ news — JS-рендеринг, Playwright
-        kdl_news, elapsed = tg_step("КДЛ news (JS)", get_kdl_news, seen)
+        # Сбор КДЛ через VPN — TG недоступен, работаем молча
+        kdl_news = None
+        t0 = time.time()
+        try:
+            kdl_news = get_kdl_news(seen)
+            print(f"  КДЛ news: собрано {len(kdl_news)}")
+        except Exception as e:
+            print(f"❌ КДЛ news: {e}")
+        elapsed_news = int(time.time() - t0)
+
+        kdl_art = None
+        t0 = time.time()
+        try:
+            kdl_art = get_kdl_articles(seen)
+            print(f"  КДЛ article: собрано {len(kdl_art)}")
+        except Exception as e:
+            print(f"❌ КДЛ article: {e}")
+        elapsed_art = int(time.time() - t0)
+
+        # Убиваем VPN — теперь TG доступен
+        os.system("sudo pkill openvpn 2>/dev/null || true")
+        time.sleep(3)
+
         if kdl_news is not None:
             new_kdl_news = [l for l in kdl_news if l not in seen]
             known_kdl_news = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "КДЛ" and v.get("type") == "news")
-            done("КДЛ news", known_kdl_news + len(new_kdl_news), len(new_kdl_news), elapsed)
+            done("КДЛ news", known_kdl_news + len(new_kdl_news), len(new_kdl_news), elapsed_news)
             fetch_t = not is_init and len(new_kdl_news) <= 50
             for link in new_kdl_news:
                 title = get_title(link) if fetch_t else None
@@ -502,12 +542,10 @@ def run():
             notify_new("КДЛ", "news", new_kdl_news, is_init)
             new_count += len(new_kdl_news) if not is_init else 0
 
-        # КДЛ articles — JS-рендеринг, Playwright
-        kdl_art, elapsed = tg_step("КДЛ article (JS)", get_kdl_articles, seen)
         if kdl_art is not None:
             new_kdl_art = [l for l in kdl_art if l not in seen]
             known_kdl_art = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == "КДЛ" and v.get("type") == "article")
-            done("КДЛ article", known_kdl_art + len(new_kdl_art), len(new_kdl_art), elapsed)
+            done("КДЛ article", known_kdl_art + len(new_kdl_art), len(new_kdl_art), elapsed_art)
             fetch_t = not is_init and len(new_kdl_art) <= 50
             for link in new_kdl_art:
                 title = get_title(link) if fetch_t else None
