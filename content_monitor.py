@@ -207,32 +207,41 @@ def _kdl_fetch_js(url):
 
 
 def get_kdl_articles(already_seen=None):
-    """Статьи КДЛ — /patient/blog (все на одной странице, JS-рендеринг)."""
+    """Статьи КДЛ — /patient/blog (все на одной странице, JS-рендеринг).
+    KDL использует href без ведущего slash: href="patient/blog/slug"."""
     html = _kdl_fetch_js(f"{_KDL_BASE}/patient/blog")
-    links = list(dict.fromkeys(re.findall(r'href="(/patient/blog/[^"?#]{5,})"', html)))
-    if not links:
-        print(f"  КДЛ article DEBUG: html len={len(html)}")
-        # ищем известный slug
-        idx = html.find("akne-i-zhirnaya")
-        if idx >= 0:
-            print(f"  КДЛ article DEBUG: 'akne' found at {idx}: ...{html[max(0,idx-80):idx+120]}...")
-        else:
-            print("  КДЛ article DEBUG: 'akne' not found in html")
-        # ищем /patient/blog в любом виде
-        blog_ctx = re.findall(r'.{0,30}/patient/blog/[^"\s<]{5,}.{0,30}', html)
-        print(f"  КДЛ article DEBUG: /patient/blog/ contexts={blog_ctx[:3]}")
-    return [_KDL_BASE + l for l in links]
+    # href без slash: href="patient/blog/slug"
+    links = list(dict.fromkeys(re.findall(r'href="(patient/blog/[^"?#]{5,})"', html)))
+    print(f"  КДЛ article: найдено {len(links)} ссылок")
+    return [_KDL_BASE + "/" + l for l in links]
 
 
 def get_kdl_news(already_seen=None):
-    """Новости КДЛ — /o-nas/news с переключалкой по годам (JS).
-    Кликает каждую вкладку года и собирает ссылки."""
+    """Новости КДЛ — /o-nas/news, новости грузятся через API.
+    Перехватываем JSON-ответы содержащие 'o-nas/news'."""
     from playwright.sync_api import sync_playwright
-    all_links = []
+    captured_slugs = []
+
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
         ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
         page = ctx.new_page()
+
+        def on_response(response):
+            ct = response.headers.get("content-type", "")
+            if "json" in ct and response.status == 200:
+                try:
+                    body = response.text()
+                    if "o-nas/news" in body or "/news/" in body:
+                        slugs = re.findall(r'["\'](?:/o-nas/news/|o-nas/news/)([^"\'?\s]{5,})', body)
+                        captured_slugs.extend(slugs)
+                        if slugs:
+                            print(f"  КДЛ news API: {response.url[:80]} → {len(slugs)} slugs")
+                except Exception:
+                    pass
+
+        page.on("response", on_response)
+
         try:
             page.goto(_KDL_PRE, wait_until="load", timeout=20000)
             page.wait_for_timeout(500)
@@ -244,54 +253,35 @@ def get_kdl_news(already_seen=None):
             page.goto(f"{_KDL_BASE}/o-nas/news", wait_until="load", timeout=30000)
         page.wait_for_timeout(2000)
 
-        def collect_links():
-            html = page.content()
-            return re.findall(r'href="(/o-nas/news/[^"?#]{5,})"', html)
-
-        # Собираем текущий год
-        initial = collect_links()
-        all_links.extend(initial)
-        html_snap = page.content()
-        print(f"  КДЛ news DEBUG: initial={len(initial)} links, html={len(html_snap)} bytes")
-        if not initial:
-            # ищем /o-nas/news/ в любом виде
-            news_ctx = re.findall(r'.{0,30}/o-nas/news/[^"\s<]{5,}.{0,30}', html_snap)
-            print(f"  КДЛ news DEBUG: /o-nas/news/ contexts={news_ctx[:3]}")
-            # ищем просто "news" вхождения
-            any_hrefs = re.findall(r'href=["\']?(/[^"\'\s>]{5,})["\']?', html_snap)
-            news_hrefs = [h for h in any_hrefs if 'news' in h.lower()]
-            print(f"  КДЛ news DEBUG: hrefs with 'news'={news_hrefs[:5]}")
-
-        # Кликаем по вкладкам других годов
-        year_tabs = page.query_selector_all("a[href*='year'], button[data-year], [class*='year']")
-        if not year_tabs:
-            # Пробуем найти по тексту — цифры 20xx
-            year_tabs = [el for el in page.query_selector_all("a, button")
-                         if re.match(r'20\d\d$', (el.inner_text() or "").strip())]
-        print(f"  КДЛ news DEBUG: year_tabs найдено={len(year_tabs)}")
-
+        # Кликаем по вкладкам годов
+        year_tabs = [el for el in page.query_selector_all("a, button, [class*='tab'], [class*='year']")
+                     if re.match(r'20\d\d$', (el.inner_text() or "").strip())]
+        print(f"  КДЛ news: year_tabs={len(year_tabs)}")
         seen_years = set()
         for tab in year_tabs:
             try:
                 txt = (tab.inner_text() or "").strip()
-                if txt in seen_years or not re.match(r'20\d\d$', txt):
+                if txt in seen_years:
                     continue
                 seen_years.add(txt)
+                before = len(captured_slugs)
                 tab.click()
-                page.wait_for_timeout(1500)
-                new = collect_links()
-                all_links.extend(new)
-                print(f"  КДЛ news год {txt}: {len(new)} ссылок")
-                if already_seen and new and all((_KDL_BASE + l) in already_seen for l in new):
-                    print(f"  КДЛ news: год {txt} полностью известен, стоп")
-                    break
+                page.wait_for_timeout(2000)
+                gained = len(captured_slugs) - before
+                print(f"  КДЛ news год {txt}: +{gained} slugs")
+                if already_seen and gained > 0:
+                    new_for_year = captured_slugs[-gained:]
+                    if all(f"{_KDL_BASE}/o-nas/news/{s}" in already_seen for s in new_for_year):
+                        print(f"  КДЛ news: год {txt} полностью известен, стоп")
+                        break
             except Exception as e:
                 print(f"  КДЛ news tab error: {e}")
 
         browser.close()
 
-    unique = list(dict.fromkeys(all_links))
-    return [_KDL_BASE + l for l in unique]
+    unique = list(dict.fromkeys(captured_slugs))
+    print(f"  КДЛ news: итого {len(unique)} уникальных slug")
+    return [f"{_KDL_BASE}/o-nas/news/{s}" for s in unique]
 
 
 def get_invitro_news(already_seen=None, progress_cb=None):
