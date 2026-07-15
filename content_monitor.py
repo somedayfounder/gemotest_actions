@@ -111,7 +111,7 @@ def get_html_links(url, pattern, encoding="utf-8"):
     return list(dict.fromkeys(re.findall(pattern, html)))
 
 
-def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1"):
+def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1", progress_cb=None):
     """Итерирует ?PARAM=N пока страницы не повторяются или не пустые."""
     all_links = []
     seen_on_pages = set()
@@ -132,6 +132,8 @@ def get_paged_html_links(base_url, pattern, start_page=1, pagen_param="PAGEN_1")
             seen_on_pages.add(l)
             if l not in all_links:
                 all_links.append(l)
+        if progress_cb and (page - start_page + 1) % 10 == 0:
+            progress_cb(page, len(all_links))
         page += 1
         time.sleep(0.2)
     return all_links
@@ -386,7 +388,8 @@ def run():
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "paged_html":
                 pagen = extra[2] if len(extra) > 2 else "PAGEN_1"
-                links = get_paged_html_links(url, extra[0], extra[1], pagen)
+                cb = lambda p, n, k=key: tg_safe(f"  ↳ {k}: стр.{p}, найдено {n}...")
+                links = get_paged_html_links(url, extra[0], extra[1], pagen, progress_cb=cb)
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "sitemap":
                 links = get_sitemap_links(url, filter_fn=extra if callable(extra) else None)
