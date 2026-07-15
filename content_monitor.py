@@ -224,8 +224,12 @@ def get_helix_news_all(seen_urls):
                 found.append(url)
                 miss = 0
             else:
+                if n == start:
+                    print(f"  Helix {n}: size={len(html)} (< 2000), первый ответ")
                 miss += 1
-        except:
+        except Exception as e:
+            if n == start:
+                print(f"  Helix {n}: ❌ {e}")
             miss += 1
         n += 1
         time.sleep(0.15)
