@@ -207,105 +207,19 @@ def _kdl_fetch_js(url):
 
 
 def get_kdl_articles(already_seen=None):
-    """Статьи КДЛ — /patient/blog (все на одной странице, JS-рендеринг).
-    KDL использует href без ведущего slash: href="patient/blog/slug"."""
+    """Статьи КДЛ — /patient/blog (JS-рендеринг). href="patient/blog/slug" без ведущего слэша."""
     html = _kdl_fetch_js(f"{_KDL_BASE}/patient/blog")
-    # href без slash: href="patient/blog/slug"
     links = list(dict.fromkeys(re.findall(r'href="(patient/blog/[^"?#]{5,})"', html)))
     print(f"  КДЛ article: найдено {len(links)} ссылок")
     return [_KDL_BASE + "/" + l for l in links]
 
 
 def get_kdl_news(already_seen=None):
-    """Новости КДЛ — /o-nas/news, новости грузятся через API.
-    Перехватываем JSON-ответы содержащие 'o-nas/news'."""
-    from playwright.sync_api import sync_playwright
-    captured_slugs = []
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
-        ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
-        page = ctx.new_page()
-
-        api_calls = []
-
-        def on_response(response):
-            ct = response.headers.get("content-type", "")
-            if "json" in ct and response.status == 200:
-                try:
-                    body = response.text()
-                    api_calls.append((response.url, body[:300]))
-                    if "o-nas/news" in body or "news" in response.url.lower():
-                        slugs = re.findall(r'["\'](?:/o-nas/news/|o-nas/news/)([^"\'?\s]{5,})', body)
-                        captured_slugs.extend(slugs)
-                        if slugs:
-                            print(f"  КДЛ news API: {response.url[:80]} → {len(slugs)} slugs")
-                except Exception:
-                    pass
-
-        page.on("response", on_response)
-
-        try:
-            page.goto(_KDL_PRE, wait_until="load", timeout=20000)
-            page.wait_for_timeout(500)
-        except Exception:
-            pass
-        try:
-            page.goto(f"{_KDL_BASE}/o-nas/news", wait_until="networkidle", timeout=30000)
-        except Exception:
-            page.goto(f"{_KDL_BASE}/o-nas/news", wait_until="load", timeout=30000)
-        page.wait_for_timeout(2000)
-
-        # Кликаем по вкладкам годов
-        year_tabs = [el for el in page.query_selector_all("a, button, [class*='tab'], [class*='year']")
-                     if re.match(r'20\d\d$', (el.inner_text() or "").strip())]
-        # Дамп начального HTML — ищем JSON-блоки со slug новостей
-        html_snap = page.content()
-        script_slugs = re.findall(r'["\'](?:/o-nas/news/|o-nas/news/)([^"\'?\s<]{5,})', html_snap)
-        if script_slugs:
-            print(f"  КДЛ news: в HTML найдено {len(script_slugs)} slug из script-блоков")
-            captured_slugs.extend(script_slugs)
-        else:
-            # ищем в <script> JSON любые slug-подобные строки рядом с "news"
-            script_blocks = re.findall(r'<script[^>]*>(.*?)</script>', html_snap, re.DOTALL)
-            for sb in script_blocks:
-                if 'news' in sb.lower() and len(sb) > 100:
-                    print(f"  КДЛ news script block ({len(sb)} chars): {sb[:200]}")
-                    break
-
-        print(f"  КДЛ news: year_tabs={len(year_tabs)}, api_calls_so_far={len(api_calls)}")
-        if api_calls:
-            for url, body in api_calls[:3]:
-                print(f"    API: {url[:80]} → {body[:100]}")
-        seen_years = set()
-        for tab in year_tabs:
-            try:
-                txt = (tab.inner_text() or "").strip()
-                if txt in seen_years:
-                    continue
-                seen_years.add(txt)
-                before = len(captured_slugs)
-                tab.click()
-                page.wait_for_timeout(2000)
-                gained = len(captured_slugs) - before
-                print(f"  КДЛ news год {txt}: +{gained} slugs, api_calls_total={len(api_calls)}")
-                if gained == 0 and api_calls:
-                    # показываем последние API-вызовы после клика
-                    for url, body in api_calls[-3:]:
-                        print(f"    API after click: {url[:80]} → {body[:100]}")
-                if already_seen and gained > 0:
-                    new_for_year = captured_slugs[-gained:]
-                    if all(f"{_KDL_BASE}/o-nas/news/{s}" in already_seen for s in new_for_year):
-                        print(f"  КДЛ news: год {txt} полностью известен, стоп")
-                        break
-            except Exception as e:
-                print(f"  КДЛ news tab error: {e}")
-
-        browser.close()
-
-    unique = list(dict.fromkeys(captured_slugs))
-    print(f"  КДЛ news: итого {len(unique)} уникальных slug")
-    return [f"{_KDL_BASE}/o-nas/news/{s}" for s in unique]
+    """Новости КДЛ — /o-nas/news. Все года встроены в начальный HTML в <script>-блоках."""
+    html = _kdl_fetch_js(f"{_KDL_BASE}/o-nas/news")
+    slugs = list(dict.fromkeys(re.findall(r'["\'](?:/o-nas/news/|o-nas/news/)([^"\'?\s<]{5,})', html)))
+    print(f"  КДЛ news: найдено {len(slugs)} slug")
+    return [f"{_KDL_BASE}/o-nas/news/{s}" for s in slugs]
 
 
 def get_invitro_news(already_seen=None, progress_cb=None):
