@@ -52,19 +52,17 @@ jobs:
             # Запускаем КДЛ акции, пишем вывод в файл
             KDL_ONLY=1 python3 -u lab_monitor.py 2>&1 | tee /tmp/kdl_out.txt
 
-            # Если ошибка соединения — пробуем следующий VPN
-            if grep -qiE "ошибка листинга|timed out|timeout|Errno|unreachable" /tmp/kdl_out.txt; then
-              echo "КДЛ недоступен через $f, пробуем следующий..."
-              sudo pkill openvpn || true
-              sleep 3
-              continue
+            # Успех = строка "КДЛ: X акций" есть и нет "ошибка листинга"
+            if grep -q "КДЛ:.*акций" /tmp/kdl_out.txt && ! grep -q "ошибка листинга" /tmp/kdl_out.txt; then
+              echo "КДЛ доступен через $f"
+              VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
+              KDL_OK=1
+              break
             fi
 
-            # Успех — запускаем контент и выходим из цикла
-            echo "КДЛ доступен через $f"
-            VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
-            KDL_OK=1
-            break
+            echo "КДЛ недоступен через $f, пробуем следующий..."
+            sudo pkill openvpn || true
+            sleep 3
           done
 
           sudo pkill openvpn || true
