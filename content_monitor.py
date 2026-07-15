@@ -307,6 +307,19 @@ def notify_new(lab, typ, new_links, is_init):
     time.sleep(0.5)
 
 
+def _send_stats(stats, new_count, is_init, vpn_only=False):
+    if not stats:
+        return
+    lines = ["📊 <b>Контент" + (" VPN" if vpn_only else "") + (" (init)" if is_init else "") + "</b>"]
+    for key, (total, new) in stats.items():
+        mark = "🆕" if new > 0 else "·"
+        total_str = f"/{total}" if total else ""
+        lines.append(f"{mark} {key}: {new}{total_str}")
+    if not is_init:
+        lines.append(f"<b>Новых: {new_count}</b>")
+    tg_safe("\n".join(lines), "stats")
+
+
 def load_seen():
     if SEEN_FILE.exists():
         return json.loads(SEEN_FILE.read_text())
@@ -330,6 +343,11 @@ def run():
     new_count = 0
     vpn_ready = bool(os.environ.get("VPN_READY"))
     vpn_only  = bool(os.environ.get("VPN_ONLY"))
+
+    label = "VPN" if vpn_only else "контент"
+    tg_safe(f"🔄 Сканируем {label}{'  (init)' if is_init else ''}...")
+
+    stats = {}  # lab+typ -> (total, new)
 
     # Обычные источники
     for lab, typ, method, url, extra in SOURCES:
@@ -355,6 +373,7 @@ def run():
 
             new_links = [l for l in links if l not in seen]
             print(f"{lab} {typ}: {len(links)} всего, {len(new_links)} новых")
+            stats[f"{lab} {typ}"] = (len(links), len(new_links))
             enc = "windows-1251" if "gorlab" in url else "utf-8"
             fetch_titles = not is_init and len(new_links) <= 50
             for link in new_links:
@@ -369,10 +388,7 @@ def run():
         time.sleep(0.3)
 
     if vpn_only:
-        if is_init:
-            print(f"Первый запуск (VPN), запомнили {len(seen)} материалов")
-        else:
-            print(f"Новых материалов (VPN): {new_count}")
+        _send_stats(stats, new_count, is_init, vpn_only=True)
         save_seen(seen)
         print("Готово")
         return
@@ -382,6 +398,7 @@ def run():
         inv_links = ["https://www.invitro.ru" + l for l in get_invitro_news()]
         new_inv = [l for l in inv_links if l not in seen]
         print(f"Инвитро news: {len(inv_links)} всего, {len(new_inv)} новых")
+        stats["Инвитро news"] = (len(inv_links), len(new_inv))
         fetch_titles_inv = not is_init and len(new_inv) <= 50
         for link in new_inv:
             title = get_title(link) if fetch_titles_inv else None
@@ -396,6 +413,7 @@ def run():
         helix_all = get_helix_news_all(seen)
         new_helix = [l for l in helix_all if l not in seen]
         print(f"Helix news: {len(helix_all)} всего, {len(new_helix)} новых")
+        stats["Helix news"] = (len(helix_all), len(new_helix))
         fetch_titles_hx = not is_init and len(new_helix) <= 50
         for u in new_helix:
             title = get_title(u) if fetch_titles_hx else None
@@ -412,6 +430,7 @@ def run():
         dnkom_links = [dnkom_base + l if l.startswith("/") else l for l in dnkom_articles]
         new_dnkom = [l for l in dnkom_links if l not in seen]
         print(f"ДНКом article: {len(dnkom_links)} всего, {len(new_dnkom)} новых")
+        stats["ДНКом article"] = (len(dnkom_links), len(new_dnkom))
         fetch_titles_dk = not is_init and len(new_dnkom) <= 50
         for link in new_dnkom:
             title = get_title(link) if fetch_titles_dk else None
@@ -427,6 +446,7 @@ def run():
         new_pages, last_page = get_gorlab_news(last_page)
         seen["_gorlab_last_page"] = last_page
         print(f"Горлаб news: {len(new_pages)} новых (последняя стр. {last_page})")
+        stats["Горлаб news"] = (0, len(new_pages))
         fetch_titles_gl = not is_init and len(new_pages) <= 50
         for u in new_pages:
             title = get_title(u, "windows-1251") if fetch_titles_gl else None
@@ -442,6 +462,7 @@ def run():
         new_items, last_item = get_gorlab_book(last_item)
         seen["_gorlab_last_book_item"] = last_item
         print(f"Горлаб article: {len(new_items)} новых (последний item {last_item})")
+        stats["Горлаб article"] = (0, len(new_items))
         fetch_titles_gl2 = not is_init and len(new_items) <= 50
         for u in new_items:
             title = get_title(u, "windows-1251") if fetch_titles_gl2 else None
@@ -456,6 +477,7 @@ def run():
     else:
         print(f"Новых материалов: {new_count}")
 
+    _send_stats(stats, new_count, is_init)
     save_seen(seen)
     print("Готово")
 
