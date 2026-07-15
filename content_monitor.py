@@ -183,8 +183,8 @@ def get_sitemap_links(url, filter_fn=None):
     return urls
 
 
-def get_invitro_news():
-    """Собирает новости Инвитро по годам и месяцам 2018-текущий."""
+def get_invitro_news(progress_cb=None):
+    """Собирает новости Инвитро по годам и месяцам 2005-текущий."""
     pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{10,})"'
     today = date.today()
     all_links = []
@@ -203,6 +203,8 @@ def get_invitro_news():
             except Exception as e:
                 pass
         print(f"  Инвитро news {year}: {year_count} уникальных")
+        if progress_cb:
+            progress_cb(year, len(all_links))
     return all_links
 
 
@@ -230,7 +232,7 @@ def get_helix_news_all(seen_urls):
     return found
 
 
-def get_dnkom_articles(already_seen=None):
+def get_dnkom_articles(already_seen=None, progress_cb=None):
     """Статьи ДНКом через PAGEN_2; останавливается когда страница не даёт новых ссылок."""
     base = "https://dnkom.ru/o-kompanii/stati/"
     pattern = r'href="(/o-kompanii/stati/(?!tag)[^"?#]{5,})"'
@@ -250,6 +252,8 @@ def get_dnkom_articles(already_seen=None):
                 if all(l in already_seen for l in full):
                     break
             no_new = 0 if new else no_new + 1
+            if progress_cb and page % 5 == 0:
+                progress_cb(page, len(all_links))
         except Exception as e:
             print(f"  ДНКом articles p{page}: ❌ {e}")
             no_new += 1
@@ -411,7 +415,10 @@ def run():
                 continue
             new_links = [l for l in links if l not in seen]
             elapsed = int(time.time() - t0)
-            done(key, len(links), len(new_links), elapsed)
+            # links — только с проверенных страниц; для display берём из seen сколько всего знаем
+            known_total = sum(1 for v in seen.values() if isinstance(v, dict) and v.get("lab") == lab and v.get("type") == typ)
+            display_total = known_total + len(new_links) if known_total else len(links)
+            done(key, display_total, len(new_links), elapsed)
             enc = "windows-1251" if "gorlab" in url else "utf-8"
             fetch_titles = not is_init and len(new_links) <= 50
             for link in new_links:
@@ -432,7 +439,8 @@ def run():
         return
 
     # Инвитро новости — по месяцам 2005-текущий
-    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news)
+    inv_cb = lambda yr, n: tg_safe(f"  ↳ Инвитро news: год {yr}, найдено {n}...")
+    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news, inv_cb)
     if inv_links_raw is not None:
         inv_links = ["https://www.invitro.ru" + l for l in inv_links_raw]
         new_inv = [l for l in inv_links if l not in seen]
@@ -457,7 +465,8 @@ def run():
         new_count += len(new_helix) if not is_init else 0
 
     # ДНКом статьи — PAGEN_2
-    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, seen)
+    dnk_cb = lambda p, n: tg_safe(f"  ↳ ДНКом article: стр.{p}, найдено {n}...")
+    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, seen, dnk_cb)
     if dnkom_raw is not None:
         dnkom_links = ["https://dnkom.ru" + l if l.startswith("/") else l for l in dnkom_raw]
         new_dnkom = [l for l in dnkom_links if l not in seen]
