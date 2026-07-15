@@ -227,12 +227,15 @@ def get_kdl_news(already_seen=None):
         ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
         page = ctx.new_page()
 
+        api_calls = []
+
         def on_response(response):
             ct = response.headers.get("content-type", "")
             if "json" in ct and response.status == 200:
                 try:
                     body = response.text()
-                    if "o-nas/news" in body or "/news/" in body:
+                    api_calls.append((response.url, body[:300]))
+                    if "o-nas/news" in body or "news" in response.url.lower():
                         slugs = re.findall(r'["\'](?:/o-nas/news/|o-nas/news/)([^"\'?\s]{5,})', body)
                         captured_slugs.extend(slugs)
                         if slugs:
@@ -256,7 +259,24 @@ def get_kdl_news(already_seen=None):
         # Кликаем по вкладкам годов
         year_tabs = [el for el in page.query_selector_all("a, button, [class*='tab'], [class*='year']")
                      if re.match(r'20\d\d$', (el.inner_text() or "").strip())]
-        print(f"  КДЛ news: year_tabs={len(year_tabs)}")
+        # Дамп начального HTML — ищем JSON-блоки со slug новостей
+        html_snap = page.content()
+        script_slugs = re.findall(r'["\'](?:/o-nas/news/|o-nas/news/)([^"\'?\s<]{5,})', html_snap)
+        if script_slugs:
+            print(f"  КДЛ news: в HTML найдено {len(script_slugs)} slug из script-блоков")
+            captured_slugs.extend(script_slugs)
+        else:
+            # ищем в <script> JSON любые slug-подобные строки рядом с "news"
+            script_blocks = re.findall(r'<script[^>]*>(.*?)</script>', html_snap, re.DOTALL)
+            for sb in script_blocks:
+                if 'news' in sb.lower() and len(sb) > 100:
+                    print(f"  КДЛ news script block ({len(sb)} chars): {sb[:200]}")
+                    break
+
+        print(f"  КДЛ news: year_tabs={len(year_tabs)}, api_calls_so_far={len(api_calls)}")
+        if api_calls:
+            for url, body in api_calls[:3]:
+                print(f"    API: {url[:80]} → {body[:100]}")
         seen_years = set()
         for tab in year_tabs:
             try:
@@ -268,7 +288,11 @@ def get_kdl_news(already_seen=None):
                 tab.click()
                 page.wait_for_timeout(2000)
                 gained = len(captured_slugs) - before
-                print(f"  КДЛ news год {txt}: +{gained} slugs")
+                print(f"  КДЛ news год {txt}: +{gained} slugs, api_calls_total={len(api_calls)}")
+                if gained == 0 and api_calls:
+                    # показываем последние API-вызовы после клика
+                    for url, body in api_calls[-3:]:
+                        print(f"    API after click: {url[:80]} → {body[:100]}")
                 if already_seen and gained > 0:
                     new_for_year = captured_slugs[-gained:]
                     if all(f"{_KDL_BASE}/o-nas/news/{s}" in already_seen for s in new_for_year):
