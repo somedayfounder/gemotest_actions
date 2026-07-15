@@ -73,6 +73,27 @@ jobs:
           echo "KDL_OK=$KDL_OK"
         continue-on-error: true
 
+      - name: Notify КДЛ акции (после VPN)
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, urllib.request, urllib.parse
+          TG_TOKEN   = os.environ.get("TG_TOKEN", "")
+          TG_CHAT_ID = os.environ.get("TG_CHAT_ID", "")
+          try:
+              promos = json.loads(open("seen_promos.json").read())
+          except Exception:
+              promos = {}
+          kdl = {u: v for u, v in promos.items() if isinstance(v, dict) and v.get("lab") == "КДЛ"}
+          if not kdl or not TG_TOKEN:
+              print("КДЛ акции: нечего слать")
+          else:
+              text = f"✅ КДЛ акции: {len(kdl)} активных"
+              data = urllib.parse.urlencode({"chat_id": TG_CHAT_ID, "text": text, "parse_mode": "HTML"}).encode()
+              urllib.request.urlopen(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage", data=data, timeout=10)
+              print(f"Отправлено: {text}")
+          PYEOF
+        continue-on-error: true
+
       - name: Run monitor (без КДЛ)
         run: SKIP_KDL=1 python3 -u lab_monitor.py
 
