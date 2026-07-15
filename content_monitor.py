@@ -183,22 +183,36 @@ def get_sitemap_links(url, filter_fn=None):
     return urls
 
 
-def get_invitro_news(progress_cb=None):
-    """Собирает новости Инвитро по годам и месяцам 2005-текущий."""
+def get_invitro_news(already_seen=None, progress_cb=None):
+    """Собирает новости Инвитро по годам и месяцам.
+    Итерирует от новых к старым; при already_seen останавливается после 3 подряд известных месяцев."""
     pattern = r'href="(/moscow/about/news/(?!year)[^"?#]{2,})"'
     today = date.today()
     all_links = []
-    for year in _INVITRO_YEARS:
+    known_months = 0  # счётчик подряд идущих полностью известных месяцев
+    done_early = False
+    for year in reversed(_INVITRO_YEARS):
+        if done_early:
+            break
         year_count = 0
-        for month in range(1, 13):
+        for month in range(12, 0, -1):
             if year == today.year and month > today.month:
-                break
+                continue
             try:
                 url = f"https://www.invitro.ru/moscow/about/news/year-{year}/{month:02d}/"
                 links = list(dict.fromkeys(re.findall(pattern, fetch_retry(url, retries=3))))
                 new = [l for l in links if l not in all_links]
                 all_links.extend(new)
                 year_count += len(new)
+                if already_seen is not None and links:
+                    full = ["https://www.invitro.ru" + l for l in links]
+                    if all(l in already_seen for l in full):
+                        known_months += 1
+                        if known_months >= 3:
+                            done_early = True
+                            break
+                    else:
+                        known_months = 0
                 time.sleep(0.5 if year < 2010 else 0.2)
             except Exception as e:
                 print(f"    Инвитро {year}/{month:02d}: ❌ {e}")
@@ -443,7 +457,7 @@ def run():
 
     # Инвитро новости — по месяцам 2005-текущий
     inv_cb = lambda yr, n: tg_safe(f"  ↳ Инвитро news: год {yr}, найдено {n}...")
-    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news, inv_cb)
+    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news, seen, inv_cb)
     if inv_links_raw is not None:
         inv_links = ["https://www.invitro.ru" + l for l in inv_links_raw]
         new_inv = [l for l in inv_links if l not in seen]
