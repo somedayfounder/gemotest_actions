@@ -55,33 +55,27 @@ jobs:
             # Успех = строка "КДЛ: X акций" есть и нет "ошибка листинга"
             if grep -q "КДЛ:.*акций" /tmp/kdl_out.txt && ! grep -q "ошибка листинга" /tmp/kdl_out.txt; then
               echo "КДЛ доступен через $f"
-              echo "=== HTML preview: /o-nas/news ==="
-              python3 -c "
-import urllib.request, http.cookiejar
+              python3 - <<'PYEOF'
+import urllib.request, http.cookiejar, re
+ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 jar = http.cookiejar.CookieJar()
 opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
-ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
 try:
-    opener.open(urllib.request.Request('https://kdl.ru/analizy-i-tseny/msk', headers={'User-Agent': ua}), timeout=10)
-except: pass
-try:
-    html = opener.open(urllib.request.Request('https://kdl.ru/o-nas/news', headers={'User-Agent': ua}), timeout=10).read().decode('utf-8','replace')
-    print('STATUS: OK, len=', len(html))
-    print(html[:1000])
+    opener.open(urllib.request.Request("https://kdl.ru/analizy-i-tseny/msk", headers={"User-Agent": ua}), timeout=10)
 except Exception as e:
-    print('ERROR:', e)
-" || true
-              echo "=== HTML preview: /patient/blog ==="
-              python3 -c "
-import urllib.request
-ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-try:
-    html = urllib.request.urlopen(urllib.request.Request('https://kdl.ru/patient/blog', headers={'User-Agent': ua}), timeout=10).read().decode('utf-8','replace')
-    print('STATUS: OK, len=', len(html))
-    print(html[:1000])
-except Exception as e:
-    print('ERROR:', e)
-" || true
+    print("pre_url:", e)
+for url in ["https://kdl.ru/o-nas/news", "https://kdl.ru/patient/blog"]:
+    try:
+        html = opener.open(urllib.request.Request(url, headers={"User-Agent": ua}), timeout=12).read().decode("utf-8", "replace")
+        links = re.findall(r'href="(/(?:o-nas/news|patient/blog)/[^"?#]{5,})"', html)
+        print(f"{url}: {len(html)} bytes, {len(links)} links found")
+        if links:
+            print("  first links:", links[:3])
+        else:
+            print("  HTML[:500]:", html[:500])
+    except Exception as e:
+        print(f"{url}: ERROR {e}")
+PYEOF
               VPN_READY=1 VPN_ONLY=1 python3 -u content_monitor.py
               sudo pkill openvpn || true
               KDL_OK=1
