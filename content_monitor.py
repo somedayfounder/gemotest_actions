@@ -216,7 +216,7 @@ def get_helix_news_all(seen_urls):
     found = []
     n = start
     miss = 0
-    while miss < 20:
+    while miss < 50:
         url = f"https://helix.ru/feed/select/{n}"
         try:
             html = fetch(url, timeout=10)
@@ -246,8 +246,8 @@ def get_dnkom_articles(already_seen=None, progress_cb=None):
             links = list(dict.fromkeys(re.findall(pattern, html)))
             new = [l for l in links if l not in all_links]
             all_links.extend(new)
-            # Стоп если все ссылки страницы уже известны (полные URL)
-            if already_seen is not None:
+            # Стоп если страница полностью известна И мы уже прошли хотя бы 3 страницы
+            if already_seen is not None and page >= 3:
                 full = ["https://dnkom.ru" + l if l.startswith("/") else l for l in links]
                 if all(l in already_seen for l in full):
                     break
