@@ -1310,5 +1310,13 @@
     "dates": "Бессрочно",
     "price": "до 66%",
     "kind": "offer"
+  },
+  "https://kdl.ru/akcii/skidka-10-po-polisu-oms-ili-servisnoj-karte": {
+    "lab": "КДЛ",
+    "title": "skidka-10-po-polisu-oms-ili-servisnoj-karte",
+    "summary": "",
+    "dates": "",
+    "price": "",
+    "kind": "offer"
   }
 }

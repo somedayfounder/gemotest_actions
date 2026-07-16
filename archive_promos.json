@@ -1,0 +1,29 @@
+{
+  "https://kdl.ru/akcii/skidka-10-po-polisu-oms-ili-servisnoy-karte": {
+    "lab": "КДЛ",
+    "title": "skidka-10-po-polisu-oms-ili-servisnoy-karte",
+    "summary": "",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer",
+    "ended": "2026-07-16"
+  },
+  "https://helix.ru/promotions/select/8022": {
+    "lab": "Helix",
+    "title": "8022",
+    "summary": "Страница содержит информацию о лабораторных услугах, но не предлагает конкретных акций или скидок.",
+    "dates": "Бессрочно",
+    "price": "",
+    "kind": "offer",
+    "ended": "2026-07-16"
+  },
+  "https://www.invitro.ru/moscow/ak/vitamin-v12-so-skidkoj-15-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Витамин B12 со скидкой 15%",
+    "summary": "Скидка 15% на анализ витамина B12, что позволяет сэкономить на диагностике.",
+    "dates": "до 7 июня 2026",
+    "price": "−15%",
+    "kind": "offer",
+    "ended": "2026-07-16"
+  }
+}
