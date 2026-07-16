@@ -94132,5 +94132,17 @@
     "type": "news",
     "date": "2026-07-15",
     "title": null
+  },
+  "https://gemotest.ru/info/news/smi/": {
+    "lab": "Гемотест",
+    "type": "news",
+    "date": "2026-07-16",
+    "title": "Публикации в СМИ"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/giperglikemiya/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-07-16",
+    "title": "Гипергликемия"
   }
 }
