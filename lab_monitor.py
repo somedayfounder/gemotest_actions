@@ -585,13 +585,31 @@ def run():
         save_active(active)
         return
 
-    # 2. Сохраняем новые акции
+    # 2. Загружаем страницы новых акций + GPT
     new_promos = []
+    ai = {}
+    if new_urls:
+        print(f"  Загружаем страницы {len(new_urls)} новых акций...")
+        promos_to_analyze = []
+        def _fetch_one(url):
+            return url, fetch_promo_page(url, current[url])
+        with ThreadPoolExecutor(max_workers=6) as ex:
+            for url, page_text in ex.map(_fetch_one, new_urls):
+                promos_to_analyze.append({"lab": current[url]["name"], "url": url, "page_text": page_text})
+        if OPENAI_KEY:
+            try:
+                ai = ai_analyze(promos_to_analyze)
+                print(f"  GPT: {len(ai)} проанализировано")
+            except Exception as e:
+                print(f"  GPT ошибка: {e}")
+
     for url in new_urls:
         site = current[url]
-        title = url.rstrip("/").split("/")[-1]
-        active[url] = {"lab": site["name"], "title": title, "summary": "", "dates": "", "price": "", "kind": "offer"}
-        new_promos.append({"lab": site["name"], "title": title, "url": url})
+        info = ai.get(url, {})
+        title = info.get("title") or get_promo_title(url, site)
+        summary = info.get("summary", "")
+        active[url] = {"lab": site["name"], "title": title, "summary": summary}
+        new_promos.append({"lab": site["name"], "title": title, "summary": summary, "url": url})
 
     # 3. Исчезнувшие акции → архив
     today = __import__("datetime").date.today().isoformat()

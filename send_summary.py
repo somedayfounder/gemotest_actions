@@ -51,7 +51,7 @@ def tg_send_parts(token, chat_id, text):
 
 SEP = "・・・"
 
-def section(title, items, show_url=True):
+def section(title, items, show_url=True, show_summary=False):
     if not items:
         return ""
     lines = [SEP, f"<b>{title}</b>"]
@@ -63,10 +63,13 @@ def section(title, items, show_url=True):
         for item in lab_items:
             t = item.get("title") or item.get("url", "").rstrip("/").split("/")[-1] or "—"
             u = item.get("url", "")
+            s = item.get("summary", "")
             if show_url and u:
-                lines.append(f'<a href="{u}">{t}</a>')
+                lines.append(f'<a href="{u}"><b>{t}</b></a>')
             else:
-                lines.append(t)
+                lines.append(f"<b>{t}</b>")
+            if show_summary and s:
+                lines.append(s)
     return "\n".join(lines)
 
 
@@ -109,7 +112,7 @@ def run():
 
     blocks = [
         header,
-        section("Новые акции", new_p),
+        section("Новые акции", new_p, show_summary=True),
         section("Завершившиеся акции", gone_p, show_url=False),
         section("Новые статьи", new_art),
         section("Новости", new_news),
