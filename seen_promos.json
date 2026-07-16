@@ -1,1 +1,812 @@
-{}
+{
+  "https://gemotest.ru/actions/great_discounts/": {
+    "lab": "Гемотест",
+    "title": "Чекап Pro «Печень и почки»",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/helicobacter/": {
+    "lab": "Гемотест",
+    "title": "Диагностика хеликобактера",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/with-care/": {
+    "lab": "Гемотест",
+    "title": "Акция с заботой",
+    "summary": "Предложение направлено на повышение осведомленности о здоровье, но не содержит конкретных скидок или акций."
+  },
+  "https://gemotest.ru/actions/mg_moloday/": {
+    "lab": "Гемотест",
+    "title": "Молодежная акция",
+    "summary": "Акция для молодежи, но не содержит конкретных предложений или скидок."
+  },
+  "https://gemotest.ru/actions/allergy/": {
+    "lab": "Гемотест",
+    "title": "Диагностика аллергии",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/health4all_parasites/": {
+    "lab": "Гемотест",
+    "title": "Паразиты в Гемотест",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/klesch/": {
+    "lab": "Гемотест",
+    "title": "Клещевые инфекции в Гемотест",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/after-forty/": {
+    "lab": "Гемотест",
+    "title": "Анализы 40+ в Гемотест",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/diabetes/": {
+    "lab": "Гемотест",
+    "title": "Контроль здоровья при диабете в Гемотест",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/mountain/": {
+    "lab": "Гемотест",
+    "title": "Горный комплекс в Гемотест",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/lald/": {
+    "lab": "Гемотест",
+    "title": "Скрининг ДЛКЛ",
+    "summary": "Бесплатная программа ранней диагностики наследственного заболевания, связанного с дефицитом лизосомной кислой липазы. Участие в программе позволяет своевременно выявить или исключить заболевание."
+  },
+  "https://gemotest.ru/actions/hypophosphatasia/": {
+    "lab": "Гемотест",
+    "title": "Скрининг гипофосфатазии",
+    "summary": "Бесплатная программа ранней диагностики наследственного заболевания, вызванного мутацией гена ALPL. Участие в программе позволяет своевременно выявить или исключить гипофосфатазию."
+  },
+  "https://gemotest.ru/actions/nezhnost/": {
+    "lab": "Гемотест",
+    "title": "С нежностью к себе",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/fairy_tale/": {
+    "lab": "Гемотест",
+    "title": "Не жизнь, а сказка!",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/position_of_adult/": {
+    "lab": "Гемотест",
+    "title": "В позиции взрослого",
+    "summary": "Специальный проект о заботе и уважении к своему здоровью, где обсуждаются важные вопросы об ИППП и здоровье. Предоставляет информацию и советы от специалистов."
+  },
+  "https://gemotest.ru/actions/health_dropper/": {
+    "lab": "Гемотест",
+    "title": "Здоровье капельницей",
+    "summary": "Акция предлагает услуги капельниц для улучшения здоровья, но не указывает на конкретные скидки или цены."
+  },
+  "https://gemotest.ru/actions/time_for_ultrasound/": {
+    "lab": "Гемотест",
+    "title": "Время для УЗИ",
+    "summary": "Предложение на услуги ультразвуковой диагностики, но без указания конкретных цен или скидок."
+  },
+  "https://gemotest.ru/actions/all-nipt/": {
+    "lab": "Гемотест",
+    "title": "НИПТ: скрининг хромосомных аномалий",
+    "summary": "Акция предлагает различные варианты НИПТ для скрининга хромосомных аномалий плода с указанием цен."
+  },
+  "https://gemotest.ru/actions/genetic-risk/": {
+    "lab": "Гемотест",
+    "title": "Генетические риски будущих родителей",
+    "summary": "Акция предлагает анализы для выявления генетических рисков у будущих родителей с указанием цен."
+  },
+  "https://gemotest.ru/actions/exome/": {
+    "lab": "Гемотест",
+    "title": "Полное секвенирование экзома",
+    "summary": "Акция предлагает услуги полного секвенирования экзома для диагностики наследственных заболеваний с указанием цен."
+  },
+  "https://gemotest.ru/actions/krasota/": {
+    "lab": "Гемотест",
+    "title": "Красота и молодость",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/liver_transplant/": {
+    "lab": "Гемотест",
+    "title": "Трансплантация печени",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/kidney_transplant/": {
+    "lab": "Гемотест",
+    "title": "Трансплантация почки",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/telemed/": {
+    "lab": "Гемотест",
+    "title": "Онлайн-консультация врача",
+    "summary": "Получите рекомендации от квалифицированных врачей не выходя из дома. Стоимость консультации ниже, чем в частных клиниках."
+  },
+  "https://gemotest.ru/actions/express/": {
+    "lab": "Гемотест",
+    "title": "Экспресс-тесты",
+    "summary": "Экспресс-анализы позволяют быстро выявить диабет, грипп или риск тромбозов. Удобно и быстро."
+  },
+  "https://gemotest.ru/actions/halva/": {
+    "lab": "Гемотест",
+    "title": "Рассрочка до 3 месяцев по карте «Халва»",
+    "summary": "Оплачивайте анализы в рассрочку без процентов и комиссий. Рассрочка на 2 месяца до 9 999 ₽, 3 месяца — от 10 000 ₽."
+  },
+  "https://gemotest.ru/actions/dolyame/": {
+    "lab": "Гемотест",
+    "title": "Оплата Долями за анализы и услуги",
+    "summary": "Разделите стоимость заказа на 4 равные части с шагом в две недели. Оплата без комиссий и скрытых процентов."
+  },
+  "https://gemotest.ru/actions/aeroflotbonus/": {
+    "lab": "Гемотест",
+    "title": "Программа лояльности «Аэрофлот Бонус»",
+    "summary": "Получайте мили за анализы и используйте их для получения скидок до 99% на лабораторные исследования."
+  },
+  "https://gemotest.ru/actions/mendeleev/": {
+    "lab": "Гемотест",
+    "title": "Скидка 15% для владельцев «Менделеевской карты»",
+    "summary": "Скидка 15% для владельцев Менделеевской карты на комплексные исследования для оценки состояния здоровья."
+  },
+  "https://gemotest.ru/actions/oncopartner/": {
+    "lab": "Гемотест",
+    "title": "Корпоративный онкоскрининг со скидкой до 66%",
+    "summary": "Закажите корпоративный онкоскрининг со скидкой до 66% для повышения устойчивости бизнеса и сохранения кадровых ресурсов."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/bolshaya-skidka-2026-2-0/": {
+    "lab": "CMD",
+    "title": "Большая скидка 2.0",
+    "summary": "Скидка 20% при оформлении договора-заказа на 16 лабораторных исследований. Скидка не суммируется с другими акциями."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/aktsiya-letnie-chekapy/": {
+    "lab": "CMD",
+    "title": "Летние чекапы",
+    "summary": "Специальные комплексные предложения со скидкой 20% для проверки ключевых показателей здоровья."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/beregite-zdorovye-letom2026/": {
+    "lab": "CMD",
+    "title": "-25% на диагностику кишечных инфекций",
+    "summary": "Скидка 25% на комплексные исследования острых кишечных инфекций для точного определения причины недомогания."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/biokhimiya-so-skidkoy-20/": {
+    "lab": "CMD",
+    "title": "Биохимия со скидкой 20%",
+    "summary": "Комплексный биохимический анализ крови для оценки работы внутренних органов и обменных процессов."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/10-na-pervichnyy-priyem-vrachey-plus-centr/": {
+    "lab": "CMD",
+    "title": "10% на первичный приём врачей",
+    "summary": "Скидка 10% на первичный приём врачей клиники, включая невролога, психиатра и акушера-гинеколога."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/chekap-dlya-zhenshchin/": {
+    "lab": "CMD",
+    "title": "Чекап для женщин",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/chekap-dlya-muzhchin/": {
+    "lab": "CMD",
+    "title": "Чекап для мужчин",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/skidka-15-na-pervichnyy-priyem-vrachey-posle-sdachi-analizov-v-klinike-tsentrplyus/": {
+    "lab": "CMD",
+    "title": "Скидка 15% на первичный приём врачей после сдачи анализов в клинике «ЦентрПлюс»",
+    "summary": "При оплате любого договора-заказа на лабораторные исследования вы можете получить купон на скидку 15% на первичный приём врачей. Скидка действует в клинике «ЦентрПлюс»."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vash-vnutrenniy-shchit-pod-kontrolem/": {
+    "lab": "CMD",
+    "title": "Ваш внутренний щит под контролем",
+    "summary": "Предложение включает лабораторные исследования для оценки состояния здоровья после болезни. Это поможет избежать осложнений и вернуться к активной жизни."
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vaktsinatsiya-ot-tropicheskikh-zabolevaniy/": {
+    "lab": "CMD",
+    "title": "Вакцинация от тропических заболеваний",
+    "summary": "Вакцинация от тропических заболеваний поможет предотвратить инфекции, которые могут возникнуть при путешествиях. Индивидуальный график прививок будет подобран в зависимости от маршрута поездки."
+  },
+  "https://helix.ru/promotions/select/8035": {
+    "lab": "Helix",
+    "title": "Расширенная проверка здоровья",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8040": {
+    "lab": "Helix",
+    "title": "Проверьте влияние стресса на здоровье",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8030": {
+    "lab": "Helix",
+    "title": "Скидка 55% на биохимический анализ крови",
+    "summary": "Скидка 55% на биохимический анализ крови поможет оценить состояние внутренних органов и исключить распространенные заболевания. Специальная цена – 1190 руб. (без скидки – 2825 руб.)."
+  },
+  "https://helix.ru/promotions/select/8063": {
+    "lab": "Helix",
+    "title": "Скидка 25% на первый заказ",
+    "summary": "Скидка 25% на первый заказ для новых клиентов при заказе от 3000 руб. Скидка активируется при использовании промокода ПЕРВЫЙ."
+  },
+  "https://helix.ru/promotions/select/8056": {
+    "lab": "Helix",
+    "title": "Скидка 1000 руб. на анализы в честь Дня семьи",
+    "summary": "Скидка 1000 руб. на анализы при заказе от 5000 руб. в честь Дня семьи, любви и верности. Используйте промокод БЛИЗКИЕ."
+  },
+  "https://helix.ru/promotions/select/8050": {
+    "lab": "Helix",
+    "title": "Лето на максимум. Комплексы анализов от 390 руб.",
+    "summary": "Скидка на популярные комплексы анализов, действующая до 31 июля. Промокод ЛЕТО активирует скидку при оплате."
+  },
+  "https://helix.ru/promotions/select/8041": {
+    "lab": "Helix",
+    "title": "Дарим скидку 15% на все анализы по воскресеньям!",
+    "summary": "Каждое воскресенье скидка 15% на все анализы при заказе от 3000 руб. Промокод ВОСКРЕСЕНЬЕ активирует скидку."
+  },
+  "https://helix.ru/promotions/select/8031": {
+    "lab": "Helix",
+    "title": "Для здорового будущего. Пройдите онкопрофилактику со скидкой 15%",
+    "summary": "Скидка 15% на онкоскрининг до 31 августа. Важно проходить профилактику для раннего выявления заболеваний."
+  },
+  "https://helix.ru/promotions/select/8026": {
+    "lab": "Helix",
+    "title": "Скидка 15% на все анализы в Центрах – именинниках июля",
+    "summary": "Скидка 15% на все анализы в Центрах, отмечающих день рождения в июле. Штрихкод активирует скидку."
+  },
+  "https://helix.ru/promotions/select/8007": {
+    "lab": "Helix",
+    "title": "Будьте в тонусе. Диагностика анемии за 1390 руб.",
+    "summary": "Комплексное обследование для диагностики анемии по сниженной цене."
+  },
+  "https://helix.ru/promotions/select/7974": {
+    "lab": "Helix",
+    "title": "Что делать, если укусил клещ",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7933": {
+    "lab": "Helix",
+    "title": "Весна без аллергии: как найти причину и жить нормальной жизнью",
+    "summary": "Акция предлагает широкий спектр анализов на аллергены, которые помогут точно определить, что вызывает неприятные симптомы. Это позволит избежать дискомфорта и насладиться весной."
+  },
+  "https://helix.ru/promotions/select/7930": {
+    "lab": "Helix",
+    "title": "Узнайте свою безопасную норму кофе: новые генетические тесты",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7896": {
+    "lab": "Helix",
+    "title": "Спермограмма и MAR-тест",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7888": {
+    "lab": "Helix",
+    "title": "Новые тесты: комплексы анализов для фитнес-браслета Whoop и умного кольца Oura Ring",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7884": {
+    "lab": "Helix",
+    "title": "Как оформить справку для налогового вычета",
+    "summary": "На сайте Хеликс можно быстро оформить электронную справку для налогового вычета за медицинские услуги. Это удобно и занимает всего 1 рабочий день."
+  },
+  "https://helix.ru/promotions/select/7822": {
+    "lab": "Helix",
+    "title": "Новые комплексы анализов для детей",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7821": {
+    "lab": "Helix",
+    "title": "Новые комплексы анализов для женщин",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7820": {
+    "lab": "Helix",
+    "title": "Новые комплексы анализов для мужчин",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7793": {
+    "lab": "Helix",
+    "title": "Спермограмма с MAR-тестом за 6000 руб.",
+    "summary": "Специальное предложение на спермограмму с MAR-тестом за 6000 руб. вместо 7160 руб. Это исследование помогает оценить способность мужчины к зачатию и выявить заболевания мочеполовой системы."
+  },
+  "https://helix.ru/promotions/select/7725": {
+    "lab": "Helix",
+    "title": "Актуальные анализы в сезон простуд",
+    "summary": "Предложение включает актуальные анализы для диагностики респираторных инфекций в осенний сезон. Важно следить за здоровьем и проходить анализы для своевременного лечения."
+  },
+  "https://helix.ru/promotions/select/7715": {
+    "lab": "Helix",
+    "title": "Прием врача-невролога в Центре Троицк",
+    "summary": "Профилактический осмотр у врача-невролога рекомендуется раз в 2-3 года, а после 40 лет — ежегодно."
+  },
+  "https://helix.ru/promotions/select/7714": {
+    "lab": "Helix",
+    "title": "Кинезиотейпирование в Центре Троицк",
+    "summary": "Кинезиотейпирование помогает при болях в спине, шее и суставах, а также при спортивных и бытовых травмах."
+  },
+  "https://helix.ru/promotions/select/7713": {
+    "lab": "Helix",
+    "title": "Внутривенное лазерное облучение крови (ВЛОК) в Центре Троицк",
+    "summary": "ВЛОК улучшает общее здоровье, укрепляет иммунитет и помогает при различных заболеваниях."
+  },
+  "https://helix.ru/promotions/select/7712": {
+    "lab": "Helix",
+    "title": "Обязательные анализы и обследования при подготовке к беременности",
+    "summary": "Предложение включает полный спектр анализов для мужчин и женщин при подготовке к беременности, что значительно повышает шансы на рождение здорового ребенка."
+  },
+  "https://helix.ru/promotions/select/7670": {
+    "lab": "Helix",
+    "title": "Срочные анализы – результаты от 5 часов",
+    "summary": "В Хеликс доступны срочные анализы с выдачей результатов от 5 часов. Это удобно для тех, кто не может ждать стандартные сроки выполнения анализов."
+  },
+  "https://helix.ru/promotions/select/7620": {
+    "lab": "Helix",
+    "title": "Скидка 15% на анализы на дому",
+    "summary": "Сдавайте анализы на дому с 15% скидкой до 15 августа. Удобно и быстро, с выездом медсестры."
+  },
+  "https://helix.ru/promotions/select/7605": {
+    "lab": "Helix",
+    "title": "Активное долголетие: как сохранить здоровье в любом возрасте",
+    "summary": "Предлагаются исследования для оценки биологического возраста и здоровья. Это поможет выявить риски и предпринять меры."
+  },
+  "https://helix.ru/promotions/select/7604": {
+    "lab": "Helix",
+    "title": "Стресс, тревога, усталость: как эмоции влияют на здоровье",
+    "summary": "Обсуждаются последствия стресса и его влияние на здоровье. Рекомендуется сдавать анализы для выявления проблем."
+  },
+  "https://helix.ru/promotions/select/7603": {
+    "lab": "Helix",
+    "title": "Кожа, волосы, ногти: что они говорят о здоровье",
+    "summary": "Состояние кожи, волос и ногтей может указывать на проблемы со здоровьем. Рекомендуется сдавать анализы для диагностики."
+  },
+  "https://helix.ru/promotions/select/7545": {
+    "lab": "Helix",
+    "title": "Внимание, аллергия: как обнаружить проблему и наслаждаться весной",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7542": {
+    "lab": "Helix",
+    "title": "Бесплатная консультация врача по анализам",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7522": {
+    "lab": "Helix",
+    "title": "Новый специалист: врач – акушер-гинеколог в Центре Лосиноостровский",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7407": {
+    "lab": "Helix",
+    "title": "Позаботьтесь о женском здоровье, когда нет возможности посетить врача",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7372": {
+    "lab": "Helix",
+    "title": "Онлайн-запись на прием к врачу",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7351": {
+    "lab": "Helix",
+    "title": "Новые комплексы по направлениям превентивной и антивозрастной медицины",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7263": {
+    "lab": "Helix",
+    "title": "Комплексы анализов для детей",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7259": {
+    "lab": "Helix",
+    "title": "Гастроскрин: проверьте состояние ЖКТ без гастроскопии и ФГДС",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7244": {
+    "lab": "Helix",
+    "title": "Скидка 10% на анализы по карте москвича",
+    "summary": "Держатели карты москвича могут получить скидку 10% на анализы в Центрах Хеликс. Для получения скидки необходимо показать карту администратору перед оплатой."
+  },
+  "https://helix.ru/promotions/select/7225": {
+    "lab": "Helix",
+    "title": "Новая категория анализов: превентивная медицина и нутрициология",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7154": {
+    "lab": "Helix",
+    "title": "350 приветственных баллов за первый заказ",
+    "summary": "Получите 350 приветственных баллов за первый заказ в Хеликс. Баллы можно использовать для оплаты анализов."
+  },
+  "https://helix.ru/promotions/select/7085": {
+    "lab": "Helix",
+    "title": "Скидка 15% за отзыв о Хеликс",
+    "summary": "Оставьте отзыв о Хеликс и получите скидку 15% на анализы. Скидка активируется после публикации отзыва."
+  },
+  "https://helix.ru/promotions/select/6506": {
+    "lab": "Helix",
+    "title": "Комплексное обследование анемии за 3200 руб.",
+    "summary": "Комплексное обследование анемии включает анализы на латентную железосвязывающую способность, витамин B9 и витамин B12."
+  },
+  "https://helix.ru/promotions/select/6321": {
+    "lab": "Helix",
+    "title": "ЭКГ с расшифровкой за 15 минут",
+    "summary": "ЭКГ с расшифровкой выполняется за 15 минут, что позволяет быстро получить результаты."
+  },
+  "https://helix.ru/promotions/select/6013": {
+    "lab": "Helix",
+    "title": "Прием врача ультразвуковой диагностики, акушера-гинеколога",
+    "summary": "Запишитесь на прием к врачу-акушеру-гинекологу для профилактического осмотра и УЗИ."
+  },
+  "https://helix.ru/promotions/select/5773": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "Скидка 10% на лабораторные исследования для льготных категорий граждан, включая пенсионеров и инвалидов. Скидка не суммируется с другими акциями."
+  },
+  "https://helix.ru/promotions/select/5625": {
+    "lab": "Helix",
+    "title": "Бесконтактная сдача теста на COVID-19",
+    "summary": "Услуга бесконтактной сдачи теста на COVID-19 с доставкой набора для взятия биоматериала на дом. Результаты доступны в течение двух суток."
+  },
+  "https://helix.ru/promotions/select/55": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "Скидка 10% на лабораторные исследования для льготных категорий граждан, включая пенсионеров и инвалидов. Скидка не суммируется с другими акциями."
+  },
+  "https://dnkom.ru/actions/zharkie-skidki-do-70/": {
+    "lab": "ДНКом",
+    "title": "Жаркие скидки",
+    "summary": "Акции на анализы и исследования в ДНКОМ с возможностью получения скидок до 70%."
+  },
+  "https://dnkom.ru/actions/issledovanie-urovnya-glyukozy-metodom-nepreryvnogo-monitorirovaniya-datchik-lumiflex-linx-do-16-suto/": {
+    "lab": "ДНКом",
+    "title": "Исследование уровня глюкозы",
+    "summary": "Исследование уровня глюкозы с использованием датчика Lumiflex Linx, который позволяет мониторировать уровень глюкозы до 16 суток."
+  },
+  "https://dnkom.ru/actions/skidka-10-vnd/": {
+    "lab": "ДНКом",
+    "title": "Скидка 10% на анализы на дому",
+    "summary": "Скидка 10% на анализы на дому для двоих в Москве. Условия акции включают ограничения по взятию биоматериала на дому."
+  },
+  "https://dnkom.ru/actions/vyigrayte-2-bileta-na-kontsert-shakiry-v-madride/": {
+    "lab": "ДНКом",
+    "title": "Выиграйте 2 билета на концерт Шакиры в Мадриде",
+    "summary": "Участвуйте в розыгрыше 2 билетов на концерт Шакиры в Мадриде, подписавшись на Telegram-каналы ДНКОМ и Европасс."
+  },
+  "https://dnkom.ru/actions/biokhimiya_krovi/": {
+    "lab": "ДНКом",
+    "title": "Биохимия крови: 8 ключевых показателей",
+    "summary": "Описание анализа биохимии крови и его значимости для здоровья."
+  },
+  "https://dnkom.ru/actions/shchitovidnaya-zheleza-skrining/": {
+    "lab": "ДНКом",
+    "title": "Щитовидная железа: скрининг",
+    "summary": "Информация о важности проверки гормонов щитовидной железы."
+  },
+  "https://dnkom.ru/actions/issledovanie-kleshcha-na-vozbuditeli-infektsiy/": {
+    "lab": "ДНКом",
+    "title": "Исследование клеща на возбудители инфекций",
+    "summary": "Описание исследования клеща и информации о переносимых инфекциях."
+  },
+  "https://dnkom.ru/actions/allergochip-alex2-na-300-allergenov-i-obshchiy-ige-po-spetsialnoy-tsene/": {
+    "lab": "ДНКом",
+    "title": "Аллергочип ALEX2 по специальной цене",
+    "summary": ""
+  },
+  "https://dnkom.ru/actions/food-xplorer-fox-po-spetsialnoy-tsene/": {
+    "lab": "ДНКом",
+    "title": "Food Xplorer (FOX) по специальной цене",
+    "summary": ""
+  },
+  "https://dnkom.ru/actions/khudeem-pod-kontrolem/": {
+    "lab": "ДНКом",
+    "title": "Худеем под контролем!",
+    "summary": "Акция предлагает комплексные исследования для контроля веса и выявления причин его изменения. Это поможет пациентам лучше понять свое состояние и принимать обоснованные решения."
+  },
+  "https://dnkom.ru/actions/vyezd-medsestry-na-dom-za-1-rub-/": {
+    "lab": "ДНКом",
+    "title": "Бесплатный выезд медицинской сестры на дом",
+    "summary": "Акция предлагает бесплатный выезд медицинской сестры на дом, что позволяет пациентам получать медицинские услуги без дополнительных затрат."
+  },
+  "https://dnkom.ru/actions/prostudilis-uznayte-nuzhen-li-antibiotik/": {
+    "lab": "ДНКом",
+    "title": "Узнайте, нужен ли антибиотик",
+    "summary": "Страница предлагает информацию о том, как определить необходимость в антибиотиках при простудах, но не содержит конкретных предложений или скидок."
+  },
+  "https://dnkom.ru/actions/helicobacteriosis/": {
+    "lab": "ДНКом",
+    "title": "Тесты для диагностики Helicobacter pylori",
+    "summary": "Предлагаются тесты для первичной диагностики Helicobacter pylori. Важно для здоровья."
+  },
+  "https://dnkom.ru/actions/femoflor/": {
+    "lab": "ДНКом",
+    "title": "Фемофлор II — тесты для женского здоровья",
+    "summary": "Предлагаются тесты нового поколения для оценки состояния женской микробиоты. Важно для здоровья женщин."
+  },
+  "https://dnkom.ru/actions/kompleksy-dlya-domashnego-personala/": {
+    "lab": "ДНКом",
+    "title": "Комплексы для домашнего персонала",
+    "summary": "Исследования для домашнего персонала, важные для здоровья."
+  },
+  "https://dnkom.ru/actions/immunitet-nachinaetsya-s-mikrobioty-kishechnika-/": {
+    "lab": "ДНКом",
+    "title": "Иммунитет начинается с микробиоты кишечника",
+    "summary": "Предлагаются исследования для восстановления баланса микробиоты и укрепления иммунитета."
+  },
+  "https://dnkom.ru/actions/zashchiti-sebya-i-drugikh-proydite-vaktsinatsiyu/": {
+    "lab": "ДНКом",
+    "title": "Пройдите вакцинацию",
+    "summary": "Акции на анализы и исследования для вакцинации. Вакцинация помогает избежать инфекционных заболеваний."
+  },
+  "https://dnkom.ru/actions/innovatsionnaya-italyanskaya-tekhnologiya-dlya-vashego-intimnogo-zdorovya/": {
+    "lab": "ДНКом",
+    "title": "Инновационная итальянская технология для вашего интимного здоровья",
+    "summary": "Описание инновационной технологии для интимного здоровья. Нет конкретной выгоды для пациента."
+  },
+  "https://dnkom.ru/actions/defitsit-vitaminov-i-mikroelementov/": {
+    "lab": "ДНКом",
+    "title": "Дефицит витаминов и микроэлементов",
+    "summary": "Исследования на дефицит витаминов и микроэлементов. Специальная цена на подготовку к исследованию."
+  },
+  "https://dnkom.ru/actions/skidka-500-dlya-novykh-klientov-sluzhby-vyezda-na-dom/": {
+    "lab": "ДНКом",
+    "title": "Скидка 500₽ для новых клиентов",
+    "summary": "Скидка 500₽ для новых клиентов службы выезда на дом. Выгода при первом обращении."
+  },
+  "https://dnkom.ru/actions/zdorovoe-dolgoletie-skidka-10-dlya-patsientov-starshe-60/": {
+    "lab": "ДНКом",
+    "title": "Здоровое долголетие: Скидка 10% для пациентов старше 60 лет",
+    "summary": "Скидка 10% для пациентов старше 60 лет. Выгода для пожилых пациентов."
+  },
+  "https://dnkom.ru/actions/chek-ap-byt-pervym/": {
+    "lab": "ДНКом",
+    "title": "Чек-ап “Быть первым”",
+    "summary": "Описание чек-апа без конкретной выгоды для пациента."
+  },
+  "https://www.labquest.ru/aktsii/skidka-do-70-dlya-novykh-klientov/": {
+    "lab": "LabQuest",
+    "title": "Скидка до 70% для новых клиентов",
+    "summary": "Новые клиенты могут получить скидку до 70% по промокоду NEW70 при первом обращении. Максимальная скидка составляет 900 рублей от общей суммы заказа."
+  },
+  "https://www.labquest.ru/aktsii/skrining-shchitovidnoj-zhelezy/": {
+    "lab": "LabQuest",
+    "title": "Комплексы для оценки функции щитовидной железы",
+    "summary": "Специальные цены на комплексы для оценки функции щитовидной железы и энергообмена, которые помогут выявить возможные проблемы со здоровьем."
+  },
+  "https://www.labquest.ru/aktsii/ukusil-kleshch-izvleki-i-prover-za-1-den-/": {
+    "lab": "LabQuest",
+    "title": "Проверка клеща на 5 инфекций",
+    "summary": "Акция предлагает проверку клеща на 5 опасных инфекций с результатом за 2 дня, что позволяет быстро начать лечение в случае обнаружения инфекции."
+  },
+  "https://www.labquest.ru/aktsii/kompleksy-s-vitaminom-d-po-spetsialnoy-tsene/": {
+    "lab": "LabQuest",
+    "title": "Комплексы с витамином D по специальной цене",
+    "summary": "Специальные цены на комплексы с витамином D, которые помогут оценить уровень витамина D и других важных веществ в организме."
+  },
+  "https://www.labquest.ru/aktsii/operedite-virusy-i-bakterialnye-infektsii-s-novoy-aktsiey/": {
+    "lab": "LabQuest",
+    "title": "Скидки на Q-ТЕСТы для диагностики инфекций",
+    "summary": "При покупке 2-х или 3-х Q-ТЕСТов на респираторные инфекции действуют скидки 15% и 20% соответственно по промокодам QTEST2 и QTEST3."
+  },
+  "https://www.labquest.ru/aktsii/biokhimiya-krovi-2025/": {
+    "lab": "LabQuest",
+    "title": "Биохимические комплексы анализов по специальной цене",
+    "summary": ""
+  },
+  "https://www.labquest.ru/aktsii/energiya-vesny/": {
+    "lab": "LabQuest",
+    "title": "Энергия весны",
+    "summary": "Результаты комплекса анализов помогут выявить нарушения обмена веществ и контролировать воспаление."
+  },
+  "https://www.labquest.ru/aktsii/ratsionalnaya-diagnostika/": {
+    "lab": "LabQuest",
+    "title": "Рациональная диагностика",
+    "summary": ""
+  },
+  "https://www.labquest.ru/aktsii/semeynaya-skidka-na-uslugu-vyezd-na-dom/": {
+    "lab": "LabQuest",
+    "title": "Семейная скидка на услугу \"Выезд на дом\"",
+    "summary": "Закажите услугу «Выезд на дом» и получите промокод на скидку 10% на сдачу анализов на дому для всей семьи."
+  },
+  "https://www.labquest.ru/aktsii/schastlivyy-den-skidka-15-na-analizy-po-voskresenyam/": {
+    "lab": "LabQuest",
+    "title": "Счастливый день - скидка 15% на анализы по воскресеньям!",
+    "summary": "Каждое воскресенье предоставляем скидку 15% на лабораторные исследования по промокоду «HD15»."
+  },
+  "https://www.labquest.ru/aktsii/labkvest-zapuskaet-referalnuyu-programmu-privedi-druga/": {
+    "lab": "LabQuest",
+    "title": "Реферальная программа «Приведи друга»",
+    "summary": "Пригласите друзей в ЛабКвест и получите до 1500 бонусов. Ваши друзья получат скидку 5% на первый заказ."
+  },
+  "https://www.labquest.ru/aktsii/skidka-20-na-analizy-v-schastlivye-chasy/": {
+    "lab": "LabQuest",
+    "title": "Скидка 20% на анализы в счастливые часы",
+    "summary": "Сделайте анализы после 13:00 и получите скидку 20% по промокоду «HН20». Скидка не распространяется на ряд услуг."
+  },
+  "https://www.invitro.ru/moscow/ak/3-faktora-zdorovya-06-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Скидка до 45%",
+    "summary": "Проверьте уровень ТТГ, витаминов и минералов с выгодной скидкой до 45%."
+  },
+  "https://www.invitro.ru/city/vnd": {
+    "lab": "Инвитро",
+    "title": "Выезд за 1 рубль",
+    "summary": "При заказе услуг от 2490 рублей выезд специалиста обойдется всего в 1 рубль."
+  },
+  "https://www.invitro.ru/moscow/ak/serdce-pokazhet-07-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Липидный профиль со скидкой 15%",
+    "summary": "Сделайте липидный профиль и получите скидку 15%."
+  },
+  "https://www.invitro.ru/moscow/ak/mrt-kt-rentgenografiya-so-skidkoj-20-msk/": {
+    "lab": "Инвитро",
+    "title": "Скидка 20% на МРТ, КТ и рентгенографию",
+    "summary": "Скидка 20% на МРТ, КТ и рентгенографию с 21.00 до 00.00."
+  },
+  "https://www.invitro.ru/moscow/ak/invitro-zabotitsya-o-zdorove-vsekh-07-2026-msk/": {
+    "lab": "Инвитро",
+    "title": "-10% на ветеринарные услуги",
+    "summary": "Скидка 10% на ветеринарные услуги для заботы о здоровье ваших питомцев."
+  },
+  "https://www.invitro.ru/moscow/ak/uznayte-o-sebe-bolshe-07-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Тест в подарок",
+    "summary": "При заказе анализов вы получаете тест в подарок."
+  },
+  "https://www.invitro.ru/moscow/ak/15-na-zakaz-v-gorzdrav-07-08-2026-msk-spb/": {
+    "lab": "Инвитро",
+    "title": "-15% НА ЗАКАЗ В ГОРЗДРАВ",
+    "summary": "Скидка 15% на заказы в Горздрав до 7 августа."
+  },
+  "https://www.invitro.ru/moscow/ak/uznajte-prichinu-sezonnoj-allergii-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Узнайте причину сезонной аллергии",
+    "summary": "Узнайте причину сезонной аллергии и получите повышенный кешбэк 15%."
+  },
+  "https://www.invitro.ru/moscow/ak/nipt-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "Неинвазивный пренатальный тест",
+    "summary": "Кешбэк 15% на оценку генетических рисков."
+  },
+  "https://www.invitro.ru/loyalty/": {
+    "lab": "Инвитро",
+    "title": "Следите за здоровьем",
+    "summary": "Получайте кешбэк в ИНВИТРО."
+  },
+  "https://citilab.ru/discounts/darim-4-000-na-lyubye-analizy/": {
+    "lab": "Ситилаб",
+    "title": "Дарим 4 000 ₽ на любые анализы",
+    "summary": "Участвуйте в розыгрыше сертификата на 4 000 рублей для оплаты любых лабораторных исследований."
+  },
+  "https://citilab.ru/discounts/allergiya-na-moloko/": {
+    "lab": "Ситилаб",
+    "title": "Аллергия на молоко?",
+    "summary": "Скидка 40% на компонентную диагностику аллергии на белки коровьего молока."
+  },
+  "https://citilab.ru/discounts/dyshat-legko/": {
+    "lab": "Ситилаб",
+    "title": "Дышать легко?",
+    "summary": "Скидка 20% на панели «Астма/Ринит» для детей и взрослых."
+  },
+  "https://citilab.ru/discounts/kompleksnaya-diagnostika-dlya-zhenskogo-zdorovya/": {
+    "lab": "Ситилаб",
+    "title": "Комплексная диагностика для женского здоровья",
+    "summary": "Скидка 40% на комплексный тест ФЛОРОСКРИН® для диагностики вагинальных инфекций. Чтобы получить скидку, назовите промокод «ФЛОРА40» при оплате."
+  },
+  "https://citilab.ru/discounts/40-na-analizy-dlya-spravki-v-lager/": {
+    "lab": "Ситилаб",
+    "title": "-40% на анализы для справки в лагерь",
+    "summary": "Скидка 40% на анализы, необходимые для оформления справки по форме 079/у. Используйте промокод «ЛАГЕРЬ40» при оплате."
+  },
+  "https://citilab.ru/discounts/ostorozhno-kleshchi/": {
+    "lab": "Ситилаб",
+    "title": "Диагностика клещевых инфекций со скидкой 50%",
+    "summary": "Скидка 50% на анализ клеща на наличие инфекций. Промокод «КЛЕЩИ50» дает возможность получить скидку."
+  },
+  "https://citilab.ru/discounts/energiya-i-immunitet/": {
+    "lab": "Ситилаб",
+    "title": "Сила трех: витамин D, ферритин, кальций",
+    "summary": "Скидка 60% на анализы с витамином D, кальцием и ферритином. Промокод «ВИТАМИНД60» дает возможность получить скидку."
+  },
+  "https://citilab.ru/discounts/aprel-skidok/": {
+    "lab": "Ситилаб",
+    "title": "Счастливые часы",
+    "summary": "Скидки на услуги медицинских центров Ситилаб в зависимости от времени визита. Промокоды на скидки до 35%."
+  },
+  "https://citilab.ru/discounts/skidka-15-na-analizy-dlya-chlenov-profsoyuzov-rossii/": {
+    "lab": "Ситилаб",
+    "title": "Скидка 15% для членов профсоюзов",
+    "summary": "Предъявите членский профсоюзный билет и получите скидку 15% на лабораторные исследования во всех медицинских центрах Ситилаб России."
+  },
+  "https://citilab.ru/discounts/skidka-pensioneram-20-na-vse/": {
+    "lab": "Ситилаб",
+    "title": "Скидка пенсионерам 15%",
+    "summary": "Получите скидку 15% на анализы по пенсионному удостоверению, чтобы следить за своим здоровьем с выгодой."
+  },
+  "https://citilab.ru/discounts/radi-zhizni-s-zabotoy-o-tekh-kto-zashchishchaet/": {
+    "lab": "Ситилаб",
+    "title": "Скидка 10% для участников СВО",
+    "summary": "Скидка 10% на важные лабораторные исследования для участников СВО и их семей."
+  },
+  "https://citilab.ru/discounts/skidka-mnogodetnym-semyam/": {
+    "lab": "Ситилаб",
+    "title": "Скидка 23% для многодетных семей",
+    "summary": "Скидка выходного дня 23% на все анализы для многодетных семей при посещении в выходные."
+  },
+  "https://gorlab.ru/news/uzi.html": {
+    "lab": "Горлаб",
+    "title": "Скидка на УЗИ на Щелковской",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/giftcard.html": {
+    "lab": "Горлаб",
+    "title": "Подарочные сертификаты «ГОРЛАБ» – забота о близких",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/cito-free.html": {
+    "lab": "Горлаб",
+    "title": "Срочные анализы без доплат!",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/social-discount.html": {
+    "lab": "Горлаб",
+    "title": "Скидка 15% для льготных категорий граждан в Горлаб",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/vitamins.html": {
+    "lab": "Горлаб",
+    "title": "Анализы на витамины и микроэлементы",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/checkup6090.html": {
+    "lab": "Горлаб",
+    "title": "Развернутый скрининг организма",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/caring-health.html": {
+    "lab": "Горлаб",
+    "title": "Забота о здоровье – прямо к вам домой",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/health-control.html": {
+    "lab": "Горлаб",
+    "title": "Здоровье под контролем",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/semejnaya-skidka-do-15-2-promokoda": {
+    "lab": "КДЛ",
+    "title": "semejnaya-skidka-do-15-2-promokoda",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/krasota-vnutri-krasota-snaruji": {
+    "lab": "КДЛ",
+    "title": "krasota-vnutri-krasota-snaruji",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/vmeste-vygodnee-soberi-korzinu-ot-10-testov-so-skidkoj-10": {
+    "lab": "КДЛ",
+    "title": "vmeste-vygodnee-soberi-korzinu-ot-10-testov-so-skidkoj-10",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/15-na-kompleksnoe-issledovanie": {
+    "lab": "КДЛ",
+    "title": "15-na-kompleksnoe-issledovanie",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/pischevaya-neperenosimost-akciya": {
+    "lab": "КДЛ",
+    "title": "pischevaya-neperenosimost-akciya",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/skidka-15-v-novyh-medicinskih-ofisah-a-monahovoj-90k4-i-ochakovskoe-shosse-9a": {
+    "lab": "КДЛ",
+    "title": "skidka-15-v-novyh-medicinskih-ofisah-a-monahovoj-90k4-i-ochakovskoe-shosse-9a",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/schastlivye-dni-15-na-vse-analizy-po-ponedelinikam-i-sredam-v-mo-moskvy": {
+    "lab": "КДЛ",
+    "title": "schastlivye-dni-15-na-vse-analizy-po-ponedelinikam-i-sredam-v-mo-moskvy",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/sotsialnaya-skidka-10-dlya-lgotnih-kategoriy-grazhdan": {
+    "lab": "КДЛ",
+    "title": "sotsialnaya-skidka-10-dlya-lgotnih-kategoriy-grazhdan",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/skidka-10-po-polisu-oms-ili-servisnoy-karte": {
+    "lab": "КДЛ",
+    "title": "skidka-10-po-polisu-oms-ili-servisnoy-karte",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/elektrokardiogramma-ekg-za-690-rubley": {
+    "lab": "КДЛ",
+    "title": "elektrokardiogramma-ekg-za-690-rubley",
+    "summary": ""
+  }
+}
