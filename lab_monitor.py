@@ -140,7 +140,7 @@ def fetch_html_with_session(urls, encoding="utf-8", timeout=20):
     return html
 
 
-def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None, cookies=None):
+def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None, cookies=None, verbose=True):
     """intercept_key: перехватываем JSON содержащий ключ (возвращаем вместо HTML).
     intercept_url: перехватываем JSON с этим URL (для отладки логируем, не заменяем HTML)."""
     from playwright.sync_api import sync_playwright
@@ -186,7 +186,7 @@ def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None, cookies=
             pass
         page.wait_for_timeout(wait_ms)
 
-        if api_calls:
+        if api_calls and verbose:
             print(f"    API calls: {api_calls[:10]}")
         for d in intercepted_debug[:5]:
             print(f"    intercept_url body: {d[:800]}")
@@ -341,7 +341,7 @@ def fetch_promo_page(url, site):
     try:
         if site.get("js"):
             html = fetch_js(url, wait_ms=site.get("js_wait_ms", 5000),
-                            intercept_key=site.get("intercept_key"))
+                            intercept_key=site.get("intercept_key"), verbose=False)
         else:
             html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=15)
         return strip_html(html)
@@ -589,14 +589,17 @@ def run():
     new_promos = []
     ai = {}
     if new_urls:
-        print(f"  Загружаем страницы {len(new_urls)} новых акций...")
+        # Страницы needs_vpn сайтов недоступны без VPN — пропускаем fetch
+        vpn_site_names = {s["name"] for s in SITES if s.get("needs_vpn")}
+        fetchable = [u for u in new_urls if current[u]["name"] not in vpn_site_names]
+        print(f"  Загружаем страницы {len(fetchable)} акций (из {len(new_urls)}, VPN-сайты пропущены)...")
         promos_to_analyze = []
         def _fetch_one(url):
             return url, fetch_promo_page(url, current[url])
-        with ThreadPoolExecutor(max_workers=6) as ex:
-            for url, page_text in ex.map(_fetch_one, new_urls):
+        with ThreadPoolExecutor(max_workers=3) as ex:
+            for url, page_text in ex.map(_fetch_one, fetchable):
                 promos_to_analyze.append({"lab": current[url]["name"], "url": url, "page_text": page_text})
-        if OPENAI_KEY:
+        if OPENAI_KEY and promos_to_analyze:
             try:
                 ai = ai_analyze(promos_to_analyze)
                 print(f"  GPT: {len(ai)} проанализировано")
