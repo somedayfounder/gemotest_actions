@@ -362,6 +362,40 @@ def get_promo_title(url, site):
     return url.rstrip('/').split('/')[-1]
 
 
+def scrape_promo_info(url, site):
+    """Берёт title (h1) и summary (meta description / og:description) прямо из HTML."""
+    try:
+        if site.get("js"):
+            html = fetch_js(url, wait_ms=site.get("js_wait_ms", 5000),
+                            intercept_key=site.get("intercept_key"), verbose=False)
+        else:
+            html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=15)
+    except Exception as e:
+        print(f"    не загрузилась {url}: {e}")
+        return url.rstrip('/').split('/')[-1], ""
+
+    title = ""
+    m = re.search(r'<h1[^>]*>(.*?)</h1>', html, re.DOTALL | re.I)
+    if m:
+        title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+
+    summary = ""
+    for pat in [
+        r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']',
+        r'<meta\s+content=["\'](.*?)["\']\s+name=["\']description["\']',
+        r'<meta\s+property=["\']og:description["\']\s+content=["\'](.*?)["\']',
+        r'<meta\s+content=["\'](.*?)["\']\s+property=["\']og:description["\']',
+    ]:
+        m2 = re.search(pat, html, re.I | re.DOTALL)
+        if m2:
+            summary = m2.group(1).strip()
+            break
+
+    if not title:
+        title = url.rstrip('/').split('/')[-1]
+    return title, summary
+
+
 # ── GPT ──────────────────────────────────────────────────────────────────────
 
 def ai_analyze_batch(promos):
@@ -568,15 +602,15 @@ def run():
                 site_urls[site["name"]] = links
                 for url in links:
                     current[url] = site
-            # Пока VPN жив — скачиваем страницы новых акций VPN-сайтов
+            # Пока VPN жив — скрейпим title+summary для новых акций VPN-сайтов
             vpn_new = [u for u in current if u not in active and current[u].get("needs_vpn")]
-            if vpn_new and not is_init:
-                print(f"  Загружаем страницы {len(vpn_new)} VPN-акций...")
-                def _fetch_vpn(url):
-                    return url, fetch_promo_page(url, current[url])
+            if vpn_new:
+                print(f"  Скрейпим {len(vpn_new)} VPN-акций...")
+                def _scrape_vpn(url):
+                    return url, scrape_promo_info(url, current[url])
                 with ThreadPoolExecutor(max_workers=3) as ex:
-                    for url, text in ex.map(_fetch_vpn, vpn_new):
-                        vpn_page_cache[url] = text
+                    for url, info in ex.map(_scrape_vpn, vpn_new):
+                        vpn_page_cache[url] = info  # (title, summary)
         else:
             for site in vpn_sites:
                 site_urls[site["name"]] = []
@@ -607,33 +641,26 @@ def run():
         save_active(active)
         return
 
-    # 2. Загружаем страницы новых акций + GPT
-    new_promos = []
-    ai = {}
+    # 2. Скрейпим title+summary для новых акций
+    scraped = dict(vpn_page_cache)  # уже собранные VPN-акции: url -> (title, summary)
     if new_urls:
         vpn_site_names = {s["name"] for s in SITES if s.get("needs_vpn")}
         fetchable = [u for u in new_urls if current[u]["name"] not in vpn_site_names]
-        print(f"  Загружаем страницы {len(fetchable)} акций + {len(vpn_page_cache)} VPN...")
-        promos_to_analyze = list(vpn_page_cache.items())  # уже скачанные VPN-страницы
-        promos_to_analyze = [{"lab": current[u]["name"], "url": u, "page_text": t}
-                              for u, t in promos_to_analyze]
-        def _fetch_one(url):
-            return url, fetch_promo_page(url, current[url])
-        with ThreadPoolExecutor(max_workers=3) as ex:
-            for url, page_text in ex.map(_fetch_one, fetchable):
-                promos_to_analyze.append({"lab": current[url]["name"], "url": url, "page_text": page_text})
-        if OPENAI_KEY and promos_to_analyze:
-            try:
-                ai = ai_analyze(promos_to_analyze)
-                print(f"  GPT: {len(ai)} проанализировано")
-            except Exception as e:
-                print(f"  GPT ошибка: {e}")
+        print(f"  Скрейпим {len(fetchable)} акций (+ {len(vpn_page_cache)} VPN уже готово)...")
+        def _scrape_one(url):
+            return url, scrape_promo_info(url, current[url])
+        with ThreadPoolExecutor(max_workers=5) as ex:
+            for url, info in ex.map(_scrape_one, fetchable):
+                scraped[url] = info
 
+    new_promos = []
     for url in new_urls:
         site = current[url]
-        info = ai.get(url, {})
-        title = info.get("title") or get_promo_title(url, site)
-        summary = info.get("summary", "")
+        if url in scraped:
+            title, summary = scraped[url]
+        else:
+            title = url.rstrip('/').split('/')[-1]
+            summary = ""
         active[url] = {"lab": site["name"], "title": title, "summary": summary}
         # При массовой инициализации не показываем детали — только счётчик
         if len(new_urls) <= 10:
