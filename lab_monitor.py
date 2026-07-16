@@ -350,6 +350,18 @@ def fetch_promo_page(url, site):
         return ""
 
 
+def get_promo_title(url, site):
+    """Фолбэк: берём h1 со страницы, если нет — slug из URL."""
+    try:
+        html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=10)
+        m = re.search(r'<h1[^>]*>(.*?)</h1>', html, re.DOTALL | re.I)
+        if m:
+            return re.sub(r'<[^>]+>', '', m.group(1)).strip()
+    except Exception:
+        pass
+    return url.rstrip('/').split('/')[-1]
+
+
 # ── GPT ──────────────────────────────────────────────────────────────────────
 
 def ai_analyze_batch(promos):
