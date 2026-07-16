@@ -285,7 +285,7 @@ def get_helix_news_all(seen_urls):
     found = []
     n = start
     miss = 0
-    while miss < 10:
+    while miss < 20:
         url = f"https://helix.ru/feed/select/{n}"
         try:
             html = fetch(url, timeout=10)
