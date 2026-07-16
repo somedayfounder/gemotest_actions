@@ -594,71 +594,14 @@ def run():
         save_active(active)
         return
 
-    # 3. Загружаем страницы новых акций
-    promos_to_analyze = []
-    if new_urls:
-        notify(f"Сканируем {len(new_urls)} {'новую акцию' if len(new_urls) == 1 else 'новых акции' if len(new_urls) < 5 else 'новых акций'}...", "fetch")
-
-        def _fetch_one(url):
-            site = current[url]
-            print(f"  загружаем {url}")
-            return url, fetch_promo_page(url, site)
-
-        with ThreadPoolExecutor(max_workers=8) as ex:
-            for url, page_text in ex.map(_fetch_one, new_urls):
-                site = current[url]
-                promos_to_analyze.append({"lab": site["name"], "url": url, "page_text": page_text})
-
-    # 4. GPT-анализ
-    ai = {}
-    if promos_to_analyze:
-        notify("Обработка GPT-4o...", "gpt")
-        try:
-            ai = ai_analyze(promos_to_analyze)
-            print(f"AI: {len(ai)} проанализировано")
-        except Exception as e:
-            print(f"AI ошибка: {e}")
-
-    # 5. Уведомления о новых акциях
+    # 3. Уведомления о новых акциях (без GPT)
     for url in new_urls:
-        info = ai.get(url, {})
         site = current[url]
-        title = info.get("title") or url.rstrip("/").split("/")[-1]
-        summary = info.get("summary", "")
-        dates = info.get("dates", "") or "Бессрочно"
-        price = info.get("price", "")
-        is_local = info.get("is_local", False)
-        kind = info.get("kind", "offer")
-        tests = info.get("tests", "")
+        title = url.rstrip("/").split("/")[-1]
 
-        active[url] = {
-            "lab": site["name"], "title": title, "summary": summary,
-            "dates": dates, "price": price, "kind": kind,
-        }
+        active[url] = {"lab": site["name"], "title": title, "summary": "", "dates": "", "price": "", "kind": "offer"}
 
-        if is_local:
-            print(f"  пропускаем локальную: {title}")
-            continue
-        if info.get("is_marketing", False):
-            print(f"  пропускаем маркетинговую: {title}")
-            continue
-
-        lines = [site["name"], "", title, ""]
-        if kind == "product" and tests:
-            lines += [tests, ""]
-            if price:
-                lines += [price, ""]
-        else:
-            if summary:
-                lines += [summary, ""]
-            if price:
-                lines += [price, ""]
-        lines.append(dates)
-        lines.append(url)
-
-        text = "\n".join(lines)
-        if len(text) > 4090:
-            text = text[:4090] + "…"
+        text = f"{site['name']}\n\n{url}"
         notify(text)
         time.sleep(0.3)
 
