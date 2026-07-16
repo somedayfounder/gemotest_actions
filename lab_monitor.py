@@ -45,10 +45,14 @@ SITES = [
         "name": "Гемотест",
         "url": "https://gemotest.ru/actions/",
         "base": "https://gemotest.ru",
-        # только <a class="articles-grid__item" href="..."> — 18 карточек акций
-        "pattern": r'<a\s[^>]*class="articles-grid__item"[^>]*href="(/actions/[a-z0-9_\-]+/)"'
-                   r'|<a\s[^>]*href="(/actions/[a-z0-9_\-]+/)"[^>]*class="articles-grid__item"',
+        "js": True,
+        "js_wait_ms": 4000,
+        # Без московского cookie геолокация по IP даёт другой город → неполный список акций
+        "js_cookies": [{"name": "BITRIX_SM_CITY_CODE", "value": "moskva", "domain": "gemotest.ru", "path": "/"}],
+        "pattern": r'href="(/actions/[a-z0-9_\-]+/)"[^>]*class="(?:articles-grid__item|action-item)"'
+                   r'|class="(?:articles-grid__item|action-item)"[^>]*href="(/actions/[a-z0-9_\-]+/)"',
         "multi_group": True,
+        "skip": ["/actions/"],
     },
     {
         "name": "CMD",
@@ -133,7 +137,7 @@ def fetch_html_with_session(urls, encoding="utf-8", timeout=20):
     return html
 
 
-def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
+def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None, cookies=None):
     """intercept_key: перехватываем JSON содержащий ключ (возвращаем вместо HTML).
     intercept_url: перехватываем JSON с этим URL (для отладки логируем, не заменяем HTML)."""
     from playwright.sync_api import sync_playwright
@@ -146,6 +150,8 @@ def fetch_js(url, wait_ms=5000, intercept_key=None, intercept_url=None):
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                        "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
         )
+        if cookies:
+            ctx.add_cookies(cookies)
         page = ctx.new_page()
 
         api_calls = []
@@ -254,7 +260,8 @@ def get_listing_links(site):
         if site.get("js"):
             html = fetch_js(site["url"], wait_ms=site.get("js_wait_ms", 5000),
                             intercept_key=site.get("intercept_key"),
-                            intercept_url=site.get("intercept_url"))
+                            intercept_url=site.get("intercept_url"),
+                            cookies=site.get("js_cookies"))
         elif site.get("pre_urls"):
             # Сначала открываем pre_urls чтобы установить cookie (напр. выбор города)
             html = fetch_html_with_session(site["pre_urls"] + [site["url"]],
