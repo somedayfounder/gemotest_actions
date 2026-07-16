@@ -335,6 +335,25 @@ def get_listing_links(site):
 
 # ── Полная страница акции ─────────────────────────────────────────────────────
 
+def get_promo_title(url, site):
+    """Получить заголовок акции (h1 или title тега)."""
+    try:
+        if site.get("js"):
+            html = fetch_js(url, wait_ms=site.get("js_wait_ms", 3000),
+                            cookies=site.get("js_cookies"))
+        else:
+            html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=15)
+        m = re.search(r'<h1[^>]*>(.*?)</h1>', html, re.DOTALL | re.I)
+        if m:
+            return re.sub(r'<[^>]+>', '', m.group(1)).strip()
+        m = re.search(r'<title[^>]*>([^<]+)</title>', html, re.I)
+        if m:
+            return m.group(1).split('|')[0].split('—')[0].strip()
+    except Exception as e:
+        print(f"    title {url}: {e}")
+    return url.rstrip('/').split('/')[-1]
+
+
 def fetch_promo_page(url, site):
     if url in _api_cache:
         return _api_cache[url]
@@ -585,11 +604,19 @@ def run():
         save_active(active)
         return
 
-    # 2. Сохраняем новые акции
+    # 2. Сохраняем новые акции (с заголовками)
     new_promos = []
-    for url in new_urls:
+    if new_urls and not is_init:
+        print(f"  Загружаем заголовки для {len(new_urls)} новых акций...")
+        def _fetch_title(url):
+            return url, get_promo_title(url, current[url])
+        with ThreadPoolExecutor(max_workers=6) as ex:
+            title_results = list(ex.map(_fetch_title, new_urls))
+    else:
+        title_results = [(url, url.rstrip("/").split("/")[-1]) for url in new_urls]
+
+    for url, title in title_results:
         site = current[url]
-        title = url.rstrip("/").split("/")[-1]
         active[url] = {"lab": site["name"], "title": title, "summary": "", "dates": "", "price": "", "kind": "offer"}
         new_promos.append({"lab": site["name"], "title": title, "url": url})
 
