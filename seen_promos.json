@@ -1,1 +1,812 @@
-{}
+{
+  "https://gemotest.ru/actions/great_discounts/": {
+    "lab": "Гемотест",
+    "title": "great_discounts",
+    "summary": "Срочно!!! Очень быстрая распродажа Гемотест: очень популярный анализ по&nbsp;очень выгодной цене"
+  },
+  "https://gemotest.ru/actions/helicobacter/": {
+    "lab": "Гемотест",
+    "title": "helicobacter",
+    "summary": "Бактерия хеликобактер пилори вызывает гастрит и&nbsp;повышает вероятность развития рака желудка. В&nbsp;зоне риска&nbsp;— каждый второй. Проверьте себя и&nbsp;помогите науке!"
+  },
+  "https://gemotest.ru/actions/with-care/": {
+    "lab": "Гемотест",
+    "title": "with-care",
+    "summary": "Спецпроект Гемотест и&nbsp;«РЖД-Медицина» о&nbsp;профилактике рака молочной железы"
+  },
+  "https://gemotest.ru/actions/mg_moloday/": {
+    "lab": "Гемотест",
+    "title": "mg_moloday",
+    "summary": "Дарим добавку с&nbsp;цитратом магния при заказе анализов от&nbsp;4000&nbsp;₽"
+  },
+  "https://gemotest.ru/actions/allergy/": {
+    "lab": "Гемотест",
+    "title": "allergy",
+    "summary": "Анализы для подтверждения аллергии\nи выявления её точной причины"
+  },
+  "https://gemotest.ru/actions/health4all_parasites/": {
+    "lab": "Гемотест",
+    "title": "health4all_parasites",
+    "summary": ""
+  },
+  "https://gemotest.ru/actions/klesch/": {
+    "lab": "Гемотест",
+    "title": "klesch",
+    "summary": "Встреча с&nbsp;клещом может сильно подорвать здоровье. Защитите себя и&nbsp;близких!"
+  },
+  "https://gemotest.ru/actions/after-forty/": {
+    "lab": "Гемотест",
+    "title": "after-forty",
+    "summary": "Проверьте здоровье и&nbsp;сохраните бодрость и&nbsp;молодость на&nbsp;долгие годы"
+  },
+  "https://gemotest.ru/actions/diabetes/": {
+    "lab": "Гемотест",
+    "title": "diabetes",
+    "summary": "Проверяйте ключевые показатели раз в&nbsp;полгода, чтобы держать диабет под контролем и&nbsp;не&nbsp;допустить осложнений"
+  },
+  "https://gemotest.ru/actions/mountain/": {
+    "lab": "Гемотест",
+    "title": "mountain",
+    "summary": "Проверка здоровья перед многодневным походом или восхождением в&nbsp;горы"
+  },
+  "https://gemotest.ru/actions/lald/": {
+    "lab": "Гемотест",
+    "title": "lald",
+    "summary": "Бесплатная программа ранней диагностики наследственного заболевания, вызванного вариантами (мутациями) гена LIPA"
+  },
+  "https://gemotest.ru/actions/hypophosphatasia/": {
+    "lab": "Гемотест",
+    "title": "hypophosphatasia",
+    "summary": "Бесплатная программа ранней диагностики наследственного заболевания, вызванного мутацией гена ALPL"
+  },
+  "https://gemotest.ru/actions/nezhnost/": {
+    "lab": "Гемотест",
+    "title": "nezhnost",
+    "summary": "Специальный проект о&nbsp;стрессе и&nbsp;женском здоровье от&nbsp;экспертов Гемотест"
+  },
+  "https://gemotest.ru/actions/fairy_tale/": {
+    "lab": "Гемотест",
+    "title": "fairy_tale",
+    "summary": "Восстановите баланс витаминов, чтобы, как по&nbsp;волшебству, ощутить прилив сил и&nbsp;энергии! Загадывайте желание!"
+  },
+  "https://gemotest.ru/actions/position_of_adult/": {
+    "lab": "Гемотест",
+    "title": "В позиции взрослого:специальный проект о заботе и уважении",
+    "summary": "Отвечаем на&nbsp;нестыдные вопросы об&nbsp;ИППП в&nbsp;новом проекте Гемотест"
+  },
+  "https://gemotest.ru/actions/health_dropper/": {
+    "lab": "Гемотест",
+    "title": "health_dropper",
+    "summary": "Курс капельниц поможет справиться со&nbsp;стрессом, укрепить иммунитет, очистить организм от&nbsp;токсинов и&nbsp;поддержать здоровье печени"
+  },
+  "https://gemotest.ru/actions/time_for_ultrasound/": {
+    "lab": "Гемотест",
+    "title": "Время для себя:УЗИ + консультация врача",
+    "summary": "Скрининг для женщин: УЗИ органов малого таза и&nbsp;консультация акушера-гинеколога. Проверьте репродуктивное здоровье!"
+  },
+  "https://gemotest.ru/actions/all-nipt/": {
+    "lab": "Гемотест",
+    "title": "all-nipt",
+    "summary": "Точные и&nbsp;безопасные пренатальные тесты для оценки риска самых частых хромосомных патологий плода"
+  },
+  "https://gemotest.ru/actions/genetic-risk/": {
+    "lab": "Гемотест",
+    "title": "genetic-risk",
+    "summary": "Узнайте, угрожают&nbsp;ли будущему ребёнку генетические заболевания, и&nbsp;сведите к&nbsp;минимуму наследственные риски"
+  },
+  "https://gemotest.ru/actions/exome/": {
+    "lab": "Гемотест",
+    "title": "exome",
+    "summary": "Диагностика наследственных заболеваний и&nbsp;генетический скрининг при планировании беременности"
+  },
+  "https://gemotest.ru/actions/krasota/": {
+    "lab": "Гемотест",
+    "title": "krasota",
+    "summary": "Исследование ключевых витаминов, гормонов и&nbsp;генов здоровья и&nbsp;молодости"
+  },
+  "https://gemotest.ru/actions/liver_transplant/": {
+    "lab": "Гемотест",
+    "title": "liver_transplant",
+    "summary": "Комплексные исследования для донора и&nbsp;реципиента перед трансплантацией и&nbsp;после неё"
+  },
+  "https://gemotest.ru/actions/kidney_transplant/": {
+    "lab": "Гемотест",
+    "title": "kidney_transplant",
+    "summary": "Комплексные исследования для донора и&nbsp;реципиента перед трансплантацией и&nbsp;после неё"
+  },
+  "https://gemotest.ru/actions/telemed/": {
+    "lab": "Гемотест",
+    "title": "telemed",
+    "summary": "Многие вопросы, связанные со здоровьем, можно решить дистанционно. Необязательно лично ехать в клинику, чтобы обсудить с лечащим врачом результаты лабораторного и инструментального обследования."
+  },
+  "https://gemotest.ru/actions/express/": {
+    "lab": "Гемотест",
+    "title": "express",
+    "summary": "Важнейшие лабораторные исследования, которые можно сделать буквально за&nbsp;несколько минут"
+  },
+  "https://gemotest.ru/actions/halva/": {
+    "lab": "Гемотест",
+    "title": "halva",
+    "summary": "Рассрочка без процентов, комиссий и&nbsp;переплат на&nbsp;2&nbsp;месяца при заказе до&nbsp;9&nbsp;999&nbsp;₽, 3&nbsp;месяца&nbsp;— при заказе от&nbsp;10&nbsp;000&nbsp;₽"
+  },
+  "https://gemotest.ru/actions/dolyame/": {
+    "lab": "Гемотест",
+    "title": "dolyame",
+    "summary": "Сервис «Долями» позволяет разделить стоимость заказа на&nbsp;4&nbsp;части: 25% вы&nbsp;платите сразу, а&nbsp;остаток спишется потом"
+  },
+  "https://gemotest.ru/actions/aeroflotbonus/": {
+    "lab": "Гемотест",
+    "title": "aeroflotbonus",
+    "summary": "«Аэрофлот Бонус»: начисляйте и&nbsp;списывайте мили с&nbsp;выгодой до&nbsp;99%"
+  },
+  "https://gemotest.ru/actions/mendeleev/": {
+    "lab": "Гемотест",
+    "title": "mendeleev",
+    "summary": "Комплексные исследования для всех, кто несёт высокие интеллектуальные нагрузки со&nbsp;скидкой&nbsp;15% для владельцев «Менделеевской карты»"
+  },
+  "https://gemotest.ru/actions/oncopartner/": {
+    "lab": "Гемотест",
+    "title": "oncopartner",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/bolshaya-skidka-2026-2-0/": {
+    "lab": "CMD",
+    "title": "Большому заказу – большая скидка 2.0",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/aktsiya-letnie-chekapy/": {
+    "lab": "CMD",
+    "title": "Акция &quot;Летние чекапы&quot;",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/beregite-zdorovye-letom2026/": {
+    "lab": "CMD",
+    "title": "-25% на диагностику кишечных инфекций. Берегите здоровье летом!",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/biokhimiya-so-skidkoy-20/": {
+    "lab": "CMD",
+    "title": "Биохимия со скидкой 20%",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/10-na-pervichnyy-priyem-vrachey-plus-centr/": {
+    "lab": "CMD",
+    "title": "10-na-pervichnyy-priyem-vrachey-plus-centr",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/chekap-dlya-zhenshchin/": {
+    "lab": "CMD",
+    "title": "Чекап для женщин",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/chekap-dlya-muzhchin/": {
+    "lab": "CMD",
+    "title": "Чекап для мужчин",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/skidka-15-na-pervichnyy-priyem-vrachey-posle-sdachi-analizov-v-klinike-tsentrplyus/": {
+    "lab": "CMD",
+    "title": "Скидка 15% на первичный приём врачей после сдачи анализов в клинике «ЦентрПлюс»",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vash-vnutrenniy-shchit-pod-kontrolem/": {
+    "lab": "CMD",
+    "title": "Ваш внутренний щит под контролем",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vaktsinatsiya-ot-tropicheskikh-zabolevaniy/": {
+    "lab": "CMD",
+    "title": "Вакцинация от тропических заболеваний",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8035": {
+    "lab": "Helix",
+    "title": "8035",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8040": {
+    "lab": "Helix",
+    "title": "8040",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8030": {
+    "lab": "Helix",
+    "title": "8030",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8063": {
+    "lab": "Helix",
+    "title": "8063",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8056": {
+    "lab": "Helix",
+    "title": "8056",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8050": {
+    "lab": "Helix",
+    "title": "8050",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8041": {
+    "lab": "Helix",
+    "title": "8041",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8031": {
+    "lab": "Helix",
+    "title": "8031",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8026": {
+    "lab": "Helix",
+    "title": "8026",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8007": {
+    "lab": "Helix",
+    "title": "8007",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7974": {
+    "lab": "Helix",
+    "title": "7974",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7933": {
+    "lab": "Helix",
+    "title": "Весна без аллергии: как найти причину и жить нормальной жизнью",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7930": {
+    "lab": "Helix",
+    "title": "7930",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7896": {
+    "lab": "Helix",
+    "title": "7896",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7888": {
+    "lab": "Helix",
+    "title": "7888",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7884": {
+    "lab": "Helix",
+    "title": "7884",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7822": {
+    "lab": "Helix",
+    "title": "7822",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7821": {
+    "lab": "Helix",
+    "title": "7821",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7820": {
+    "lab": "Helix",
+    "title": "7820",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7793": {
+    "lab": "Helix",
+    "title": "7793",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/7725": {
+    "lab": "Helix",
+    "title": "Актуальные анализы в сезон простуд",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7715": {
+    "lab": "Helix",
+    "title": "Прием врача-невролога в Центре Троицк",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7714": {
+    "lab": "Helix",
+    "title": "Кинезиотейпирование в Центре Троицк",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7713": {
+    "lab": "Helix",
+    "title": "Внутривенное лазерное облучение крови (ВЛОК) в Центре Троицк",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7712": {
+    "lab": "Helix",
+    "title": "Обязательные анализы и обследования при подготовке к беременности",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7670": {
+    "lab": "Helix",
+    "title": "Срочные анализы – результаты от 5 часов в Москве",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7620": {
+    "lab": "Helix",
+    "title": "Скидка 15% на анализы на дому",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7605": {
+    "lab": "Helix",
+    "title": "Активное долголетие: как сохранить здоровье в любом возрасте",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7604": {
+    "lab": "Helix",
+    "title": "Стресс, тревога, усталость: как эмоции влияют на здоровье",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7603": {
+    "lab": "Helix",
+    "title": "Кожа, волосы, ногти: что они говорят о здоровье",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7545": {
+    "lab": "Helix",
+    "title": "Внимание, аллергия: как обнаружить проблему и наслаждаться весной",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7542": {
+    "lab": "Helix",
+    "title": "Бесплатная консультация врача по анализам",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7522": {
+    "lab": "Helix",
+    "title": "Новый специалист: врач – акушер-гинеколог в Центре Лосиноостровский",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7407": {
+    "lab": "Helix",
+    "title": "Позаботьтесь о женском здоровье, когда нет возможности посетить врача",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7372": {
+    "lab": "Helix",
+    "title": "Онлайн-запись на прием к врачу",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7351": {
+    "lab": "Helix",
+    "title": "Новые комплексы по направлениям превентивной и антивозрастной медицины, диетологии, нутрициологии",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7263": {
+    "lab": "Helix",
+    "title": "Комплексы анализов для детей",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7259": {
+    "lab": "Helix",
+    "title": "Гастроскрин: проверьте состояние ЖКТ без гастроскопии и ФГДС",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7244": {
+    "lab": "Helix",
+    "title": "Скидка 10% на анализы по карте москвича в Центрах Хеликс",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7225": {
+    "lab": "Helix",
+    "title": "Новая категория анализов: превентивная медицина и нутрициология",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7154": {
+    "lab": "Helix",
+    "title": "Получите 350 приветственных баллов за первый заказ",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/7085": {
+    "lab": "Helix",
+    "title": "Скидка 15% за отзыв о Хеликс",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/6506": {
+    "lab": "Helix",
+    "title": "Комплексное обследование анемии за 3200 руб. в ДЦ на Вольской",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/6321": {
+    "lab": "Helix",
+    "title": "ЭКГ с расшифровкой за 15 минут в Центрах Хеликс",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/6013": {
+    "lab": "Helix",
+    "title": "Прием врача ультразвуковой диагностики, акушера-гинеколога в ДЦ Сходненская",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/5773": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/5625": {
+    "lab": "Helix",
+    "title": "Хеликс запускает проект по бесконтактной сдаче на дому теста на COVID-19",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/55": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://dnkom.ru/actions/zharkie-skidki-do-70/": {
+    "lab": "ДНКом",
+    "title": "Жаркие скидки — акции на анализы и исследования в ДНКОМ в Москве",
+    "summary": "Скидки до 70% на 52 исследования и комплекса в ДНКОМ: биохимия, витамины, печень, почки, суставы, щитовидная железа, сердце и сосуды. Акция с 15 июля по 31 августа 2026 года."
+  },
+  "https://dnkom.ru/actions/issledovanie-urovnya-glyukozy-metodom-nepreryvnogo-monitorirovaniya-datchik-lumiflex-linx-do-16-suto/": {
+    "lab": "ДНКом",
+    "title": "Исследование уровня глюкозы методом непрерывного мониторирования: датчик Lumiflex Linx (до 16 суток) в Москве",
+    "summary": "Исследование уровня глюкозы методом непрерывного мониторирования: датчик Lumiflex Linx (до 16 суток) в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/skidka-10-vnd/": {
+    "lab": "ДНКом",
+    "title": "Скидка 10% на анализы на дому для двоих в Москве",
+    "summary": "Скидка 10% на анализы на дому для двоих в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/vyigrayte-2-bileta-na-kontsert-shakiry-v-madride/": {
+    "lab": "ДНКом",
+    "title": "Подписывайтесь на Telegram-каналы \r\n\t ДНКОМ и Европасс, чтобы принять участие!",
+    "summary": "Выиграйте 2 билета на концерт Шакиры в Мадриде! в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/biokhimiya_krovi/": {
+    "lab": "ДНКом",
+    "title": "Биохимия крови: 8 ключевых показателей в Москве",
+    "summary": "Биохимия крови: 8 ключевых показателей в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/shchitovidnaya-zheleza-skrining/": {
+    "lab": "ДНКом",
+    "title": "Щитовидная железа: скрининг в Москве",
+    "summary": "Щитовидная железа: скрининг в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/issledovanie-kleshcha-na-vozbuditeli-infektsiy/": {
+    "lab": "ДНКом",
+    "title": "Исследование клеща на возбудители инфекций в Москве",
+    "summary": "Исследование клеща на возбудители инфекций в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/allergochip-alex2-na-300-allergenov-i-obshchiy-ige-po-spetsialnoy-tsene/": {
+    "lab": "ДНКом",
+    "title": "Аллергочип ALEX2: до 300 аллергенов и общий IgE по специальной цене в Москве",
+    "summary": "Аллергочип ALEX2: до 300 аллергенов и общий IgE по специальной цене в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/food-xplorer-fox-po-spetsialnoy-tsene/": {
+    "lab": "ДНКом",
+    "title": "Food Xplorer (FOX) по специальной цене в Москве",
+    "summary": "Food Xplorer (FOX) по специальной цене в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/khudeem-pod-kontrolem/": {
+    "lab": "ДНКом",
+    "title": "Здоровый  контроль веса",
+    "summary": "Худеем под контролем! в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/vyezd-medsestry-na-dom-za-1-rub-/": {
+    "lab": "ДНКом",
+    "title": "Бесплатный выезд медицинской сестры на дом в Москве",
+    "summary": "Бесплатный выезд медицинской сестры на дом в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/prostudilis-uznayte-nuzhen-li-antibiotik/": {
+    "lab": "ДНКом",
+    "title": "Простудились? Узнайте, нужен ли антибиотик в Москве",
+    "summary": "Простудились? Узнайте, нужен ли антибиотик в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/helicobacteriosis/": {
+    "lab": "ДНКом",
+    "title": "Helicobacter pylori: тесты для диагностики в Москве",
+    "summary": "Helicobacter pylori: тесты для диагностики в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/femoflor/": {
+    "lab": "ДНКом",
+    "title": "Фемофлор II — тесты нового поколения для женского здоровья в Москве",
+    "summary": "Фемофлор II — тесты нового поколения для женского здоровья в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/kompleksy-dlya-domashnego-personala/": {
+    "lab": "ДНКом",
+    "title": "Комплексы для домашнего персонала в Москве",
+    "summary": "Комплексы для домашнего персонала в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/immunitet-nachinaetsya-s-mikrobioty-kishechnika-/": {
+    "lab": "ДНКом",
+    "title": "&quot;Иммунитет начинается с микробиоты кишечника!&quot; в Москве",
+    "summary": "&amp;quot;Иммунитет начинается с микробиоты кишечника!&amp;quot; в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/zashchiti-sebya-i-drugikh-proydite-vaktsinatsiyu/": {
+    "lab": "ДНКом",
+    "title": "Защити себя и других! Пройдите вакцинацию в Москве",
+    "summary": "Защити себя и других! Пройдите вакцинацию в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/innovatsionnaya-italyanskaya-tekhnologiya-dlya-vashego-intimnogo-zdorovya/": {
+    "lab": "ДНКом",
+    "title": "Инновационная итальянская технология для вашего интимного здоровья в Москве",
+    "summary": "Инновационная итальянская технология для вашего интимного здоровья в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/defitsit-vitaminov-i-mikroelementov/": {
+    "lab": "ДНКом",
+    "title": "Дефицит витаминов и микроэлементов в Москве",
+    "summary": "Дефицит витаминов и микроэлементов в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/skidka-500-dlya-novykh-klientov-sluzhby-vyezda-na-dom/": {
+    "lab": "ДНКом",
+    "title": "Скидка 500₽ для новых* клиентов! в Москве",
+    "summary": "Скидка 500₽ для новых* клиентов! в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/zdorovoe-dolgoletie-skidka-10-dlya-patsientov-starshe-60/": {
+    "lab": "ДНКом",
+    "title": "Здоровое долголетие: Скидка 10%* для пациентов старше 60 лет в Москве",
+    "summary": "Здоровое долголетие: Скидка 10%* для пациентов старше 60 лет в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://dnkom.ru/actions/chek-ap-byt-pervym/": {
+    "lab": "ДНКом",
+    "title": "Чек-ап “Быть первым” в Москве",
+    "summary": "Чек-ап “Быть первым” в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://www.labquest.ru/aktsii/skidka-do-70-dlya-novykh-klientov/": {
+    "lab": "LabQuest",
+    "title": "Скидка до 70% для новых клиентов!",
+    "summary": "- акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/skrining-shchitovidnoj-zhelezy/": {
+    "lab": "LabQuest",
+    "title": "Мала железа, да важна! Комплексы для оценки функции щитовидной железы и энергообмена по специальной цене",
+    "summary": "- акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/ukusil-kleshch-izvleki-i-prover-za-1-den-/": {
+    "lab": "LabQuest",
+    "title": "Укусил клещ? Извлеки и проверь на 5 опасных инфекций",
+    "summary": "- акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/kompleksy-s-vitaminom-d-po-spetsialnoy-tsene/": {
+    "lab": "LabQuest",
+    "title": "Витамин D от 500 рублей",
+    "summary": "- акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/operedite-virusy-i-bakterialnye-infektsii-s-novoy-aktsiey/": {
+    "lab": "LabQuest",
+    "title": "Вирусные и бактериальные инфекции",
+    "summary": "Скидки до 20% при покупке Q-ТЕСТов на 19 респираторных инфекций: вирусы и бактерии. - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/biokhimiya-krovi-2025/": {
+    "lab": "LabQuest",
+    "title": "Биохимические комплексы анализов по специальной цене",
+    "summary": "- акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/energiya-vesny/": {
+    "lab": "LabQuest",
+    "title": "Энергия весны",
+    "summary": "- акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/ratsionalnaya-diagnostika/": {
+    "lab": "LabQuest",
+    "title": "Рациональная диагностика",
+    "summary": "При заказе лабораторных услуг в чеке от 4 000 руб. в Москве, Московской области и от 3 000 руб. в других медицинских офисах «ЛабКвест». - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/semeynaya-skidka-na-uslugu-vyezd-na-dom/": {
+    "lab": "LabQuest",
+    "title": "Семейная скидка на услугу \"Выезд на дом\"",
+    "summary": "Закажите услугу «Выезд на дом» и получите промокод на скидку 10% на сдачу анализов на дому для всей семьи! - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/schastlivyy-den-skidka-15-na-analizy-po-voskresenyam/": {
+    "lab": "LabQuest",
+    "title": "Счастливый день - скидка 15% на анализы по воскресеньям!",
+    "summary": "Каждое воскресенье предоставляем скидку 15% на лабораторные исследования! - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/labkvest-zapuskaet-referalnuyu-programmu-privedi-druga/": {
+    "lab": "LabQuest",
+    "title": "Приведи друга",
+    "summary": "Теперь у вас есть уникальная возможность поделиться выгодой с вашими друзьями и получить до 1500 бонусов в программе лояльности «ЛабКвест» в качестве благодарности! - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.labquest.ru/aktsii/skidka-20-na-analizy-v-schastlivye-chasy/": {
+    "lab": "LabQuest",
+    "title": "Скидка на анализы в счастливые часы",
+    "summary": "Приходите в лабораторию «ЛабКвест» после 13:00 и получите скидку 20% на нужные исследования! - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.invitro.ru/moscow/ak/3-faktora-zdorovya-06-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "3-faktora-zdorovya-06-08-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/city/vnd": {
+    "lab": "Инвитро",
+    "title": "vnd",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/serdce-pokazhet-07-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "serdce-pokazhet-07-08-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/mrt-kt-rentgenografiya-so-skidkoj-20-msk/": {
+    "lab": "Инвитро",
+    "title": "mrt-kt-rentgenografiya-so-skidkoj-20-msk",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/invitro-zabotitsya-o-zdorove-vsekh-07-2026-msk/": {
+    "lab": "Инвитро",
+    "title": "invitro-zabotitsya-o-zdorove-vsekh-07-2026-msk",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/uznayte-o-sebe-bolshe-07-08-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "uznayte-o-sebe-bolshe-07-08-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/15-na-zakaz-v-gorzdrav-07-08-2026-msk-spb/": {
+    "lab": "Инвитро",
+    "title": "15-na-zakaz-v-gorzdrav-07-08-2026-msk-spb",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/uznajte-prichinu-sezonnoj-allergii-06-07-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "uznajte-prichinu-sezonnoj-allergii-06-07-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/nipt-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "nipt-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/loyalty/": {
+    "lab": "Инвитро",
+    "title": "loyalty",
+    "summary": "Становитесь участником дисконтной или бонусной программы ИНВИТРО. Выбирайте свой тип привилегии, участвуйте в специальных проектах и пользуетесь специальными предложениями, доступным только участникам Программы ИНВИТРО."
+  },
+  "https://citilab.ru/discounts/darim-4-000-na-lyubye-analizy/": {
+    "lab": "Ситилаб",
+    "title": "Дарим 4 000 ₽ на любые анализы",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/allergiya-na-moloko/": {
+    "lab": "Ситилаб",
+    "title": "Аллергия на молоко?",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/dyshat-legko/": {
+    "lab": "Ситилаб",
+    "title": "Дышать легко?",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/kompleksnaya-diagnostika-dlya-zhenskogo-zdorovya/": {
+    "lab": "Ситилаб",
+    "title": "Комплексная диагностика для женского здоровья",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/40-na-analizy-dlya-spravki-v-lager/": {
+    "lab": "Ситилаб",
+    "title": "-40% на анализы для справки в лагерь",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/ostorozhno-kleshchi/": {
+    "lab": "Ситилаб",
+    "title": "Сезон клещей Москве",
+    "summary": "Сезон клещей Москве"
+  },
+  "https://citilab.ru/discounts/energiya-i-immunitet/": {
+    "lab": "Ситилаб",
+    "title": "energiya-i-immunitet",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/aprel-skidok/": {
+    "lab": "Ситилаб",
+    "title": "Счастливые часы",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/skidka-15-na-analizy-dlya-chlenov-profsoyuzov-rossii/": {
+    "lab": "Ситилаб",
+    "title": "Профсоюзная скидка 15% на анализы",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/skidka-pensioneram-20-na-vse/": {
+    "lab": "Ситилаб",
+    "title": "Скидка пенсионерам 15%! Здоровье крепче, когда за ним следят",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/radi-zhizni-s-zabotoy-o-tekh-kto-zashchishchaet/": {
+    "lab": "Ситилаб",
+    "title": "Ради жизни: с заботой о тех, кто защищает",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/skidka-mnogodetnym-semyam/": {
+    "lab": "Ситилаб",
+    "title": "Скидка многодетным семьям",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://gorlab.ru/news/uzi.html": {
+    "lab": "Горлаб",
+    "title": "Скидка на УЗИ на Щелковской",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/giftcard.html": {
+    "lab": "Горлаб",
+    "title": "Подарочные сертификаты «ГОРЛАБ» – забота о близких",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/cito-free.html": {
+    "lab": "Горлаб",
+    "title": "Срочные анализы без доплат!",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/social-discount.html": {
+    "lab": "Горлаб",
+    "title": "Скидка 15% для льготных категорий граждан в Горлаб",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/vitamins.html": {
+    "lab": "Горлаб",
+    "title": "Анализы на витамины и микроэлементы",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/checkup6090.html": {
+    "lab": "Горлаб",
+    "title": "Развернутый скрининг организма",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/caring-health.html": {
+    "lab": "Горлаб",
+    "title": "Забота о здоровье – прямо к вам домой",
+    "summary": ""
+  },
+  "https://gorlab.ru/news/health-control.html": {
+    "lab": "Горлаб",
+    "title": "Здоровье под контролем",
+    "summary": ""
+  },
+  "https://kdl.ru/akcii/semejnaya-skidka-do-15-2-promokoda": {
+    "lab": "КДЛ",
+    "title": "Выезд на дом: семейная скидка до 15%",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/krasota-vnutri-krasota-snaruji": {
+    "lab": "КДЛ",
+    "title": "Красота внутри = Красота снаружи",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/vmeste-vygodnee-soberi-korzinu-ot-10-testov-so-skidkoj-10": {
+    "lab": "КДЛ",
+    "title": "Собери заказ\n          \n            от 10 исследований\n            со скидкой 10%",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/15-na-kompleksnoe-issledovanie": {
+    "lab": "КДЛ",
+    "title": "Диагностика  паразитарных заболеваний",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/pischevaya-neperenosimost-akciya": {
+    "lab": "КДЛ",
+    "title": "Пищевая непереносимость",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/skidka-15-v-novyh-medicinskih-ofisah-a-monahovoj-90k4-i-ochakovskoe-shosse-9a": {
+    "lab": "КДЛ",
+    "title": "Скидка 15% в новых медицинских офисах А.Монаховой 90к4 и Очаковское шоссе 9а",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/schastlivye-dni-15-na-vse-analizy-po-ponedelinikam-i-sredam-v-mo-moskvy": {
+    "lab": "КДЛ",
+    "title": "Счастливые дни! -15% на все анализы по понедельникам и средам в МО Москвы",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/sotsialnaya-skidka-10-dlya-lgotnih-kategoriy-grazhdan": {
+    "lab": "КДЛ",
+    "title": "Социальная скидка 10%",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/skidka-10-po-polisu-oms-ili-servisnoy-karte": {
+    "lab": "КДЛ",
+    "title": "Скидка 10% по полису ОМС или сервисной карте",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://kdl.ru/akcii/elektrokardiogramma-ekg-za-690-rubley": {
+    "lab": "КДЛ",
+    "title": "Электрокардиограмма (ЭКГ) за 770 рублей!",
+    "summary": "KDL. Клинико-диагностические лаборатории"
+  }
+}
