@@ -13,6 +13,7 @@ from email.utils import parsedate_to_datetime
 
 TG_TOKEN  = os.environ.get("TG_TOKEN", "")
 TG_CHAT_ID = os.environ.get("TG_CHAT_ID", "")
+RESULTS_FILE = Path("/tmp/monitor_results.json")
 
 LABS = [
     ("Гемотест", '"Гемотест"'),
@@ -97,12 +98,17 @@ def run():
 
         if fresh:
             found_any = True
-            lines = [f"<b>📰 {name}</b>"]
+            google_items = []
             for link, title, dt in sorted(fresh, key=lambda x: x[2]):
-                lines.append(f"<a href=\"{link}\">{title}</a>")
+                google_items.append({"lab": name, "title": title, "url": link})
                 new_seen.add(link)
-            tg_safe("\n".join(lines), name)
-            time.sleep(0.5)
+            try:
+                existing = json.loads(RESULTS_FILE.read_text()) if RESULTS_FILE.exists() else {}
+            except Exception:
+                existing = {}
+            existing.setdefault("google_news", [])
+            existing["google_news"].extend(google_items)
+            RESULTS_FILE.write_text(json.dumps(existing, ensure_ascii=False, indent=2))
 
         new_seen.update(link for link, _, _ in items)
 

@@ -2,8 +2,7 @@ name: Lab Monitor Daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
-    - cron: '0 15 * * *'
+    - cron: '0 9 * * *'
 concurrency:
   group: lab-monitor
   cancel-in-progress: false
@@ -43,7 +42,7 @@ jobs:
               print("No VPN configs found")
           PYEOF
 
-      - name: Run monitor (все лабы, КДЛ через внутренний VPN)
+      - name: Run lab monitor (акции всех лабов)
         run: python3 -u lab_monitor.py
 
       - name: VPN + КДЛ content (с ретраями по VPN)
@@ -70,8 +69,15 @@ jobs:
       - name: Run content monitor (без КДЛ)
         run: python3 -u content_monitor.py
 
+      - name: Run Google News monitor
+        run: python3 -u news_monitor.py
+        continue-on-error: true
+
       - name: Build stats page
         run: python3 -u build_stats_html.py
+
+      - name: Send summary
+        run: python3 -u send_summary.py
 
       - name: Save files
         run: |

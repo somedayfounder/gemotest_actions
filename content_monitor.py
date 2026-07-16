@@ -15,6 +15,7 @@ TG_CHAT_ID = os.environ.get("TG_CHAT_ID", "")
 
 DATA_DIR  = Path(__file__).parent
 SEEN_FILE = DATA_DIR / "seen_content.json"
+RESULTS_FILE = Path("/tmp/monitor_results.json")
 
 NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
@@ -386,32 +387,34 @@ def tg_safe(text, label=""):
         print(f"TG error {label}: {e}")
 
 
+def collect_results(data):
+    """Дописать результаты в общий файл для send_summary.py."""
+    try:
+        existing = json.loads(RESULTS_FILE.read_text()) if RESULTS_FILE.exists() else {}
+    except Exception:
+        existing = {}
+    for k, v in data.items():
+        if isinstance(v, list):
+            existing.setdefault(k, [])
+            existing[k].extend(v)
+        else:
+            existing[k] = v
+    RESULTS_FILE.write_text(json.dumps(existing, ensure_ascii=False, indent=2))
+
+
 def notify_new(lab, typ, new_links, is_init, seen=None):
     if not new_links or is_init:
         return
-    label = "новости" if typ == "news" else "статьи"
-    lines = [f"<b>{'📰' if typ == 'news' else '📄'} {lab} — {label}</b>"]
-    for l in new_links[:5]:
+    key = "new_news" if typ == "news" else "new_articles"
+    items = []
+    for l in new_links:
         title = (seen or {}).get(l, {}).get("title") if seen else None
-        text = title or l.rstrip('/').split('/')[-1]
-        lines.append(f"<a href=\"{l}\">{text}</a>")
-    if len(new_links) > 5:
-        lines.append(f"...и ещё {len(new_links) - 5}")
-    tg_safe("\n".join(lines), f"{lab}-{typ}")
-    time.sleep(0.5)
+        items.append({"lab": lab, "title": title or l.rstrip('/').split('/')[-1], "url": l})
+    collect_results({key: items})
 
 
 def _send_stats(stats, new_count, is_init, vpn_only=False):
-    if not stats:
-        return
-    lines = ["📊 <b>Контент" + (" VPN" if vpn_only else "") + (" (init)" if is_init else "") + "</b>"]
-    for key, (total, new) in stats.items():
-        mark = "🆕" if new > 0 else "·"
-        total_str = f"/{total}" if total else ""
-        lines.append(f"{mark} {key}: {new}{total_str}")
-    if not is_init:
-        lines.append(f"<b>Новых: {new_count}</b>")
-    tg_safe("\n".join(lines), "stats")
+    pass  # статистика теперь в итоговом сообщении
 
 
 def load_seen():
@@ -443,13 +446,9 @@ def run():
     vpn_ready = bool(os.environ.get("VPN_READY"))
     vpn_only  = bool(os.environ.get("VPN_ONLY"))
 
-    label = "VPN" if vpn_only else "контент"
-    tg_safe(f"🔄 Сканируем {label}{'  (init)' if is_init else ''}...")
-
     stats = {}
 
     def tg_step(key, fn, *args, **kwargs):
-        tg_safe(f"⏳ {key}...")
         t0 = time.time()
         try:
             result = fn(*args, **kwargs)
@@ -457,14 +456,12 @@ def run():
             return result, elapsed
         except Exception as e:
             elapsed = int(time.time() - t0)
-            tg_safe(f"❌ {key} ({elapsed}s): {e}")
+            collect_results({"errors": [f"{key}: {e}"]})
             print(f"❌ {key}: {e}")
             return None, elapsed
 
     def done(key, total, new, elapsed):
         stats[key] = (total, new)
-        mark = "🆕" if new > 0 else "✅"
-        tg_safe(f"{mark} {key}: {new} новых / {total} ({elapsed}s)")
         print(f"{key}: {total} всего, {new} новых ({elapsed}s)")
 
     # Обычные источники
@@ -476,7 +473,6 @@ def run():
             print(f"⏭ {lab} {typ}: пропущен (нет VPN)")
             continue
         key = f"{lab} {typ}"
-        tg_safe(f"⏳ {key}...")
         t0 = time.time()
         try:
             enc = "windows-1251" if "gorlab" in url else "utf-8"
@@ -485,7 +481,7 @@ def run():
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "paged_html":
                 pagen = extra[2] if len(extra) > 2 else "PAGEN_1"
-                cb = lambda p, n, k=key: tg_safe(f"  ↳ {k}: стр.{p}, найдено {n}...")
+                cb = lambda p, n, k=key: print(f"  ↳ {k}: стр.{p}, найдено {n}...")
                 links = get_paged_html_links(url, extra[0], extra[1], pagen, progress_cb=cb, already_seen=seen)
                 links = ["https://" + url.split("/")[2] + l if l.startswith("/") else l for l in links]
             elif method == "sitemap":
@@ -514,7 +510,7 @@ def run():
             new_count += len(new_links) if not is_init else 0
         except Exception as e:
             elapsed = int(time.time() - t0)
-            tg_safe(f"❌ {key} ({elapsed}s): {e}")
+            collect_results({"errors": [f"{key}: {e}"]})
             print(f"❌ {key}: {e}")
         time.sleep(0.3)
 
@@ -576,8 +572,7 @@ def run():
         return
 
     # Инвитро новости — по месяцам 2005-текущий
-    inv_cb = lambda yr, n: tg_safe(f"  ↳ Инвитро news: год {yr}, найдено {n}...")
-    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news, seen, inv_cb)
+    inv_links_raw, elapsed = tg_step("Инвитро news (2005–сейчас)", get_invitro_news, seen, None)
     if inv_links_raw is not None:
         inv_links = ["https://www.invitro.ru" + l for l in inv_links_raw]
         new_inv = [l for l in inv_links if l not in seen]
@@ -604,8 +599,7 @@ def run():
         new_count += len(new_helix) if not is_init else 0
 
     # ДНКом статьи — PAGEN_2
-    dnk_cb = lambda p, n: tg_safe(f"  ↳ ДНКом article: стр.{p}, найдено {n}...")
-    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, seen, dnk_cb)
+    dnkom_raw, elapsed = tg_step("ДНКом article (PAGEN_2)", get_dnkom_articles, seen, None)
     if dnkom_raw is not None:
         dnkom_links = ["https://dnkom.ru" + l if l.startswith("/") else l for l in dnkom_raw]
         new_dnkom = [l for l in dnkom_links if l not in seen]
