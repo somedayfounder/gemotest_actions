@@ -16,8 +16,9 @@ from urllib.parse import urljoin, urlencode
 
 _api_cache = {}  # url -> prefetched text from listing API
 
-DATA_DIR = Path(__file__).parent
-SEEN_FILE = DATA_DIR / "seen_promos.json"
+DATA_DIR     = Path(__file__).parent
+SEEN_FILE    = DATA_DIR / "seen_promos.json"
+ARCHIVE_FILE = DATA_DIR / "archive_promos.json"
 RESULTS_FILE = Path("/tmp/monitor_results.json")
 
 
@@ -592,11 +593,19 @@ def run():
         active[url] = {"lab": site["name"], "title": title, "summary": "", "dates": "", "price": "", "kind": "offer"}
         new_promos.append({"lab": site["name"], "title": title, "url": url})
 
-    # 3. Исчезнувшие акции
+    # 3. Исчезнувшие акции → архив
+    today = __import__("datetime").date.today().isoformat()
+    archive = json.loads(ARCHIVE_FILE.read_text()) if ARCHIVE_FILE.exists() else {}
     gone_promos = []
     for url in gone_urls:
         info = active.pop(url)
+        info["ended"] = today
+        archive[url] = info
         gone_promos.append({"lab": info.get("lab", "?"), "title": info.get("title") or url.rstrip("/").split("/")[-1]})
+
+    if gone_urls:
+        ARCHIVE_FILE.write_text(json.dumps(archive, ensure_ascii=False, indent=2))
+        print(f"Архив: +{len(gone_urls)} (итого {len(archive)})")
 
     if new_promos or gone_promos:
         collect_results({"new_promos": new_promos, "gone_promos": gone_promos})

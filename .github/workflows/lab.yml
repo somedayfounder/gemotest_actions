@@ -86,7 +86,7 @@ jobs:
           git fetch origin main
           python3 - <<'PYEOF'
           import json, subprocess
-          for fname in ['seen_content.json', 'seen_promos.json']:
+          for fname in ['seen_content.json', 'seen_promos.json', 'archive_promos.json']:
               try:
                   ours = json.load(open(fname))
                   remote_raw = subprocess.check_output(['git', 'show', 'FETCH_HEAD:' + fname]).decode()
@@ -108,7 +108,7 @@ jobs:
                   print(f'merge {fname}: {e}')
           PYEOF
           git reset --soft FETCH_HEAD
-          git add seen_promos.json seen_content.json stats.html || true
+          git add seen_promos.json seen_content.json archive_promos.json stats.html || true
           git diff --staged --quiet && echo "nothing to commit" && exit 0
           git commit -m "update promos + content + stats"
           git push
