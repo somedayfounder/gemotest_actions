@@ -601,7 +601,8 @@ def run():
         info = active.pop(url)
         info["ended"] = today
         archive[url] = info
-        gone_promos.append({"lab": info.get("lab", "?"), "title": info.get("title") or url.rstrip("/").split("/")[-1]})
+        title = info.get("title") or url.rstrip("/").split("/")[-1]
+        gone_promos.append({"lab": info.get("lab", "?"), "title": title, "url": url})
 
     if gone_urls:
         ARCHIVE_FILE.write_text(json.dumps(archive, ensure_ascii=False, indent=2))

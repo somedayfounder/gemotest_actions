@@ -49,17 +49,19 @@ def tg_send_parts(token, chat_id, text):
         tg_send(token, chat_id, part)
 
 
+SEP = "・・・"
+
 def section(title, items, show_url=True):
     if not items:
         return ""
-    lines = [f"\n<b>{title}</b>"]
+    lines = [SEP, f"<b>{title}</b>"]
     by_lab = {}
     for item in items:
         by_lab.setdefault(item["lab"], []).append(item)
     for lab, lab_items in by_lab.items():
-        lines.append(lab)
+        lines.append(f"\n<b>{lab}</b>")
         for item in lab_items:
-            t = item.get("title", "")
+            t = item.get("title") or item.get("url", "").rstrip("/").split("/")[-1] or "—"
             u = item.get("url", "")
             if show_url and u:
                 lines.append(f'<a href="{u}">{t}</a>')
@@ -105,14 +107,15 @@ def run():
         print("Изменений нет")
         return
 
-    parts = [header]
-    parts.append(section("Новые акции", new_p))
-    parts.append(section("Завершившиеся акции", gone_p, show_url=False))
-    parts.append(section("Новые статьи", new_art))
-    parts.append(section("Новости", new_news))
-    parts.append(section("Google News", gnews))
-
-    text = "\n".join(p for p in parts if p)
+    blocks = [
+        header,
+        section("Новые акции", new_p),
+        section("Завершившиеся акции", gone_p, show_url=False),
+        section("Новые статьи", new_art),
+        section("Новости", new_news),
+        section("Google News", gnews),
+    ]
+    text = "\n\n".join(b for b in blocks if b)
     tg_send_parts(token, chat_id, text)
     print("Итоговое сообщение отправлено")
 
