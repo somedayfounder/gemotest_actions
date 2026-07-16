@@ -554,6 +554,8 @@ def run():
             for url in links:
                 current[url] = site
 
+    vpn_page_cache = {}  # url -> page_text, собранный пока VPN активен
+
     if vpn_sites and not skip_kdl:
         if vpn_external:
             vpn_started = True
@@ -566,6 +568,15 @@ def run():
                 site_urls[site["name"]] = links
                 for url in links:
                     current[url] = site
+            # Пока VPN жив — скачиваем страницы новых акций VPN-сайтов
+            vpn_new = [u for u in current if u not in active and current[u].get("needs_vpn")]
+            if vpn_new and not is_init:
+                print(f"  Загружаем страницы {len(vpn_new)} VPN-акций...")
+                def _fetch_vpn(url):
+                    return url, fetch_promo_page(url, current[url])
+                with ThreadPoolExecutor(max_workers=3) as ex:
+                    for url, text in ex.map(_fetch_vpn, vpn_new):
+                        vpn_page_cache[url] = text
         else:
             for site in vpn_sites:
                 site_urls[site["name"]] = []
@@ -578,7 +589,6 @@ def run():
     active_checked = {u: v for u, v in active.items() if v.get("lab") in checked_sites}
 
     new_urls = [u for u in current if u not in active]
-    # Если сайт вернул 0 акций (сбой загрузки), не помечать его акции как завершённые
     gone_urls = []
     for u in active_checked:
         if u not in current:
@@ -601,11 +611,12 @@ def run():
     new_promos = []
     ai = {}
     if new_urls:
-        # Страницы needs_vpn сайтов недоступны без VPN — пропускаем fetch
         vpn_site_names = {s["name"] for s in SITES if s.get("needs_vpn")}
         fetchable = [u for u in new_urls if current[u]["name"] not in vpn_site_names]
-        print(f"  Загружаем страницы {len(fetchable)} акций (из {len(new_urls)}, VPN-сайты пропущены)...")
-        promos_to_analyze = []
+        print(f"  Загружаем страницы {len(fetchable)} акций + {len(vpn_page_cache)} VPN...")
+        promos_to_analyze = list(vpn_page_cache.items())  # уже скачанные VPN-страницы
+        promos_to_analyze = [{"lab": current[u]["name"], "url": u, "page_text": t}
+                              for u, t in promos_to_analyze]
         def _fetch_one(url):
             return url, fetch_promo_page(url, current[url])
         with ThreadPoolExecutor(max_workers=3) as ex:
