@@ -372,42 +372,24 @@ def fetch_promo_page(url, site):
 # ── GPT ──────────────────────────────────────────────────────────────────────
 
 def ai_analyze_batch(promos):
-    """Один GPT-запрос для батча акций. Возвращает {url: {title, summary, dates}}."""
+    """Один GPT-запрос для батча акций. Возвращает {url: {title, summary}}."""
     blocks = []
     for p in promos:
         blocks.append(f"URL: {p['url']}\nЛаборатория: {p['lab']}\n\n{p['page_text'][:4000]}")
 
     prompt = (
         "Ты анализируешь страницы акций медицинских лабораторий.\n"
-        "Определи тип акции и верни JSON с ключом = URL и полями:\n\n"
-        "  title    — название акции (кратко)\n"
-        "  dates    — срок действия (например «до 31 июля»); если не указан — «Бессрочно»\n"
-        "  is_local     — true если акция только в одном конкретном филиале, иначе false\n"
-        "  is_marketing — true если страница НЕ содержит реальной выгоды для пациента:\n"
-        "                 нет скидки, нет спеццены, нет бонуса — это просто описание анализа\n"
-        "                 или рекламная статья. false если есть конкретная скидка/цена/бонус.\n"
-        "  kind     — «product» если акция на конкретный набор анализов/услуг со своей ценой;\n"
-        "             «offer» если это скидка/промокод/условие без фиксированного состава\n\n"
-        "Если kind = «product»:\n"
-        "  tests      — список ПРОДУКТОВ/ПАКЕТОВ со страницы (то, что можно добавить в корзину),\n"
-        "               каждый со своей ценой, формат: «Название — 490 ₽» через newline (\\n).\n"
-        "               НЕ расписывай биомаркеры внутри пакета — только сам пакет как единицу.\n"
-        "               Если цены нет — просто название. Не сокращай список.\n"
-        "  price      — итоговая цена пакета (например «1 490 ₽») или «» если не указана\n"
-        "  summary    — «»\n\n"
-        "Если kind = «offer»:\n"
-        "  summary    — 1–2 предложения: суть предложения и выгода для пациента\n"
-        "  tests      — «»\n"
-        "  price      — скидка или цена если есть (например «−20%», «от 390 ₽»), иначе «»\n\n"
-        'Формат ответа: {"https://...": {"title":"...","dates":"...","is_local":false,"is_marketing":false,"kind":"product",'
-        '"tests":"...","price":"...","summary":"..."}, ...}\n\n'
+        "Верни JSON: ключ = URL, поля:\n"
+        "  title   — краткое название акции\n"
+        "  summary — 1–2 предложения: суть акции и выгода для пациента\n\n"
+        'Формат: {"https://...": {"title":"...","summary":"..."}, ...}\n\n'
         + "\n\n---\n\n".join(blocks)
     )
 
     payload = json.dumps({
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 3000,
+        "max_tokens": 2000,
         "temperature": 0,
     }).encode()
 
@@ -604,21 +586,31 @@ def run():
         save_active(active)
         return
 
-    # 2. Сохраняем новые акции (с заголовками)
+    # 2. Загружаем страницы новых акций + GPT-анализ
     new_promos = []
+    ai = {}
     if new_urls and not is_init:
-        print(f"  Загружаем заголовки для {len(new_urls)} новых акций...")
-        def _fetch_title(url):
-            return url, get_promo_title(url, current[url])
+        print(f"  Загружаем страницы {len(new_urls)} новых акций...")
+        promos_to_analyze = []
+        def _fetch_one(url):
+            return url, fetch_promo_page(url, current[url])
         with ThreadPoolExecutor(max_workers=6) as ex:
-            title_results = list(ex.map(_fetch_title, new_urls))
-    else:
-        title_results = [(url, url.rstrip("/").split("/")[-1]) for url in new_urls]
+            for url, page_text in ex.map(_fetch_one, new_urls):
+                promos_to_analyze.append({"lab": current[url]["name"], "url": url, "page_text": page_text})
+        if OPENAI_KEY:
+            try:
+                ai = ai_analyze(promos_to_analyze)
+                print(f"  GPT: {len(ai)} проанализировано")
+            except Exception as e:
+                print(f"  GPT ошибка: {e}")
 
-    for url, title in title_results:
+    for url in new_urls:
         site = current[url]
-        active[url] = {"lab": site["name"], "title": title, "summary": "", "dates": "", "price": "", "kind": "offer"}
-        new_promos.append({"lab": site["name"], "title": title, "url": url})
+        info = ai.get(url, {})
+        title = info.get("title") or get_promo_title(url, site)
+        summary = info.get("summary", "")
+        active[url] = {"lab": site["name"], "title": title, "summary": summary}
+        new_promos.append({"lab": site["name"], "title": title, "summary": summary, "url": url})
 
     # 3. Исчезнувшие акции → архив
     today = __import__("datetime").date.today().isoformat()
