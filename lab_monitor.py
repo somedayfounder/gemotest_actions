@@ -88,6 +88,7 @@ SITES = [
         "base": "https://gorlab.ru",
         "pattern": r"href='(/news/[a-z0-9\-]+\.html)'",
         "encoding": "windows-1251",
+        "needs_vpn": True,
     },
     {
         "name": "КДЛ",
