@@ -73,7 +73,7 @@ def section(title, items, show_url=True, show_summary=False):
             if show_summary and s:
                 entry.append(s)
             entries.append("\n".join(entry))
-        lines.append("\n\n".join(entries))
+        lines.append("\n\n—\n\n".join(entries))
     return "\n".join(lines)
 
 
