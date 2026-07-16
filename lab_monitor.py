@@ -624,7 +624,9 @@ def run():
         title = info.get("title") or get_promo_title(url, site)
         summary = info.get("summary", "")
         active[url] = {"lab": site["name"], "title": title, "summary": summary}
-        new_promos.append({"lab": site["name"], "title": title, "summary": summary, "url": url})
+        # При массовой инициализации не показываем детали — только счётчик
+        if len(new_urls) <= 10:
+            new_promos.append({"lab": site["name"], "title": title, "summary": summary, "url": url})
 
     # 3. Исчезнувшие акции → архив
     today = __import__("datetime").date.today().isoformat()
@@ -641,6 +643,8 @@ def run():
         ARCHIVE_FILE.write_text(json.dumps(archive, ensure_ascii=False, indent=2))
         print(f"Архив: +{len(gone_urls)} (итого {len(archive)})")
 
+    if len(new_urls) > 10:
+        collect_results({"errors": [f"Инициализация: сохранено {len(new_urls)} акций"]})
     if new_promos or gone_promos:
         collect_results({"new_promos": new_promos, "gone_promos": gone_promos})
 

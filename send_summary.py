@@ -60,16 +60,20 @@ def section(title, items, show_url=True, show_summary=False):
         by_lab.setdefault(item["lab"], []).append(item)
     for lab, lab_items in by_lab.items():
         lines.append(f"\n<b>{lab}</b>")
+        entries = []
         for item in lab_items:
             t = item.get("title") or item.get("url", "").rstrip("/").split("/")[-1] or "—"
             u = item.get("url", "")
             s = item.get("summary", "")
+            entry = []
             if show_url and u:
-                lines.append(f'<a href="{u}"><b>{t}</b></a>')
+                entry.append(f'<a href="{u}"><b>{t}</b></a>')
             else:
-                lines.append(f"<b>{t}</b>")
+                entry.append(f"<b>{t}</b>")
             if show_summary and s:
-                lines.append(s)
+                entry.append(s)
+            entries.append("\n".join(entry))
+        lines.append("\n\n".join(entries))
     return "\n".join(lines)
 
 
