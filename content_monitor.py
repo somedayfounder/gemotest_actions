@@ -36,7 +36,7 @@ _INVITRO_YEARS = list(range(2005, date.today().year + 1))
 
 SOURCES = [
     ("Гемотест",  "news",    "paged_html",  "https://gemotest.ru/info/news/",
-     (r'href="(/info/news/[^"?#]{4,})"', 1)),
+     (r'href="(/info/news/[^"?#]{8,})"', 1)),
     ("Гемотест",  "article", "sitemap",     "https://gemotest.ru/sitemap/ru/sitemap-iblocks/sitemap-info-articles.xml",
      lambda l: "/info/" in l and "/info/news/" not in l and l.count("/") > 3),
     ("Гемотест",  "article", "paged_html",  "https://gemotest.ru/info/",
@@ -386,13 +386,15 @@ def tg_safe(text, label=""):
         print(f"TG error {label}: {e}")
 
 
-def notify_new(lab, typ, new_links, is_init):
+def notify_new(lab, typ, new_links, is_init, seen=None):
     if not new_links or is_init:
         return
     label = "новости" if typ == "news" else "статьи"
     lines = [f"<b>{'📰' if typ == 'news' else '📄'} {lab} — {label}</b>"]
     for l in new_links[:5]:
-        lines.append(f"<a href=\"{l}\">{l.rstrip('/').split('/')[-1]}</a>")
+        title = (seen or {}).get(l, {}).get("title") if seen else None
+        text = title or l.rstrip('/').split('/')[-1]
+        lines.append(f"<a href=\"{l}\">{text}</a>")
     if len(new_links) > 5:
         lines.append(f"...и ещё {len(new_links) - 5}")
     tg_safe("\n".join(lines), f"{lab}-{typ}")
@@ -508,7 +510,7 @@ def run():
             for link in new_links:
                 title = get_title(link, enc) if fetch_titles else None
                 seen[link] = {"lab": lab, "type": typ, "date": today, "title": title}
-            notify_new(lab, typ, new_links, is_init)
+            notify_new(lab, typ, new_links, is_init, seen)
             new_count += len(new_links) if not is_init else 0
         except Exception as e:
             elapsed = int(time.time() - t0)
@@ -554,7 +556,7 @@ def run():
             for link in new_kdl_news:
                 title = get_title(link) if fetch_t else None
                 seen[link] = {"lab": "КДЛ", "type": "news", "date": today, "title": title}
-            notify_new("КДЛ", "news", new_kdl_news, is_init)
+            notify_new("КДЛ", "news", new_kdl_news, is_init, seen)
             new_count += len(new_kdl_news) if not is_init else 0
 
         if kdl_art is not None:
@@ -565,7 +567,7 @@ def run():
             for link in new_kdl_art:
                 title = get_title(link) if fetch_t else None
                 seen[link] = {"lab": "КДЛ", "type": "article", "date": today, "title": title}
-            notify_new("КДЛ", "article", new_kdl_art, is_init)
+            notify_new("КДЛ", "article", new_kdl_art, is_init, seen)
             new_count += len(new_kdl_art) if not is_init else 0
 
         _send_stats(stats, new_count, is_init, vpn_only=True)
@@ -585,7 +587,7 @@ def run():
         for link in new_inv:
             title = get_title(link) if fetch_titles_inv else None
             seen[link] = {"lab": "Инвитро", "type": "news", "date": today, "title": title}
-        notify_new("Инвитро", "news", new_inv, is_init)
+        notify_new("Инвитро", "news", new_inv, is_init, seen)
         new_count += len(new_inv) if not is_init else 0
 
     # Helix новости — sequential scan
@@ -598,7 +600,7 @@ def run():
         for u in new_helix:
             title = get_title(u) if fetch_titles_hx else None
             seen[u] = {"lab": "Helix", "type": "news", "date": today, "title": title}
-        notify_new("Helix", "news", new_helix, is_init)
+        notify_new("Helix", "news", new_helix, is_init, seen)
         new_count += len(new_helix) if not is_init else 0
 
     # ДНКом статьи — PAGEN_2
@@ -612,7 +614,7 @@ def run():
         for link in new_dnkom:
             title = get_title(link) if fetch_titles_dk else None
             seen[link] = {"lab": "ДНКом", "type": "article", "date": today, "title": title}
-        notify_new("ДНКом", "article", new_dnkom, is_init)
+        notify_new("ДНКом", "article", new_dnkom, is_init, seen)
         new_count += len(new_dnkom) if not is_init else 0
 
     # Горлаб новости
@@ -626,7 +628,7 @@ def run():
         for u in new_pages:
             title = get_title(u, "windows-1251") if fetch_titles_gl else None
             seen[u] = {"lab": "Горлаб", "type": "news", "date": today, "title": title}
-        notify_new("Горлаб", "news", new_pages, is_init)
+        notify_new("Горлаб", "news", new_pages, is_init, seen)
         new_count += len(new_pages) if not is_init else 0
 
     # Горлаб статьи
@@ -640,7 +642,7 @@ def run():
         for u in new_items:
             title = get_title(u, "windows-1251") if fetch_titles_gl2 else None
             seen[u] = {"lab": "Горлаб", "type": "article", "date": today, "title": title}
-        notify_new("Горлаб", "article", new_items, is_init)
+        notify_new("Горлаб", "article", new_items, is_init, seen)
         new_count += len(new_items) if not is_init else 0
 
     if is_init:

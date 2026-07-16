@@ -542,7 +542,15 @@ def run():
     active_checked = {u: v for u, v in active.items() if v.get("lab") in checked_sites}
 
     new_urls = [u for u in current if u not in active]
-    gone_urls = [u for u in active_checked if u not in current]
+    # Если сайт вернул 0 акций (сбой загрузки), не помечать его акции как завершённые
+    gone_urls = []
+    for u in active_checked:
+        if u not in current:
+            site_name = active_checked[u].get("lab")
+            if site_name and len(site_urls.get(site_name, [])) == 0:
+                print(f"  ⚠ {site_name} вернул 0 акций — пропускаем 'завершены'")
+                continue
+            gone_urls.append(u)
     print(f"Новых: {len(new_urls)}, исчезло: {len(gone_urls)}")
 
     # 2. Сводка по сайтам — разделяем на "есть новые" и "нет новых"
