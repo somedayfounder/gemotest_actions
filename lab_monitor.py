@@ -367,7 +367,8 @@ def scrape_promo_info(url, site):
     try:
         if site.get("js"):
             html = fetch_js(url, wait_ms=site.get("js_wait_ms", 5000),
-                            intercept_key=site.get("intercept_key"), verbose=False)
+                            intercept_key=site.get("intercept_key"),
+                            cookies=site.get("js_cookies"), verbose=False)
         else:
             html = fetch_html(url, encoding=site.get("encoding", "utf-8"), timeout=15)
     except Exception as e:
