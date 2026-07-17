@@ -693,5 +693,38 @@ def run():
     print("Готово")
 
 
+def rescrape():
+    """Обновляет title+summary в seen_promos.json без сброса базы."""
+    active = load_active()
+    if not active:
+        print("seen_promos.json пуст — нечего обновлять")
+        return
+    print(f"Пересобираем {len(active)} акций...")
+    urls = list(active.keys())
+    # Определяем site для каждого URL
+    site_by_base = {s["base"]: s for s in SITES if "base" in s}
+    def _get_site(url):
+        for base, s in site_by_base.items():
+            if url.startswith(base):
+                return s
+        return {}
+    def _do(url):
+        site = _get_site(url)
+        return url, scrape_promo_info(url, site)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        for url, (title, summary) in ex.map(_do, urls):
+            if title and title != url.rstrip('/').split('/')[-1]:
+                active[url]["title"] = title
+            if summary:
+                active[url]["summary"] = summary
+    save_active(active)
+    print("Готово")
+
+
 if __name__ == "__main__":
-    run()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "--rescrape":
+        rescrape()
+    else:
+        run()
