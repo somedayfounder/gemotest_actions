@@ -94144,5 +94144,17 @@
     "type": "news",
     "date": "2026-07-16",
     "title": "Публикации в СМИ"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/stone-forest-vkus-i-polza-eto-pro-shokolad/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-07-17",
+    "title": "Stone Forest. Вкус и польза – это про шоколад"
+  },
+  "https://www.labquest.ru/articles/chto-takoe-obshchiy-antioksidantnyy-status-tas-plazmy-krovi/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-17",
+    "title": "Что такое общий антиоксидантный статус (TAS) плазмы крови"
   }
 }
