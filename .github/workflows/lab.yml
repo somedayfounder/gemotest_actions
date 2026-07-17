@@ -31,12 +31,16 @@ jobs:
         run: |
           python3 - <<'PYEOF'
           import urllib.request, re
-          html = urllib.request.urlopen("https://vpnobratno.info/russia_server_list.html", timeout=15).read().decode("utf-8", "replace")
+          UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          req = urllib.request.Request("https://vpnobratno.info/russia_server_list.html", headers={"User-Agent": UA})
+          html = urllib.request.urlopen(req, timeout=15).read().decode("utf-8", "replace")
           links = re.findall(r'href="(https://vpnobratno\.info/servers/[^"]+_ip_udp\.ovpn)"', html)
           if not links:
               links = re.findall(r'href="(https://vpnobratno\.info/servers/[^"]+\.ovpn)"', html)
           for i, link in enumerate(links[:5]):
-              urllib.request.urlretrieve(link, f"vpn{i}.ovpn")
+              r2 = urllib.request.Request(link, headers={"User-Agent": UA})
+              with urllib.request.urlopen(r2, timeout=15) as resp, open(f"vpn{i}.ovpn", "wb") as f:
+                  f.write(resp.read())
               print(f"Downloaded vpn{i}.ovpn: {link}")
           if not links:
               print("No VPN configs found")
