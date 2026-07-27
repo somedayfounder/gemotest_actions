@@ -1,1 +1,26 @@
-{}
+{
+  "https://www.cmd-online.ru/patsientam/akcii/vaktsinatsiya-ot-tropicheskikh-zabolevaniy/": {
+    "lab": "CMD",
+    "title": "Вакцинация от тропических заболеваний",
+    "summary": "",
+    "ended": "2026-07-27"
+  },
+  "https://helix.ru/promotions/select/8056": {
+    "lab": "Helix",
+    "title": "С заботой о близких. Скидка 1000 руб. на анализы в честь Дня семьи, любви и верности",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения.",
+    "ended": "2026-07-27"
+  },
+  "https://dnkom.ru/actions/vyigrayte-2-bileta-na-kontsert-shakiry-v-madride/": {
+    "lab": "ДНКом",
+    "title": "Подписывайтесь на Telegram-каналы \r\n\t ДНКОМ и Европасс, чтобы принять участие!",
+    "summary": "Выиграйте 2 билета на концерт Шакиры в Мадриде! в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ.",
+    "ended": "2026-07-27"
+  },
+  "https://citilab.ru/discounts/darim-4-000-na-lyubye-analizy/": {
+    "lab": "Ситилаб",
+    "title": "Дарим 4 000 ₽ на любые анализы",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-07-27"
+  }
+}

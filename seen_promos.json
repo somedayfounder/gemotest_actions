@@ -818,5 +818,15 @@
     "lab": "КДЛ",
     "title": "Скидка 10% по полису ОМС или сервисной карте",
     "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://gemotest.ru/actions/heart_under_control/": {
+    "lab": "Гемотест",
+    "title": "heart_under_control",
+    "summary": "Спецпроект Еаптеки и&nbsp;Лаборатории Гемотест: купите средства для сердца и&nbsp;сосудов и&nbsp;проверьте 4&nbsp;показателя холестерина за&nbsp;390&nbsp;₽!"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/geroy-cmd/": {
+    "lab": "CMD",
+    "title": "Герой CMD",
+    "summary": ""
   }
 }
