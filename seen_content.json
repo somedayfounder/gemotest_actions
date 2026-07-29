@@ -94330,5 +94330,101 @@
     "type": "article",
     "date": "2026-07-28",
     "title": "Ларинготрахеит"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/frigidnost/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Фригидность"
+  },
+  "https://www.labquest.ru/novosti/novyy-meditsinskiy-ofis-labkvest-v-ulyanovskoy-oblasti/": {
+    "lab": "LabQuest",
+    "type": "news",
+    "date": "2026-07-29",
+    "title": "Новый медицинский офис «ЛабКвест» в Ульяновской области"
+  },
+  "https://www.labquest.ru/articles/intoksikatsiya-organizma/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Интоксикация организма"
+  },
+  "https://www.labquest.ru/articles/rakovaya-intoksikatsiya/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Раковая интоксикация"
+  },
+  "https://www.labquest.ru/articles/sindrom-intoksikatsii/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Синдром интоксикации"
+  },
+  "https://www.labquest.ru/articles/endogennaya-intoksikatsiya/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Эндогенная интоксикация"
+  },
+  "https://www.labquest.ru/articles/bilirubinovaya-intoksikatsiya/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Билирубиновая интоксикация"
+  },
+  "https://www.labquest.ru/articles/leykotsitarnyy-indeks-intoksikatsii/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Лейкоцитарный индекс интоксикации"
+  },
+  "https://www.labquest.ru/articles/intoksikatsiya-organizma-pri-orvi/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Интоксикация организма при ОРВИ"
+  },
+  "https://www.labquest.ru/articles/tuberkulyeznaya-intoksikatsiya/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Туберкулёзная интоксикация"
+  },
+  "https://www.labquest.ru/articles/intoksikatsiya-organizma-pri-onkologii/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Интоксикация организма при онкологии"
+  },
+  "https://www.labquest.ru/articles/pechenochnaya-intoksikatsiya/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Печеночная интоксикация"
+  },
+  "https://www.labquest.ru/articles/analiz-krovi-na-azatioprin/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Анализ крови на азатиоприн"
+  },
+  "https://www.labquest.ru/articles/analiz-krovi-na-vankomitsin/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Анализ крови на ванкомицин"
+  },
+  "https://www.labquest.ru/articles/analiz-krovi-na-galoperidol/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Анализ крови на галоперидол"
+  },
+  "https://www.labquest.ru/articles/analiz-krovi-na-gentamitsin/": {
+    "lab": "LabQuest",
+    "type": "article",
+    "date": "2026-07-29",
+    "title": "Анализ крови на гентамицин"
   }
 }
