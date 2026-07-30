@@ -34,5 +34,17 @@
     "title": "Позаботьтесь о женском здоровье, когда нет возможности посетить врача",
     "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения.",
     "ended": "2026-07-29"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/geroy-cmd/": {
+    "lab": "CMD",
+    "title": "Герой CMD",
+    "summary": "",
+    "ended": "2026-07-30"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vebinar-popov-kirill-email/": {
+    "lab": "CMD",
+    "title": "Вебинар «Твой первый шаг к телу мечты – без травм и разочарований!»",
+    "summary": "",
+    "ended": "2026-07-30"
   }
 }

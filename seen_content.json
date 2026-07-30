@@ -94426,5 +94426,29 @@
     "type": "article",
     "date": "2026-07-29",
     "title": "Анализ крови на гентамицин"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/displaziya/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-07-30",
+    "title": "Дисплазия"
+  },
+  "https://www.labquest.ru/novosti/otkrytie-eshche-odnogo-meditsinskogo-ofisa-labkvest-v-ingushetii/": {
+    "lab": "LabQuest",
+    "type": "news",
+    "date": "2026-07-30",
+    "title": "Первый медицинский офис «ЛабКвест» в г. Карабулак"
+  },
+  "https://www.labquest.ru/novosti/otkrytie-novogo-meditsinskogo-ofisa-labkvest-v-krasnogorske/": {
+    "lab": "LabQuest",
+    "type": "news",
+    "date": "2026-07-30",
+    "title": "Открытие нового медицинского офиса «ЛабКвест» в Красногорске"
+  },
+  "https://helix.ru/feed/select/1577": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-07-30",
+    "title": "В Керчи открылся новый Диагностический центр Хеликс"
   }
 }
