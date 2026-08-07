@@ -843,5 +843,60 @@
     "lab": "Инвитро",
     "title": "nezhnyy-vozrast-07-2026-rf",
     "summary": "Лабораторная диагностика"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/new-nipt/": {
+    "lab": "CMD",
+    "title": "Забота с первых недель беременности: полная линейка НИПТ в CMD",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8073": {
+    "lab": "Helix",
+    "title": "В гармонии с собой. Оцените здоровье щитовидной железы за 1190 руб.",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8080": {
+    "lab": "Helix",
+    "title": "Время действовать. Анализ на витамин D за 650 руб. при первом заказе",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8071": {
+    "lab": "Helix",
+    "title": "К учебе готовы! Скидка 600 руб. на анализы для детей",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://dnkom.ru/actions/khudeem-pod-kontrolem-msk/": {
+    "lab": "ДНКом",
+    "title": "khudeem-pod-kontrolem-msk",
+    "summary": "Худеем под контролем! в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ."
+  },
+  "https://www.invitro.ru/moscow/ak/mame-udobno-rebenku-spokoyno-08-09-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "mame-udobno-rebenku-spokoyno-08-09-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/otsenite-risk-sakharnogo-diabeta/": {
+    "lab": "Ситилаб",
+    "title": "Оцените риск сахарного диабета",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/zashchitite-serdtse-i-sosudy/": {
+    "lab": "Ситилаб",
+    "title": "Защитите сердце и сосуды",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/proverka-pochek/": {
+    "lab": "Ситилаб",
+    "title": "Проверка почек",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/zhenskoe-zdorove-v-fokuse/": {
+    "lab": "Ситилаб",
+    "title": "Женское здоровье в фокусе",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/22-pokazatelya-v-odnom-analize/": {
+    "lab": "Ситилаб",
+    "title": "22 показателя в одном анализе",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
   }
 }
