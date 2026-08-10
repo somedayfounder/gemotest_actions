@@ -94630,5 +94630,23 @@
     "type": "news",
     "date": "2026-08-09",
     "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Антраците"
+  },
+  "https://gemotest.ru/info/spravochnik/analizy/rektoromanoskopiya/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-10",
+    "title": "Ректороманоскопия"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/daily-moscow-vozdushnye-sny/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-08-10",
+    "title": "Daily Moscow. Воздушные сны"
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-pomogaet-popast-v-programmu-skrininga-na-spinalnuyu-myshechnuyu-atrofiyu/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-08-10",
+    "title": "ИНВИТРО помогает попасть в программу скрининга на спинальную мышечную атрофию"
   }
 }
