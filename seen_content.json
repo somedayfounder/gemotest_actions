@@ -94648,5 +94648,65 @@
     "type": "news",
     "date": "2026-08-10",
     "title": "ИНВИТРО помогает попасть в программу скрининга на спинальную мышечную атрофию"
+  },
+  "https://gemotest.ru/info/spravochnik/food/kinza-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Кинза: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/midii-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Мидии: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/golubika-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Голубика: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/karbunkul/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Карбункул"
+  },
+  "https://citilab.ru/articles/monogennye-zabolevaniya-chto-eto-primery-i-nasledstvennye-osobennosti/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Моногенные заболевания: что это, примеры и наследственные особенности"
+  },
+  "https://citilab.ru/articles/nevroz-simptomy-prichiny-i-effektivnye-metody-lecheniya/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Невроз: симптомы, причины и эффективные методы лечения"
+  },
+  "https://citilab.ru/articles/rodinki-i-nevusy-prichiny-poyavleniya-vidy-i-opasnye-priznaki/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Родинки и невусы: причины появления, виды и опасные признаки"
+  },
+  "https://citilab.ru/articles/neyropatiya-chto-eto-takoe-simptomy-i-lechenie/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Нейропатия: что это такое, симптомы и лечение"
+  },
+  "https://citilab.ru/articles/otkaz-ot-mantu-kak-pravilno-oformit-i-podat-zayavlenie/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Отказ от Манту: как правильно оформить и подать заявление"
+  },
+  "https://citilab.ru/articles/osteomielit-simptomy-prichiny-i-lechenie/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-11",
+    "title": "Остеомиелит: симптомы, причины и лечение"
   }
 }
