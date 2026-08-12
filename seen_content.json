@@ -94708,5 +94708,53 @@
     "type": "article",
     "date": "2026-08-11",
     "title": "Остеомиелит: симптомы, причины и лечение"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/nadpochechniki/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-12",
+    "title": "Надпочечники"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/gazeta-ru-ne-nado-cherez-bol/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-08-12",
+    "title": "Газета.ru. Не надо через боль"
+  },
+  "https://citilab.ru/articles/paraovarialnaya-kista-yaichnika-chto-eto-takoe-i-nuzhno-li-udalyat/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-12",
+    "title": "Параовариальная киста яичника: что это такое и нужно ли удалять?"
+  },
+  "https://citilab.ru/articles/parodontoz-simptomy-prichiny-i-effektivnye-metody-lecheniya/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-12",
+    "title": "Пародонтоз: симптомы, причины и эффективные методы лечения"
+  },
+  "https://citilab.ru/articles/neyrosensornaya-tugoukhost-prichiny-simptomy-i-lechenie/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-12",
+    "title": "Нейросенсорная тугоухость: причины, симптомы и лечение"
+  },
+  "https://citilab.ru/articles/neyrofibromatoz-1-go-tipa-prichiny-simptomy-i-lechenie/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-08-12",
+    "title": "Нейрофиброматоз 1-го типа: причины, симптомы и лечение"
+  },
+  "https://www.invitro.ru/moscow/about/news/ivitro-rasshiryaet-set-novyy-meditsinskiy-ofis-otkrylsya-v-donetske-il/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-08-12",
+    "title": "ИВИТРО расширяет сеть: новый медицинский офис открылся в Донецке"
+  },
+  "https://www.invitro.ru/moscow/about/news/meditsinskiy-ofis-invitro-na-prospekte-mira-v-donetske-pereezzhaet/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-08-12",
+    "title": "Медицинский офис ИНВИТРО на проспекте Мира в Донецке переезжает"
   }
 }
