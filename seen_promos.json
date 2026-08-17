@@ -913,5 +913,10 @@
     "lab": "КДЛ",
     "title": "Старт здоровья",
     "summary": "KDL. Клинико-диагностические лаборатории"
+  },
+  "https://www.invitro.ru/moscow/ms/survey/": {
+    "lab": "Инвитро",
+    "title": "survey",
+    "summary": "Лабораторная диагностика"
   }
 }
