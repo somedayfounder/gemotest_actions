@@ -94786,5 +94786,41 @@
     "type": "news",
     "date": "2026-08-19",
     "title": "Metro. Опасности из воды"
+  },
+  "https://gemotest.ru/info/spravochnik/simptomy/melankholiya/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-20",
+    "title": "Меланхолия"
+  },
+  "https://gemotest.ru/info/spravochnik/food/psheno-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-20",
+    "title": "Пшено: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/khurma-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-20",
+    "title": "Хурма: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/repchatyy-luk-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-20",
+    "title": "Репчатый лук: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/simptomy/gavanskiy-sindrom/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-08-20",
+    "title": "Гаванский синдром"
+  },
+  "https://helix.ru/feed/select/1579": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-08-20",
+    "title": "В Москве открылся новый Лабораторный пункт Хеликс"
   }
 }
