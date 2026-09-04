@@ -94822,5 +94822,329 @@
     "type": "news",
     "date": "2026-08-20",
     "title": "В Москве открылся новый Лабораторный пункт Хеликс"
+  },
+  "https://kdl.ru/patient/blog/analizy-dlya-vegetariancev-i-veganov-kontroli-deficitov": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/koklyush-u-shkolinikov-sovremennaya-diagnostika": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/shkolinaya-trevozhnosti-analizy-na-nejromediatory-i-gormony-stressa": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/chastye-orvi-v-nachale-uchebnogo-goda-immunogramma-dlya-detej": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/rotavirus-i-norovirus-e-kspress-diagnostika-kishechnyh-infekcij": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/fibromialgiya-kakie-analizy-pomogut-isklyuchiti-drugie-zabolevaniya": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/analizy-dlya-professionalinyh-sportsmenov-doping-kontroli-i-monitoring-zdoroviya": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/mochekamennaya-bolezni-analizy-dlya-profilaktiki-i-kontrolya": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/analizy-pri-vypadenii-volos-kompleksnaya-diagnostika": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/analizy-posle-vozvrascheniya-iz-otpuska-kompleksnaya-proverka": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/gepatit-a-posle-puteshestvij-kogda-poyavlyayutsya-antitela": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/leptospiroz-diagnostika-posle-kupaniya-v-presnyh-vodoyomah": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/narusheniya-osanki-u-shkolinikov-analizy-na-kalicij-fosfor-vitamin-d": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/sindrom-deficita-vnimaniya-sdvg-laboratornaya-diagnostika-soputstvuyuschih-sostoyanij": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/anemiya-u-podrostkov-deficit-zheleza-ili-drugie-prichiny": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://kdl.ru/patient/blog/peretrenirovannosti-analizy-na-kortizol-kreatinkinazu-mioglobin": {
+    "lab": "КДЛ",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/sindrom-edvardsa/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Синдром Эдвардса"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/agorafobiya/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Агорафобия"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/parvovirus-v19/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Парвовирус В19"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/keratoma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Кератома"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/bryushnoy-tif/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Брюшной тиф"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/krapivnitsa-u-detey/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Крапивница у детей"
+  },
+  "https://gemotest.ru/info/spravochnik/analizy/elektroentsefalografiya-eeg/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Электроэнцефалография (ЭЭГ)"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/fruktoza/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Фруктоза"
+  },
+  "https://gemotest.ru/info/spravochnik/food/karkade-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Каркаде: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/moloko-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Молоко: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/krasnoe-vino-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Красное вино: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/ayran-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Айран: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/ukrop-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Укроп: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/repa-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-04",
+    "title": "Репа: польза и вред для организма"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/supersadovnik-pomoshchnik-dlya-serdtsa/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "SuperSadovnik. Помощник для сердца"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/mentoday-biomekhanika-ogorodnika/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "MenToday. Биомеханика огородника"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/sanitarnyy-shchit-myed-bez-riska/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Санитарный щит. Мёд без риска"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/stone-forest-yablochnye-chipsy-v-trende-mochenye-vkusnaya-klassika/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Stone Forest. Яблочные чипсы – в тренде, моченые – вкусная классика"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylsya-protsedurnyy-kabinet-cmd-nalchik-ul-shogenova/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Открылся процедурный кабинет CMD Нальчик, ул. Шогенова"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylsya-protsedurnyy-kabinet-cmd-baksan-ul-elbrusskaya/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Открылся процедурный кабинет CMD Баксан, ул. Эльбрусская"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/spravka-dlya-zabega-sorevnovaniya-forma-1144n/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Справка для забега/соревнования (форма 1144н)"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/krasota-i-zdorove-gribnaya-pora/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Красота и здоровье. Грибная пора"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/medadvisor-ru-borrelioz-bez-paniki/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": null
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylas-meditsinskaya-klinika-cmd-istra-yurevo/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Открылась медицинская клиника CMD Юрьево"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/sobaka-ru-realnaya-proverka/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Собака.ru. Реальная проверка"
+  },
+  "https://www.labquest.ru/novosti/novyy-meditsinskiy-ofis-labkvest-v-moskovskoy-oblasti_/": {
+    "lab": "LabQuest",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Новый медицинский офис «ЛабКвест» в Московской области"
+  },
+  "https://www.labquest.ru/novosti/v-labkvest-nachali-ispolzovat-vr-igry-pri-vzyatii-krovi-u-detey/": {
+    "lab": "LabQuest",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В «ЛабКвест» начали использовать VR-игры при взятии крови у детей"
+  },
+  "https://www.invitro.ru/moscow/about/news/ofitsialnaya-pozitsiya-invitro-po-situatsii-s-andreem-kautom/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "Официальная позиция ИНВИТРО по ситуации с Андреем Каутом"
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-rasshiryaet-set-novyy-meditsinskiy-ofis-otkrylsya-v-abakane-arb/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Абакане"
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-rasshiryaet-set-novyy-meditsinskiy-ofis-otkrylsya-v-rostove-na-donu-mrk/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Ростове – на - Дону"
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-otkryla-novyy-meditsinskiy-ofis-v-novosele/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "ИНВИТРО открыла новый медицинский офис в Новоселье"
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-rasshiryaet-set-novyy-meditsinskiy-ofis-otkrylsya-v-voronezhe-klts/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Воронеже"
+  },
+  "https://helix.ru/feed/select/1580": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В Москве открылся новый Лабораторный пункт Хеликс"
+  },
+  "https://helix.ru/feed/select/1581": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В Якутске открылся новый Диагностический центр Хеликс"
+  },
+  "https://helix.ru/feed/select/1582": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В Москве открылся новый Лабораторный пункт Хеликс"
+  },
+  "https://helix.ru/feed/select/1583": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В Геленджике открылся новый Лабораторный пункт Хеликс"
+  },
+  "https://helix.ru/feed/select/1584": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В Геленджике открылся новый Лабораторный пункт Хеликс"
+  },
+  "https://helix.ru/feed/select/1585": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-04",
+    "title": "В Геленджике открылся новый Лабораторный пункт Хеликс"
   }
 }

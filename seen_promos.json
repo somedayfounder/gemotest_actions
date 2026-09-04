@@ -923,5 +923,65 @@
     "lab": "LabQuest",
     "title": "Квантифероновый тест со скидкой 10%",
     "summary": "Подготовьтесь к новому учебному году заранее - акция в лабораторной сети ЛабКвест. Анализ можно сдать со скидкой в Москве"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/skidka-15-na-analizy-dlya-detey-do-18-let/": {
+    "lab": "CMD",
+    "title": "Энциклопедия детского здоровья",
+    "summary": "Родителям: график посещения педиатра, медицинские справки, график вакцинаций и полезные советы о поддержании здорового образа жизни вашего ребёнка"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/posovetuyte-drugu-sdat-analizy-v-cmd/": {
+    "lab": "CMD",
+    "title": "Посоветуйте другу сдать анализы в CMD",
+    "summary": "Приведите друзей в лабораторию CMD и получите по 1 000 рублей на лабораторные исследования. Чем больше друзей вы пригласите, тем больше промокодов со скидками вы можете получить."
+  },
+  "https://helix.ru/promotions/select/8100": {
+    "lab": "Helix",
+    "title": "Быстро и просто. Комплексы анализов для проверки здоровья от 690 руб.",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8106": {
+    "lab": "Helix",
+    "title": "Два в одном. Сдайте клинический и биохимический анализы крови за 2890 руб.",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8111": {
+    "lab": "Helix",
+    "title": "Не ищите. Проверьте. Ультразвуковые исследования со скидкой 15%",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8095": {
+    "lab": "Helix",
+    "title": "А теперь наоборот! Играйте за администратора Центра и получите скидки до 50%",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://www.invitro.ru/moscow/ak/biohimiya-krovi-09-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "biohimiya-krovi-09-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/proverka-urovnya-sahara-09-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "proverka-urovnya-sahara-09-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/50-ottenkov-allergii-09-10-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "50-ottenkov-allergii-09-10-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://kdl.ru/akcii/detskoe-zdorovie": {
+    "lab": "КДЛ",
+    "title": "Детское здоровье",
+    "summary": "Актуальные акции и скидки на анализы в лаборатории KDL: выгодные предложения для пациентов во всех городах присутствия."
+  },
+  "https://kdl.ru/akcii/zdorovie-bez-zabot": {
+    "lab": "КДЛ",
+    "title": "Здоровье без забот",
+    "summary": "Актуальные акции и скидки на анализы в лаборатории KDL: выгодные предложения для пациентов во всех городах присутствия."
+  },
+  "https://kdl.ru/akcii/vernite-sebe-e-nergiyu": {
+    "lab": "КДЛ",
+    "title": "Верните себе  энергию",
+    "summary": "Актуальные акции и скидки на анализы в лаборатории KDL: выгодные предложения для пациентов во всех городах присутствия."
   }
 }
