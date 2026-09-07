@@ -95152,5 +95152,23 @@
     "type": "news",
     "date": "2026-09-05",
     "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Ханты-Мансийске"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/ozempik/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-07",
+    "title": "Оземпик"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylas-meditsinskaya-klinika-cmd-pokrov-ul-lenina/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-07",
+    "title": "Открылась медицинская клиника CMD Покров, ул. Ленина"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/gazeta-ru-nedobryy-znak/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-07",
+    "title": "Газета.ru. Недобрый знак"
   }
 }
