@@ -95170,5 +95170,35 @@
     "type": "news",
     "date": "2026-09-07",
     "title": "Газета.ru. Недобрый знак"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/semavik/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-08",
+    "title": "«Семавик»"
+  },
+  "https://gemotest.ru/info/spravochnik/food/limon-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-08",
+    "title": "Лимон: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/redka-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-08",
+    "title": "Редька: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/perets-ostryy-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-08",
+    "title": "Перец острый: польза и вред для организма"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylas-meditsinskaya-klinika-cmd-terekhovo-ul-nizhnie-mnyevniki/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-08",
+    "title": "Открылась медицинская клиника CMD Терехово, ул. Нижние Мнёвники"
   }
 }
