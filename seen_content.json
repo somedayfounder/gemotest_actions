@@ -95200,5 +95200,23 @@
     "type": "news",
     "date": "2026-09-08",
     "title": "Открылась медицинская клиника CMD Терехово, ул. Нижние Мнёвники"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/tirzetta/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-09",
+    "title": "«Тирзетта»"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/lenta-ru-chto-vnutri/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-09",
+    "title": "Lenta.ru. Что внутри"
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-rasshiryaet-set-novyy-meditsinskiy-ofis-otkrylsya-v-novorossiyske/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-09-09",
+    "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Новороссийске"
   }
 }
