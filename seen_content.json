@@ -95218,5 +95218,23 @@
     "type": "news",
     "date": "2026-09-09",
     "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Новороссийске"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/kvinsenta/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-10",
+    "title": "«Квинсента»"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylsya-meditsinskiy-ofis-cmd-metrogorodok-ul-tagilskaya/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-10",
+    "title": "Открылся медицинский офис CMD Метрогородок, ул. Тагильская"
+  },
+  "https://www.labquest.ru/novosti/labkvest-zapuskaet-osennyuyu-aktsiyu-dlya-novykh-partnyerov/": {
+    "lab": "LabQuest",
+    "type": "news",
+    "date": "2026-09-10",
+    "title": "«ЛабКвест» запускает осеннюю акцию для новых партнёров"
   }
 }
