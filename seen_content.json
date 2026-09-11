@@ -95236,5 +95236,923 @@
     "type": "news",
     "date": "2026-09-10",
     "title": "«ЛабКвест» запускает осеннюю акцию для новых партнёров"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/komsomolskaya-pravda-osen-shkola-i-prostudy/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-11",
+    "title": "Комсомольская правда. Осень, школа и простуды"
+  },
+  "https://www.invitro.ru/library/labdiagnostika/17243/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/23125/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/23159/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/23521/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/23522/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/23700/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/24284/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/24549/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/24851/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/26234/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/26291/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/27230/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/28280/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/29348/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/31234/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/32323/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/zametki-infektsionista/32465/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/34400/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/35007/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35316/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35317/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35318/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35334/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35361/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35404/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35499/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35527/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35533/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35596/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35689/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35903/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/35916/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/35950/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36113/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36216/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36279/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36287/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36444/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36446/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36596/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/36830/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37044/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37046/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37052/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/37285/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37314/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37380/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37429/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37519/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37554/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37766/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37897/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/37899/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/38022/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/38194/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/38240/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/38364/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/38726/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39023/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39027/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39118/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39120/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39303/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39399/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39471/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39543/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/39768/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/39796/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/41380/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/41449/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/41606/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/41632/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/41668/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/42230/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/43001/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/43653/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/48900/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/49343/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/49643/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/49652/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/49677/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/49748/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/49904/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/50166/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/50209/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/53728/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/53733/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/53833/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/53852/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/53996/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/54125/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/54140/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/54367/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/55119/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/55121/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/55164/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/55281/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/55682/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/56238/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/56628/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/56758/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/koronavirus/57259/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/57345/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/57385/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/57733/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/57781/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/rospotrebnadzor-rekomenduet/57987/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/58282/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/58453/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/59084/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/59106/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/59316/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/59489/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/59932/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/59933/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/intervyu-ehksperta/59934/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/59960/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/60033/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60060/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60123/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/60124/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/instrumentalnaya-diagnostika/60148/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/intervyu-ehksperta/60174/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/instrumentalnaya-diagnostika/60175/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/instrumentalnaya-diagnostika/60176/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/labdiagnostika/60195/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/instrumentalnaya-diagnostika/60199/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60215/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60233/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/60310/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/vaktsinoprofilaktika/60327/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/intervyu-ehksperta/60353/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/vaktsinoprofilaktika/60364/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60365/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/60366/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60367/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60392/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/simptomy/60401/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/nobelevskie-laureaty/60402/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/60414/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/labdiagnostika/60415/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60438/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/simptomy/60439/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/instrumentalnaya-diagnostika/60440/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/instrumentalnaya-diagnostika/60447/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60454/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60455/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/intervyu-ehksperta/60458/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60462/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/chem-boleyut-nashi-deti/60486/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/bolezni/60631/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
+  },
+  "https://www.invitro.ru/library/intervyu-ehksperta/60632/": {
+    "lab": "Инвитро",
+    "type": "article",
+    "date": "2026-09-11",
+    "title": "ИНВИТРО"
   }
 }
