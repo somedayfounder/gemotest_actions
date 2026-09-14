@@ -96154,5 +96154,35 @@
     "type": "article",
     "date": "2026-09-11",
     "title": "ИНВИТРО"
+  },
+  "https://gemotest.ru/info/spravochnik/telo-cheloveka/laktoza/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-09-14",
+    "title": "Лактоза"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/chempionat-kak-menshe-bolet-osenyu/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-14",
+    "title": "Чемпионат. Как меньше болеть осенью"
+  },
+  "https://www.cmd-online.ru/o-cmd/news/otkrylsya-meditsinskiy-ofis-cmd-magas-ul-bota-gagieva/": {
+    "lab": "CMD",
+    "type": "news",
+    "date": "2026-09-14",
+    "title": "Открылся медицинский офис CMD Магас, ул. Бота Гагиева"
+  },
+  "https://helix.ru/feed/select/1586": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-14",
+    "title": "В Самаре открылся новый Лабораторный пункт Хеликс"
+  },
+  "https://helix.ru/feed/select/1587": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-09-14",
+    "title": "В Череповце открылся новый Диагностический центр Хеликс"
   }
 }
