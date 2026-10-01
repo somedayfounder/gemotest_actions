@@ -280,5 +280,71 @@
     "title": "К школе готовы?",
     "summary": "KDL. Клинико-диагностические лаборатории",
     "ended": "2026-09-16"
+  },
+  "https://gemotest.ru/actions/with-care/": {
+    "lab": "Гемотест",
+    "title": "with-care",
+    "summary": "Спецпроект Гемотест и&nbsp;«РЖД-Медицина» о&nbsp;профилактике рака молочной железы",
+    "ended": "2026-10-01"
+  },
+  "https://gemotest.ru/actions/heart_under_control/": {
+    "lab": "Гемотест",
+    "title": "heart_under_control",
+    "summary": "Спецпроект Еаптеки и&nbsp;Лаборатории Гемотест: купите средства для сердца и&nbsp;сосудов и&nbsp;проверьте 4&nbsp;показателя холестерина за&nbsp;390&nbsp;₽!",
+    "ended": "2026-10-01"
+  },
+  "https://dnkom.ru/actions/poluchite-skidku-15-na-sleduyushchiy-zakaz-/": {
+    "lab": "ДНКом",
+    "title": "Получите скидку 15% на следующий заказ в Москве",
+    "summary": "Получите скидку 15% на следующий заказ в Москве: действующие акции на медицинские анализы и исследования. Запишитесь со скидкой по доступной цене в лаборатории ДНКОМ.",
+    "ended": "2026-10-01"
+  },
+  "https://helix.ru/promotions/select/8073": {
+    "lab": "Helix",
+    "title": "В гармонии с собой. Оцените здоровье щитовидной железы за 1190 руб.",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения.",
+    "ended": "2026-10-01"
+  },
+  "https://helix.ru/promotions/select/8071": {
+    "lab": "Helix",
+    "title": "К учебе готовы! Скидка 600 руб. на анализы для детей",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения.",
+    "ended": "2026-10-01"
+  },
+  "https://www.invitro.ru/moscow/ak/mame-udobno-rebenku-spokoyno-08-09-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "mame-udobno-rebenku-spokoyno-08-09-2026-rf",
+    "summary": "Лабораторная диагностика",
+    "ended": "2026-10-01"
+  },
+  "https://gemotest.ru/actions/back_to_school/": {
+    "lab": "Гемотест",
+    "title": "back_to_school",
+    "summary": "Анализы для справок по суперцене и комплексная проверка здоровья для детей и взрослых",
+    "ended": "2026-10-01"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/skidka-15-na-analizy-dlya-detey-do-18-let/": {
+    "lab": "CMD",
+    "title": "Энциклопедия детского здоровья",
+    "summary": "Родителям: график посещения педиатра, медицинские справки, график вакцинаций и полезные советы о поддержании здорового образа жизни вашего ребёнка",
+    "ended": "2026-10-01"
+  },
+  "https://helix.ru/promotions/select/8111": {
+    "lab": "Helix",
+    "title": "Не ищите. Проверьте. Ультразвуковые исследования со скидкой 15%",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения.",
+    "ended": "2026-10-01"
+  },
+  "https://www.invitro.ru/moscow/ak/biohimiya-krovi-09-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "biohimiya-krovi-09-2026-rf",
+    "summary": "Лабораторная диагностика",
+    "ended": "2026-10-01"
+  },
+  "https://www.invitro.ru/moscow/ak/proverka-urovnya-sahara-09-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "proverka-urovnya-sahara-09-2026-rf",
+    "summary": "Лабораторная диагностика",
+    "ended": "2026-10-01"
   }
 }
