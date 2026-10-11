@@ -96640,5 +96640,47 @@
     "type": "article",
     "date": "2026-10-02",
     "title": "РЎС‚Р°С‚СЊРё"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/kontraktura/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-10-11",
+    "title": "Контрактура"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/disgidroticheskaya-ekzema/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-10-11",
+    "title": "Дисгидротическая экзема"
+  },
+  "https://gemotest.ru/info/spravochnik/zabolevaniya/stress/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-10-11",
+    "title": "Стресс"
+  },
+  "https://gemotest.ru/info/spravochnik/food/griby-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-10-11",
+    "title": "Грибы: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/nut-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-10-11",
+    "title": "Нут: польза и вред для организма"
+  },
+  "https://gemotest.ru/info/spravochnik/food/kisel-polza-i-vred-dlya-organizma/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-10-11",
+    "title": "Кисель: польза и вред для организма"
+  },
+  "https://helix.ru/feed/select/1592": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-10-11",
+    "title": "В Иркутске открылся новый Диагностический центр Хеликс"
   }
 }

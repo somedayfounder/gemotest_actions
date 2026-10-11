@@ -346,5 +346,17 @@
     "title": "proverka-urovnya-sahara-09-2026-rf",
     "summary": "Лабораторная диагностика",
     "ended": "2026-10-01"
+  },
+  "https://helix.ru/promotions/select/5773": {
+    "lab": "Helix",
+    "title": "Скидка 10% для льготных категорий граждан",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения.",
+    "ended": "2026-10-11"
+  },
+  "https://kdl.ru/akcii/skidka-10-po-polisu-oms-ili-servisnoy-karte": {
+    "lab": "КДЛ",
+    "title": "Скидка 10% по полису ОМС или сервисной карте",
+    "summary": "KDL. Клинико-диагностические лаборатории",
+    "ended": "2026-10-11"
   }
 }
