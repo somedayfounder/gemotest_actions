@@ -358,5 +358,83 @@
     "title": "Скидка 10% по полису ОМС или сервисной карте",
     "summary": "KDL. Клинико-диагностические лаборатории",
     "ended": "2026-10-11"
+  },
+  "https://citilab.ru/discounts/allergiya-na-moloko/": {
+    "lab": "Ситилаб",
+    "title": "Аллергия на молоко?",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/dyshat-legko/": {
+    "lab": "Ситилаб",
+    "title": "Дышать легко?",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/kompleksnaya-diagnostika-dlya-zhenskogo-zdorovya/": {
+    "lab": "Ситилаб",
+    "title": "Комплексная диагностика для женского здоровья",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/40-na-analizy-dlya-spravki-v-lager/": {
+    "lab": "Ситилаб",
+    "title": "-40% на анализы для справки в лагерь",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/energiya-i-immunitet/": {
+    "lab": "Ситилаб",
+    "title": "energiya-i-immunitet",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/aprel-skidok/": {
+    "lab": "Ситилаб",
+    "title": "Счастливые часы",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/new-nipt/": {
+    "lab": "CMD",
+    "title": "Забота с первых недель беременности: полная линейка НИПТ в CMD",
+    "summary": "",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/otsenite-risk-sakharnogo-diabeta/": {
+    "lab": "Ситилаб",
+    "title": "Оцените риск сахарного диабета",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/zashchitite-serdtse-i-sosudy/": {
+    "lab": "Ситилаб",
+    "title": "Защитите сердце и сосуды",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/proverka-pochek/": {
+    "lab": "Ситилаб",
+    "title": "Проверка почек",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/zhenskoe-zdorove-v-fokuse/": {
+    "lab": "Ситилаб",
+    "title": "Женское здоровье в фокусе",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://citilab.ru/discounts/22-pokazatelya-v-odnom-analize/": {
+    "lab": "Ситилаб",
+    "title": "22 показателя в одном анализе",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика",
+    "ended": "2026-10-16"
+  },
+  "https://www.invitro.ru/moscow/ms/survey/": {
+    "lab": "Инвитро",
+    "title": "survey",
+    "summary": "Лабораторная диагностика",
+    "ended": "2026-10-16"
   }
 }

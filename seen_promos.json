@@ -1058,5 +1058,50 @@
     "lab": "КДЛ",
     "title": "kontroli-stressa",
     "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/podarite-shans-na-zhizn-vstupite-v-federalnyy-registr-donorov-kostnogo-mozga-vmeste-s-cmd-i-rnimu-im/": {
+    "lab": "CMD",
+    "title": "Подарите шанс на жизнь: вступите в Федеральный регистр доноров костного мозга вместе с CMD и РНИМУ им. Н.И. Пирогова",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/skidka-20-v-den-rozhdeniya/": {
+    "lab": "CMD",
+    "title": "Скидка 20% в День рождения",
+    "summary": ""
+  },
+  "https://www.invitro.ru/{city}/ms/survey/": {
+    "lab": "Инвитро",
+    "title": "survey",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://www.invitro.ru/moscow/ak/10-na-zakaz-v-maksavit-10-11-2026-rf/": {
+    "lab": "Инвитро",
+    "title": "10-na-zakaz-v-maksavit-10-11-2026-rf",
+    "summary": "Лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/detyam-osobye-usloviya/": {
+    "lab": "Ситилаб",
+    "title": "Детям — особые условия",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/luchshee-vremya-seychas/": {
+    "lab": "Ситилаб",
+    "title": "Лучшее время — сейчас",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/chtoby-serdtse-bylo-v-poryadke-/": {
+    "lab": "Ситилаб",
+    "title": "Чтобы сердце было в порядке",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/kaskad-skidok-/": {
+    "lab": "Ситилаб",
+    "title": "Каскад скидок",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/novichkam-vezet/": {
+    "lab": "Ситилаб",
+    "title": "Новичкам везет",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
   }
 }
