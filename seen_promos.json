@@ -1103,5 +1103,75 @@
     "lab": "Ситилаб",
     "title": "Новичкам везет",
     "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://gemotest.ru/actions/eapteka/": {
+    "lab": "Гемотест",
+    "title": "eapteka",
+    "summary": "Спецпроект с Еаптекой: купите товары по акции и проверьте углеводный обмен по суперцене!"
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/vaktsina/": {
+    "lab": "CMD",
+    "title": "Вакцинация",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/spermogramma-rezultat-v-den-sdachi/": {
+    "lab": "CMD",
+    "title": "Спермограмма — результат за час!",
+    "summary": ""
+  },
+  "https://www.cmd-online.ru/patsientam/akcii/snova-v-shkolu/": {
+    "lab": "CMD",
+    "title": "Снова в школу",
+    "summary": ""
+  },
+  "https://helix.ru/promotions/select/8198": {
+    "lab": "Helix",
+    "title": "Здоровые скидки до 50% на анализы",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8196": {
+    "lab": "Helix",
+    "title": "Запустите свое солнце. Анализ на витамин D за 890 руб.",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8184": {
+    "lab": "Helix",
+    "title": "Не ищите. Проверьте. Ультразвуковые исследования со скидкой 20%",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8183": {
+    "lab": "Helix",
+    "title": "Скидка 15% на все анализы в Центрах – именинниках ноября",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8170": {
+    "lab": "Helix",
+    "title": "Скидки до 20% на комплексные обследования",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8168": {
+    "lab": "Helix",
+    "title": "Новая услуга: IV-терапия – капельницы для здоровья, красоты и восстановления",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://helix.ru/promotions/select/8167": {
+    "lab": "Helix",
+    "title": "Узнайте своего монстра в мини-игре и получите скидку 15%",
+    "summary": "width=device-width, initial-scale=1\" name=\"viewport\">\n    <link rel=\"icon\" href=\"favicon.ico\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n    <link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\">\n    <meta content=\"Лабораторная служба Хеликс выполняет медицинские анализы по международным стандартам. Это обеспечивает точность анализа и быстроту его выполнения."
+  },
+  "https://citilab.ru/discounts/zabota-tam-gde-vam-udobno-msk/": {
+    "lab": "Ситилаб",
+    "title": "Забота там, где вам удобно",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://citilab.ru/discounts/sitilab-i-khalva/": {
+    "lab": "Ситилаб",
+    "title": "Ситилаб и «Халва»",
+    "summary": "Медицинские центры СИТИЛАБ: лабораторная диагностика"
+  },
+  "https://kdl.ru/akcii/vyezd-na-dom-semejnaya-skidka-10": {
+    "lab": "КДЛ",
+    "title": "Выезд на дом: семейная скидка - 10%",
+    "summary": "Выезд на дом: семейная скидка до 10% – акция лаборатории KDL. Узнайте условия предложения и запишитесь на анализы онлайн или по телефону."
   }
 }
