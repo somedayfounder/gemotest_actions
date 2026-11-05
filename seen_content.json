@@ -123892,5 +123892,35 @@
     "type": "article",
     "date": "2026-11-03",
     "title": "РЎС‚Р°С‚СЊРё"
+  },
+  "https://gemotest.ru/info/spravochnik/simptomy/serotoninovyy-sindrom/": {
+    "lab": "Гемотест",
+    "type": "article",
+    "date": "2026-11-05",
+    "title": "Серотониновый синдром"
+  },
+  "https://citilab.ru/news/kak_vovremya_vyyavit_gepatit_a/": {
+    "lab": "Ситилаб",
+    "type": "news",
+    "date": "2026-11-05",
+    "title": "Как вовремя выявить гепатит А?"
+  },
+  "https://citilab.ru/articles/allergoproby-kak-delayut-podgotovka-i-rasshifrovka/": {
+    "lab": "Ситилаб",
+    "type": "article",
+    "date": "2026-11-05",
+    "title": null
+  },
+  "https://www.invitro.ru/moscow/about/news/invitro-rasshiryaet-set-novyy-meditsinskiy-ofis-otkrylsya-v-tomske-mira/": {
+    "lab": "Инвитро",
+    "type": "news",
+    "date": "2026-11-05",
+    "title": "ИНВИТРО расширяет сеть: новый медицинский офис открылся в Томске"
+  },
+  "https://helix.ru/feed/select/1597": {
+    "lab": "Helix",
+    "type": "news",
+    "date": "2026-11-05",
+    "title": "В Нижней Туре открылся новый Лабораторный пункт Хеликс"
   }
 }
